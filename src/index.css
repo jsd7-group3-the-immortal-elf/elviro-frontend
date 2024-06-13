@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--green: #b5c18e;
+	--darkgreen: #939d73;
+	--lightgreen: #c7d1a6;
+}
