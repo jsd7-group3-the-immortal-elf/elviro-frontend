@@ -1,5 +1,36 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import DashboardNav from "./components/DashBoardNav";
+
+// import NavBar from "./components/NavBar";
+// import Footer from "./components/Footer";
+// import ProfileNav from "./components/ProfileNav";
+// import DashboardNav from "./components/DashBoardNav";
+
+// import ErrorPage from "./pages/ErrorPage";
+
+// import HomePage from "./pages/main-web/HomePage";
+// import ShopPage from "./pages/main-web/ShopPage";
+// import ProductPage from "./pages/main-web/ProductPage";
+// import CartPage from "./pages/main-web/CartPage";
+// import CheckoutPage from "./pages/main-web/CheckoutPage";
+// import AboutPage from "./pages/main-web/AboutPage";
+// import ContactPage from "./pages/main-web/ContactPage";
+
+// import ProfilePage from "./pages/profile/ProfilePage";
+// import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
+// import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
+// import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
+// import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
+
+// import DashboardPage from "./pages/dashboard/DashboardPage";
+// import DashOrderPage from "./pages/dashboard/DashOrderPage";
+// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+// import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
+// import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
+// import DashProductPage from "./pages/dashboard/DashProductPage";
+// import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
+// import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
+// import DashAdminPage from "./pages/dashboard/DashAdminPage";
+// import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
 export default function App() {
 	const router = createBrowserRouter([
@@ -35,12 +66,12 @@ export default function App() {
 					// element: <PurchasedPage />,
 				},
 				{
-					path: "contact",
-					// element: <ContactPage />,
-				},
-				{
 					path: "about",
 					// element: <AboutPage />,
+				},
+				{
+					path: "contact",
+					// element: <ContactPage />,
 				},
 			],
 		},
@@ -76,22 +107,6 @@ export default function App() {
 					path: "wishlist",
 					// element: <ProfileWishlistPage />,
 				},
-				{
-					path: "create-account",
-					// element: <CreateAccountPage />,
-				},
-				{
-					path: "login",
-					// element: <LoginPage />,
-				},
-				{
-					path: "forget-password",
-					// element: <ForgetPage />,
-				},
-				{
-					path: "reset",
-					// element: <ResetPage />,
-				},
 			],
 		},
 
@@ -100,7 +115,7 @@ export default function App() {
 			element: (
 				<>
 					{/* <NavBar /> */}
-					<DashboardNav />
+					{/* <DashboardNav /> */}
 					<Outlet />
 				</>
 			),
