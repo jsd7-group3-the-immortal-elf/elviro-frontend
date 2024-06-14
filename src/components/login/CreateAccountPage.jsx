@@ -1,6 +1,7 @@
 //ใช้ useState
 import { useState } from "react";
-import Image from "../../../public/images/elviro_logo_white.png";
+import ImageWhite from "../../../public/images/elviro_logo_white.png";
+import ImageBlack from "../../../public/images/elviro_logo_black.png";
 
 function CreateAccountPage() {
 	const [firstName, setFirstName] = useState("");
@@ -21,17 +22,14 @@ function CreateAccountPage() {
 	}
 
 	return (
-		<div className="bg-gray-500 h-screen flex justify-center items-center">
-			<section
-				className=" w-4/5 h-4/5 flex
-				
-		"
-			>
-				<div className="bg-[var(--green)] w-1/2 h-full flex justify-center items-center">
-					<img src={Image} alt="Elviro Logo" className="w-1/2 h-1/2" />
+		<div className="">
+			<section className="flex flex-col items-center my-9">
+				<div className="flex mb-5 justify-center items-center gap-4">
+					<img src={ImageBlack} alt="Elviro Logo" className="w-2/6" />
+					<h1 className="font-semibold text-3xl">Elviro</h1>
 				</div>
-				<div className="bg-white w-1/2 h-full flex items-center justify-center overflow-hidden">
-					<form action="" className="flex flex-col">
+				<div className="">
+					<form action="" className="">
 						<label
 							htmlFor="firstName"
 							className="flex flex-col text-2xl pb-5 font-semibold w-[500px]"

@@ -12,7 +12,7 @@ function ResetPage() {
 		"
 			>
 				<div className="bg-[var(--green)] w-1/2 h-full flex justify-center items-center">
-					<img src={Image} alt="Elviro Logo" className="w-1/2 h-1/2" />
+					<img src={Image} alt="Elviro Logo" className="w-1/2" />
 				</div>
 				<div className="bg-white w-1/2 h-full flex flex-col items-center justify-center overflow-hidden gap-20">
 					<section className="flex flex-col items-center">
