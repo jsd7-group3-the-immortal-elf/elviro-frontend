@@ -1,17 +1,23 @@
 import { useState } from "react";
 
 function ProfilePaymentPage() {
-	const mockData = {
+	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
-		expiryDate: "2024-12",
+		expiryDate: "2024-12-05",
 		cvv: "123",
+	};
+
+	const mockBankData = {
 		bank: "banka",
 		accountHolderName: "John Doe",
 		accountNumber: "1234567890",
 	};
 
-	const [formData, setFormData] = useState(mockData);
+	const [formData, setFormData] = useState({
+		...mockCardData,
+		...mockBankData,
+	});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
