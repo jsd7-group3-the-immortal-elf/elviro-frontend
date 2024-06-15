@@ -1,6 +1,8 @@
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 export default function DashProductPage() {
 	return (
-		<div className="bg-neutral-100 w-full p-6 flex flex-col gap-6">
+		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
 			<h4>Product Summary</h4>
 
 			<section className="flex gap-6 h-32">
@@ -46,12 +48,12 @@ export default function DashProductPage() {
 				<table className="w-full">
 					<thead className="border-y">
 						<tr>
-							<th className="text-white">
+							<th className="text-white w-5">
 								<input
 									type="checkbox"
 									name=""
 									id=""
-									className="accent-green outline-none w-6 h-6 m-3 "
+									className="accent-green w-4 h-4 m-3 "
 								/>
 							</th>
 							<th>Product Name</th>
@@ -60,11 +62,54 @@ export default function DashProductPage() {
 							<th>Unit Price</th>
 							<th>In-Stock</th>
 							<th>Total Value</th>
-							<th>Action</th>
 							<th>Status</th>
 						</tr>
 					</thead>
+					<tbody>
+						<tr>
+							<th className="text-white w-5">
+								<input
+									type="checkbox"
+									name=""
+									id=""
+									className="accent-green w-4 h-4 m-3 "
+								/>
+							</th>
+							<th>Product Name</th>
+							<th>Room</th>
+							<th>Category</th>
+							<th>Unit Price</th>
+							<th>In-Stock</th>
+							<th>Total Value</th>
+							<th>
+								<select name="" id="">
+									<option value="published">Published</option>
+									<option value="unpublished">Unpublished</option>
+								</select>
+							</th>
+						</tr>
+					</tbody>
 				</table>
+				<footer className="flex justify-between border-t pt-2">
+					<div className="flex gap-6">
+						<select name="" id="" className="bg-neutral-100 rounded-md px-2">
+							<option value="">10</option>
+							<option value="">20</option>
+						</select>
+						<p>Items per page</p>
+						<p>1-10 of 200 items</p>
+					</div>
+					<div className="flex items-center gap-6">
+						<select name="" id="" className="bg-neutral-100 rounded-md px-2">
+							<option value="">1</option>
+							<option value="">2</option>
+							<option value="">3</option>
+						</select>
+						of 44 pages
+						<FaChevronLeft />
+						<FaChevronRight />
+					</div>
+				</footer>
 			</section>
 		</div>
 	);
