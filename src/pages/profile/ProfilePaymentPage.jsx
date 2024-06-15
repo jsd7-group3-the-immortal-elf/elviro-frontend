@@ -1,6 +1,6 @@
 function ProfilePaymentPage() {
 	return (
-		<div>
+		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
 				<form action="" className="flex flex-col gap-6">
 					{/*-- personal info --*/}

@@ -16,8 +16,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 // import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
-// import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
-// import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
+import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
+import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
@@ -93,11 +93,11 @@ export default function App() {
 				},
 				{
 					path: "account",
-					// element: <ProfileAccountPage />,
+					element: <ProfileAccountPage />,
 				},
 				{
 					path: "payment",
-					// element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage />,
 				},
 				{
 					path: "order-history",
