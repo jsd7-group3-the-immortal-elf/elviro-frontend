@@ -6,9 +6,6 @@ function ForgetPage() {
 	//ไว้รับค่า object จาก formData
 	const [emailData, setEmailData] = useState({ email: "" });
 
-	//สร้าง array ไว้รับค่าจาก formData
-	const [tableData, setTableData] = useState([]);
-
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
 		const { name, value } = event.target;
