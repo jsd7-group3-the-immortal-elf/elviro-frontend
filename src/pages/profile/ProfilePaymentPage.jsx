@@ -4,7 +4,7 @@ function ProfilePaymentPage() {
 	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
-		expiryDate: "2024-12-05",
+		expiryDate: "2024-12",
 		cvv: "123",
 	};
 
@@ -68,7 +68,7 @@ function ProfilePaymentPage() {
 						<label className="flex flex-col w-full">
 							Expiry Date
 							<input
-								type="date"
+								type="month"
 								name="expiryDate"
 								value={formData.expiryDate}
 								onChange={handleInputChange}
