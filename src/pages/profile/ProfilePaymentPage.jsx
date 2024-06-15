@@ -1,4 +1,26 @@
+import { useState } from "react";
+
 function ProfilePaymentPage() {
+	const mockData = {
+		cardNumber: "1234567890123456",
+		nameOnCard: "John Doe",
+		expiryDate: "2024-12",
+		cvv: "123",
+		bank: "banka",
+		accountHolderName: "John Doe",
+		accountNumber: "1234567890",
+	};
+
+	const [formData, setFormData] = useState(mockData);
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prevFormdata) => ({
+			...prevFormdata,
+			[name]: value,
+		}));
+	};
+
 	return (
 		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
@@ -17,6 +39,9 @@ function ProfilePaymentPage() {
 							Card number
 							<input
 								type="number"
+								name="cardNumber"
+								value={formData.cardNumber}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
@@ -25,6 +50,9 @@ function ProfilePaymentPage() {
 							Name on card
 							<input
 								type="text"
+								name="nameOnCard"
+								value={formData.nameOnCard}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
@@ -35,6 +63,9 @@ function ProfilePaymentPage() {
 							Expiry Date
 							<input
 								type="date"
+								name="expiryDate"
+								value={formData.expiryDate}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
@@ -43,6 +74,9 @@ function ProfilePaymentPage() {
 							CVV
 							<input
 								type="number"
+								name="cvv"
+								value={formData.cvv}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
@@ -69,6 +103,9 @@ function ProfilePaymentPage() {
 							Account Holder Name
 							<input
 								type="text"
+								name="accountHolderName"
+								value={formData.accountHolderName}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
@@ -80,6 +117,9 @@ function ProfilePaymentPage() {
 							Account Number
 							<input
 								type="number"
+								name="accountNumber"
+								value={formData.accountNumber}
+								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
