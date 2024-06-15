@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 // import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 // import DashboardNav from "./components/DashBoardNav";
@@ -38,7 +38,7 @@ export default function App() {
 			path: "/",
 			element: (
 				<>
-					{/* <NavBar /> */}
+					<NavBar />
 					<Outlet />
 					{/* <Footer /> */}
 				</>
