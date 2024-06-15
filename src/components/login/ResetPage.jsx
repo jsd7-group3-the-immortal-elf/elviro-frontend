@@ -6,9 +6,6 @@ function ResetPage() {
 	//ไว้รับค่า object จาก formData
 	const [emailData, setEmailData] = useState({ email: "" });
 
-	//สร้าง array ไว้รับค่าจาก formData
-	const [tableData, setTableData] = useState([]);
-
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -43,29 +40,45 @@ function ResetPage() {
 				</div>
 
 				<div className="md:bg-white md:w-1/2 md:h-full md:flex md:flex-col md:items-center md:justify-center md:gap-14 md:overflow-hidden">
-					<h1>Reset Password</h1>
+					<h1 className="text-4xl md:text-5xl mb-10 md:mb-0">Reset Password</h1>
 					<form className="flex flex-col md:w-2/3">
 						<label
 							htmlFor="email"
-							className="flex flex-col text-2xl md:text-4xl pb-5 font-semibold"
+							className="text-neutral-500 flex flex-col text-2xl md:text-3xl pb-5 font-semibold"
 						>
-							Forget your Password?
+							New Password
 						</label>
 						<input
 							id="email"
 							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-xl md:text-2xl font-normal "
-							type="text"
+							type="email"
 							name="email"
 							value={emailData.email}
 							onChange={handleChange}
-							placeholder="Insert your email"
+							minLength="10"
+							required
+						/>
+						<label
+							htmlFor="emailConfirm"
+							className="text-neutral-500 flex flex-col text-2xl md:text-3xl pb-5 font-semibold"
+						>
+							Confirm new password
+						</label>
+						<input
+							id="emailConfirm"
+							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-xl md:text-2xl font-normal "
+							type="email"
+							name="emailConfirm"
+							value={emailData.emailConfirm}
+							onChange={handleChange}
+							minLength="10"
 							required
 						/>
 						<button
 							type="submit"
 							className="bg-orange-300 p-3 md:p-5 rounded-full font-semibold md:text-2xl mb-5 md:mb-0 border-8 border-orange-300 hover:border-orange-400 hover:shadow-xl"
 						>
-							Send reset link
+							Reset Password
 						</button>
 					</form>
 				</div>
