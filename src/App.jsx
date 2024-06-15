@@ -7,7 +7,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 // import ErrorPage from "./pages/ErrorPage";
 
-// import HomePage from "./pages/main-web/HomePage";
+import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
 // import ProductPage from "./pages/main-web/ProductPage";
 // import CartPage from "./pages/main-web/CartPage";
@@ -47,7 +47,7 @@ export default function App() {
 			children: [
 				{
 					path: "",
-					// element: <HomePage />,
+					element: <HomePage />,
 				},
 				{
 					path: "shop",
