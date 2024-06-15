@@ -30,6 +30,15 @@
 	:hover {
 		@apply transition duration-200;
 	}
+
+	th {
+		@apply font-normal;
+	}
+
+	input,
+	select {
+		@apply outline-none;
+	}
 }
 
 /* hidden scrollbar */
