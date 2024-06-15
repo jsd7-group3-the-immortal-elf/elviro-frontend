@@ -32,138 +32,149 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-export default function App() {
-	const router = createBrowserRouter([
-		{
-			path: "/",
-			element: (
-				<>
-					{/* <NavBar /> */}
-					<Outlet />
-					{/* <Footer /> */}
-				</>
-			),
-			// errorElement: <ErrorPage/>,
-			children: [
-				{
-					path: "",
-					// element: <HomePage />,
-				},
-				{
-					path: "shop",
-					// element: <ShopPage />,
-				},
-				{
-					path: "cart",
-					// element: <CartPage />,
-				},
-				{
-					path: "cart/checkout",
-					// element: <CheckoutPage />,
-				},
-				{
-					path: "cart/checkout/purchased",
-					// element: <PurchasedPage />,
-				},
-				{
-					path: "about",
-					// element: <AboutPage />,
-				},
-				{
-					path: "contact",
-					// element: <ContactPage />,
-				},
-			],
-		},
+// export default function App() {
+// 	const router = createBrowserRouter([
+// 		{
+// 			path: "/",
+// 			element: (
+// 				<>
+// 					{/* <NavBar /> */}
+// 					<Outlet />
+// 					{/* <Footer /> */}
+// 				</>
+// 			),
+// 			// errorElement: <ErrorPage/>,
+// 			children: [
+// 				{
+// 					path: "",
+// 					// element: <HomePage />,
+// 				},
+// 				{
+// 					path: "shop",
+// 					// element: <ShopPage />,
+// 				},
+// 				{
+// 					path: "cart",
+// 					// element: <CartPage />,
+// 				},
+// 				{
+// 					path: "cart/checkout",
+// 					// element: <CheckoutPage />,
+// 				},
+// 				{
+// 					path: "cart/checkout/purchased",
+// 					// element: <PurchasedPage />,
+// 				},
+// 				{
+// 					path: "about",
+// 					// element: <AboutPage />,
+// 				},
+// 				{
+// 					path: "contact",
+// 					// element: <ContactPage />,
+// 				},
+// 			],
+// 		},
 
-		{
-			path: "/profile",
-			element: (
-				<>
-					{/* <NavBar /> */}
-					<Outlet />
-					{/* <Footer/> */}
-				</>
-			),
-			// errorElement: <ErrorPage/>,
-			children: [
-				{
-					path: "",
-					// element: <ProfilePage />,
-				},
-				{
-					path: "account",
-					// element: <ProfileAccountPage />,
-				},
-				{
-					path: "payment",
-					// element: <ProfilePaymentPage />,
-				},
-				{
-					path: "order-history",
-					// element: <ProfileHistoryPage />,
-				},
-				{
-					path: "wishlist",
-					// element: <ProfileWishlistPage />,
-				},
-			],
-		},
+// 		{
+// 			path: "/profile",
+// 			element: (
+// 				<>
+// 					{/* <NavBar /> */}
+// 					<Outlet />
+// 					{/* <Footer/> */}
+// 				</>
+// 			),
+// 			// errorElement: <ErrorPage/>,
+// 			children: [
+// 				{
+// 					path: "",
+// 					// element: <ProfilePage />,
+// 				},
+// 				{
+// 					path: "account",
+// 					// element: <ProfileAccountPage />,
+// 				},
+// 				{
+// 					path: "payment",
+// 					// element: <ProfilePaymentPage />,
+// 				},
+// 				{
+// 					path: "order-history",
+// 					// element: <ProfileHistoryPage />,
+// 				},
+// 				{
+// 					path: "wishlist",
+// 					// element: <ProfileWishlistPage />,
+// 				},
+// 			],
+// 		},
 
-		{
-			path: "/dashboard",
-			element: (
-				<>
-					{/* <NavBar /> */}
-					{/* <DashboardNav /> */}
-					<Outlet />
-				</>
-			),
-			// errorElement: <ErrorPage/>,
-			children: [
-				{
-					path: "",
-					// element: <DashboardPage />,
-				},
-				{
-					path: "order",
-					// element: <DashOrderPage />,
-				},
-				{
-					path: "order/view-order",
-					// element: <DashOrderViewPage />,
-				},
-				{
-					path: "customer",
-					// element: <DashCustomerPage />,
-				},
-				{
-					path: "customer/view-customer",
-					// element: <DashCustomerViewPage />,
-				},
-				{
-					path: "product",
-					// element: <DashProductPage />,
-				},
-				{
-					path: "product/add-product",
-					// element: <DashProductAddPage />,
-				},
-				{
-					path: "product/view-product",
-					// element: <DashProductViewPage />,
-				},
-				{
-					path: "admin",
-					// element: <DashAdminPage />,
-				},
-				{
-					path: "admin/admin-setting",
-					// element: <DashAdminSettingPage />,
-				},
-			],
-		},
-	]);
+// 		{
+// 			path: "/dashboard",
+// 			element: (
+// 				<>
+// 					{/* <NavBar /> */}
+// 					{/* <DashboardNav /> */}
+// 					<Outlet />
+// 				</>
+// 			),
+// 			// errorElement: <ErrorPage/>,
+// 			children: [
+// 				{
+// 					path: "",
+// 					// element: <DashboardPage />,
+// 				},
+// 				{
+// 					path: "order",
+// 					// element: <DashOrderPage />,
+// 				},
+// 				{
+// 					path: "order/view-order",
+// 					// element: <DashOrderViewPage />,
+// 				},
+// 				{
+// 					path: "customer",
+// 					// element: <DashCustomerPage />,
+// 				},
+// 				{
+// 					path: "customer/view-customer",
+// 					// element: <DashCustomerViewPage />,
+// 				},
+// 				{
+// 					path: "product",
+// 					// element: <DashProductPage />,
+// 				},
+// 				{
+// 					path: "product/add-product",
+// 					// element: <DashProductAddPage />,
+// 				},
+// 				{
+// 					path: "product/view-product",
+// 					// element: <DashProductViewPage />,
+// 				},
+// 				{
+// 					path: "admin",
+// 					// element: <DashAdminPage />,
+// 				},
+// 				{
+// 					path: "admin/admin-setting",
+// 					// element: <DashAdminSettingPage />,
+// 				},
+// 			],
+// 		},
+// 	]);
 
-	return <RouterProvider router={router} />;
+// 	return <RouterProvider router={router} />;
+// }
+import React from "react";
+import Profile from "./pages/profile/Profile";
+
+function App() {
+	return (
+		<div>
+			<Profile />
+		</div>
+	);
 }
+export default App;

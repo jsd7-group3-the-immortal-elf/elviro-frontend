@@ -1,8 +1,8 @@
-import CartBanner from "./CartBanner";
-import CartList from "./CartList";
-import CartTotal from "./CartTotal";
+import CartBanner from "../../components/cart/CartBanner";
+import CartList from "../../components/cart/CartList";
+import CartTotal from "../../components/cart/CartTotal";
 
-function Cart() {
+function CartPage() {
 	return (
 		<>
 			<div className="flex justify-center">
@@ -24,4 +24,4 @@ function Cart() {
 		</>
 	);
 }
-export default Cart;
+export default CartPage;
