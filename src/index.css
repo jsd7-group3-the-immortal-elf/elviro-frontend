@@ -30,6 +30,10 @@
 	:hover {
 		@apply transition duration-200;
 	}
+
+	th {
+		@apply font-normal;
+	}
 }
 
 /* hidden scrollbar */
