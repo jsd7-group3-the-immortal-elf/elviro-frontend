@@ -1,59 +1,71 @@
-import React from "react";
-import Image from "../../../public/images/elviro_logo_white.png";
+import { useState } from "react";
+import ImageWhite from "../../../public/images/elviro_logo_white.png";
+import ImageBlack from "../../../public/images/elviro_logo_black.png";
 
 function ResetPage() {
-	function handleInputChange() {}
+	//ไว้รับค่า object จาก formData
+	const [emailData, setEmailData] = useState({ email: "" });
+
+	//สร้าง array ไว้รับค่าจาก formData
+	const [tableData, setTableData] = useState([]);
+
+	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+
+		setEmailData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
+	};
+
+	//handleSubmit ให้ส่งเข้าิีเมล์เดี๋ยวแยกทีหลัง
 
 	return (
-		<div className="bg-gray-500 h-screen flex justify-center items-center">
-			<section
-				className=" w-4/5 h-4/5 flex
-				
-		"
-			>
-				<div className="bg-[var(--green)] w-1/2 h-full flex justify-center items-center">
-					<img src={Image} alt="Elviro Logo" className="w-1/2" />
+		<div className="md:bg-gray-500 md:h-screen md:flex md:justify-center md:items-center">
+			<section className="flex flex-col md:flex-row items-center md:w-4/5 md:h-4/5">
+				<div className="flex my-9 justify-center items-center gap-4 md:my-0  md:bg-green md:w-1/2 md:h-full md:flex-col">
+					<img
+						src={ImageBlack}
+						alt="Elviro Logo"
+						className="w-1/2 md:hidden
+					"
+					/>
+					<img
+						src={ImageWhite}
+						alt="Elviro Logo"
+						className="hidden md:flex w-1/2 
+					"
+					/>
+					<h1 className="hidden md:block font-semibold text-2xl md:text-7xl md:text-white">
+						Elviro
+					</h1>
 				</div>
-				<div className="bg-white w-1/2 h-full flex flex-col items-center justify-center overflow-hidden gap-20">
-					<section className="flex flex-col items-center">
-						<h1 className="text-7xl pb-5 font-semibold">Elviro</h1>
-						<h2 className="text-5xl pb-5 font-semibold text-gray-500">
-							Reset Password
-						</h2>
-					</section>
 
-					<form action="" className="flex flex-col">
+				<div className="md:bg-white md:w-1/2 md:h-full md:flex md:flex-col md:items-center md:justify-center md:gap-14 md:overflow-hidden">
+					<h1>Reset Password</h1>
+					<form className="flex flex-col md:w-2/3">
 						<label
-							htmlFor="password"
-							className="flex flex-col text-2xl pb-5 font-semibold"
+							htmlFor="email"
+							className="flex flex-col text-2xl md:text-4xl pb-5 font-semibold"
 						>
-							New Password
+							Forget your Password?
 						</label>
 						<input
-							id="password"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-16 text-4xl font-semibold"
-							type="password"
-							// value={password}
-							onChange={handleInputChange}
+							id="email"
+							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-xl md:text-2xl font-normal "
+							type="text"
+							name="email"
+							value={emailData.email}
+							onChange={handleChange}
+							placeholder="Insert your email"
 							required
 						/>
-						<label
-							htmlFor="password"
-							className="flex flex-col text-2xl pb-5 font-semibold"
+						<button
+							type="submit"
+							className="bg-orange-300 p-3 md:p-5 rounded-full font-semibold md:text-2xl mb-5 md:mb-0 border-8 border-orange-300 hover:border-orange-400 hover:shadow-xl"
 						>
-							Confirm your password
-						</label>
-						<input
-							id="password"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-16 text-4xl font-semibold"
-							type="password"
-							// value={password}
-							onChange={handleInputChange}
-							required
-						/>
-
-						<button className="bg-orange-300 p-5 rounded-full font-semibold w-[400px] text-2xl pb-5">
-							Submit
+							Send reset link
 						</button>
 					</form>
 				</div>
