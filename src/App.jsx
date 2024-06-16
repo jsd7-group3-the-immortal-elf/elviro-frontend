@@ -3,7 +3,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import NavBar from "./components/NavBar";
 // import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
-// import DashboardNav from "./components/DashBoardNav";
+import DashboardNav from "./components/DashBoardNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
@@ -26,8 +26,8 @@ import NavBar from "./components/NavBar";
 // import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
-// import DashProductPage from "./pages/dashboard/DashProductPage";
-// import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
+import DashProductPage from "./pages/dashboard/DashProductPage";
+import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 // import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
@@ -115,7 +115,7 @@ export default function App() {
 			element: (
 				<>
 					{/* <NavBar /> */}
-					{/* <DashboardNav /> */}
+					<DashboardNav />
 					<Outlet />
 				</>
 			),
@@ -143,11 +143,11 @@ export default function App() {
 				},
 				{
 					path: "product",
-					// element: <DashProductPage />,
+					element: <DashProductPage />,
 				},
 				{
 					path: "product/add-product",
-					// element: <DashProductAddPage />,
+					element: <DashProductAddPage />,
 				},
 				{
 					path: "product/view-product",
