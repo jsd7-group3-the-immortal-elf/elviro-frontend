@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-import NavBar from "./components/NavBar";
+// import NavBar from "./components/NavBar";
 // import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 import DashboardNav from "./components/DashBoardNav";
@@ -28,7 +28,7 @@ import DashboardNav from "./components/DashBoardNav";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 import DashProductPage from "./pages/dashboard/DashProductPage";
 import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
-// import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
+import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
@@ -38,7 +38,7 @@ export default function App() {
 			path: "/",
 			element: (
 				<>
-					<NavBar />
+					{/* <NavBar /> */}
 					<Outlet />
 					{/* <Footer /> */}
 				</>
@@ -151,7 +151,7 @@ export default function App() {
 				},
 				{
 					path: "product/view-product",
-					// element: <DashProductViewPage />,
+					element: <DashProductViewPage />,
 				},
 				{
 					path: "admin",

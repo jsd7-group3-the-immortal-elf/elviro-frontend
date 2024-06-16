@@ -1,4 +1,5 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function DashProductPage() {
 	return (
@@ -75,7 +76,9 @@ export default function DashProductPage() {
 									className="accent-green w-4 h-4 m-3 "
 								/>
 							</th>
-							<th>Product Name</th>
+							<th>
+								<Link to="/dashboard/product/view-product">Product Name</Link>
+							</th>
 							<th>Room</th>
 							<th>Category</th>
 							<th>Unit Price</th>
