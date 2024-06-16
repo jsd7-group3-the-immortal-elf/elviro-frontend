@@ -17,7 +17,7 @@ export default function DashBoardNav() {
 					<li className="text-xs px-4">MAIN MENU</li>
 					<li className="rounded px-4 py-2 hover:bg-green">
 						<a className="flex items-center gap-2">
-							<FaChartLine />
+							<FaChartLine className="" />
 							Dashboard
 						</a>
 					</li>
