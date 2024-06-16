@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
 	body {
-		@apply font-[Montserrat] text-neutral-700 text-lg;
+		@apply font-[Montserrat] text-neutral-700;
 	}
 
 	h1 {
@@ -16,7 +16,7 @@
 		@apply text-2xl font-semibold;
 	}
 	h4 {
-		@apply font-semibold;
+		@apply text-xl font-semibold;
 	}
 
 	img {
@@ -38,6 +38,10 @@
 	input,
 	select {
 		@apply outline-none;
+	}
+
+	.dash-input {
+		@apply px-4 py-2 bg-neutral-100 rounded-lg;
 	}
 }
 
