@@ -50,12 +50,16 @@ function ProfileAccountPage() {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0) {
-			const updateFormData = { ...formData, password: formData.newPassword };
+			const updateFormData = { ...formData };
+			if (formData.newPassword) {
+				updateFormData.password = formData.newPassword;
+			}
 			try {
 				const response = await axios.put(
 					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3",
 					updateFormData
 				);
+				console.log(response);
 				alert("Form Sumbit Successful!");
 				const freshData = await axios.get(
 					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
@@ -90,10 +94,8 @@ function ProfileAccountPage() {
 		} else if (data.password.length < 8) {
 			errors.password = "Must be at least 8 characters long";
 		}
-		if (!data.newPassword) {
-			errors.newPassword = "New Password is required";
-		} else if (data.newPassword.length < 8) {
-			errors.newPassword = "New Password Must be at least 8 characters long";
+		if (data.newPassword && data.newPassword.length < 8) {
+			errors.newPassword = "New Password must be at least 8 characters long";
 		}
 		return errors;
 	};
@@ -162,7 +164,7 @@ function ProfileAccountPage() {
 							<button
 								type="button"
 								onClick={togglePasswordVisible}
-								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-3 mt-3"
+								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-3"
 							>
 								{passwordVisible ? (
 									<FaEyeSlash size={24} />
@@ -180,7 +182,7 @@ function ProfileAccountPage() {
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
-							{formData.newPassword.length < 8 && (
+							{errors.newPassword && (
 								<p className="text-red-500">{errors.newPassword}</p>
 							)}
 						</label>
