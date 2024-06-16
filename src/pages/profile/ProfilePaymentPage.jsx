@@ -5,7 +5,7 @@ function ProfilePaymentPage() {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
 		expiryDate: "2024-12",
-		cvv: "123",
+		cvvNumber: "123",
 	};
 
 	const mockBankData = {
@@ -19,18 +19,64 @@ function ProfilePaymentPage() {
 		...mockBankData,
 	});
 
+	const [errors, setErrors] = useState({});
+
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		setFormData((prevFormdata) => ({
-			...prevFormdata,
+		setFormData((prevFormData) => ({
+			...prevFormData,
 			[name]: value,
 		}));
+	};
+
+	const hadleSubmit = (e) => {
+		e.preventDefault();
+		const newErrors = validationForm(formData);
+		setErrors(newErrors);
+
+		if (Object.keys(newErrors).length === 0) {
+			alert("Form Sumbit Successful!");
+		} else {
+			const errorMessages = Object.values(newErrors).join("\n");
+			alert(`Form Submit Failed:\n${errorMessages}`);
+		}
+	};
+
+	const validationForm = (data) => {
+		const errors = {};
+
+		if (!data.cardNumber) {
+			errors.cardNumber = "Card Number required";
+		} else if (data.cardNumber.length !== 16) {
+			errors.cardNumber = "Card number must be 16 digits.";
+		}
+		if (!data.nameOnCard.trim()) {
+			errors.nameOnCard = "Name on Card required";
+		} else if (data.nameOnCard.length < 5) {
+			errors.nameOnCard = "Must be at least 5 characters long";
+		}
+		if (!data.cvvNumber) {
+			errors.cvvNumber = "CVV Number required";
+		} else if (data.cvvNumber.length !== 3) {
+			errors.cvvNumber = "Card number must be 3 digits.";
+		}
+		if (!data.accountHolderName.trim()) {
+			errors.accountHolderName = "Account Holder Name required";
+		} else if (data.accountHolderName.length < 5) {
+			errors.accountHolderName = "Must be at least 5 characters long";
+		}
+		if (!data.accountNumber) {
+			errors.accountNumber = "Account Number required";
+		} else if (data.accountNumber.length !== 10) {
+			errors.accountNumber = "Card number must be 10 digits.";
+		}
+		return errors;
 	};
 
 	return (
 		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
-				<form action="" className="flex flex-col gap-6">
+				<form onSubmit={hadleSubmit} className="flex flex-col gap-6">
 					{/*-- personal info --*/}
 					<h2 className="text-left">Payment</h2>
 
@@ -51,6 +97,9 @@ function ProfilePaymentPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.cardNumber.length !== 16 && (
+								<p className="text-red-500">{errors.cardNumber}</p>
+							)}
 						</label>
 						<label className="flex flex-col w-full">
 							Name on card
@@ -71,6 +120,9 @@ function ProfilePaymentPage() {
 								type="month"
 								name="expiryDate"
 								value={formData.expiryDate}
+								placeholder="yyyy-mm"
+								min="2018-01"
+								max="2030-12"
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
@@ -80,12 +132,15 @@ function ProfilePaymentPage() {
 							CVV
 							<input
 								type="number"
-								name="cvv"
-								value={formData.cvv}
+								name="cvvNumber"
+								value={formData.cvvNumber}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.cvvNumber.length !== 3 && (
+								<p className="text-red-500">{errors.cvvNumber}</p>
+							)}
 						</label>
 					</div>
 
@@ -115,6 +170,9 @@ function ProfilePaymentPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.accountHolderName.length < 5 && (
+								<p className="text-red-500">{errors.accountHolderName}</p>
+							)}
 						</label>
 					</div>
 
@@ -129,12 +187,17 @@ function ProfilePaymentPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.accountNumber.length !== 10 && (
+								<p className="text-red-500">{errors.accountNumber}</p>
+							)}
 						</label>
 					</div>
 
 					<button
 						type="submit"
-						className="py-4 px-6 rounded-xl bg-orange-200 hover:bg-orange-300 mx-auto"
+						className={
+							"py-4 px-6 rounded-xl mx-auto bg-orange-200 hover:bg-orange-300"
+						}
 					>
 						Save Change
 					</button>

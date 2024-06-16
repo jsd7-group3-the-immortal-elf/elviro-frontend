@@ -10,13 +10,11 @@ function ProfileAccountPage() {
 		newPassword: "",
 	});
 
-	const [isPasswordUpdated, setIsPasswordUpdated] = useState(false);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const respones = await axios.get(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/2"
+					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
 				);
 				setFormData({
 					userName: respones.data.userName,
@@ -31,28 +29,6 @@ function ProfileAccountPage() {
 		fetchData();
 	}, []);
 
-	useEffect(() => {
-		if (isPasswordUpdated) {
-			const fetchData = async () => {
-				try {
-					const respones = await axios.get(
-						"https://65f455dcf54db27bc0217060.mockapi.io/todos/2"
-					);
-					setFormData({
-						userName: respones.data.userName,
-						email: respones.data.email,
-						password: respones.data.password,
-						newPassword: respones.data.newPassword,
-					});
-					setIsPasswordUpdated(false);
-				} catch (error) {
-					console.error("Error fetching data: ", error);
-				}
-			};
-			fetchData();
-		}
-	}, [isPasswordUpdated]);
-
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevFormdata) => ({
@@ -62,6 +38,7 @@ function ProfileAccountPage() {
 	};
 
 	const [passwordVisible, setPasswordVisble] = useState(false);
+	const [errors, setErrors] = useState({});
 
 	const togglePasswordVisible = () => {
 		setPasswordVisble(!passwordVisible);
@@ -69,23 +46,75 @@ function ProfileAccountPage() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
-				...formData,
-				password: formData.newPassword,
-			});
-			alert("Password update!");
+		const newErrors = validationForm(formData);
+		setErrors(newErrors);
 
-			setIsPasswordUpdated(true);
-		} catch (error) {
-			console.error("Error updating password: ", error);
+		if (Object.keys(newErrors).length === 0) {
+			const updateFormData = { ...formData, password: formData.newPassword };
+			try {
+				const response = await axios.put(
+					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3",
+					updateFormData
+				);
+				alert("Form Sumbit Successful!");
+				const freshData = await axios.get(
+					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
+				);
+				setFormData({
+					userName: freshData.data.userName,
+					email: freshData.data.email,
+					password: freshData.data.password,
+					newPassword: "",
+				});
+			} catch (error) {
+				alert(`Form Submit Faied: ${error}`);
+			}
+		} else {
+			const errorMessages = Object.values(newErrors).join("\n");
+			alert(`Form Submit Failed:\n${errorMessages}`);
 		}
 	};
+	const validationForm = (data) => {
+		const errors = {};
+
+		if (!data.userName.trim()) {
+			errors.userName = "Name on Card required";
+		}
+		if (!data.email.trim()) {
+			errors.email = "Email required";
+		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
+			errors.email = "Email is invalid";
+		}
+		if (!data.password) {
+			errors.password = "Password is required";
+		} else if (data.password.length < 8) {
+			errors.password = "Must be at least 8 characters long";
+		}
+		if (!data.newPassword) {
+			errors.newPassword = "New Password is required";
+		} else if (data.newPassword.length < 8) {
+			errors.newPassword = "New Password Must be at least 8 characters long";
+		}
+		return errors;
+	};
+
+	// 	try {
+	// 		await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
+	// 			...formData,
+	// 			password: formData.newPassword,
+	// 		});
+	// 		alert("Password update!");
+
+	// 		setIsPasswordUpdated(true);
+	// 	} catch (error) {
+	// 		console.error("Error updating password: ", error);
+	// 	}
+	// };
 
 	return (
 		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
-				<form action="" className="flex flex-col gap-6" onSubmit={handleSubmit}>
+				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Account</h2>
 
@@ -102,6 +131,9 @@ function ProfileAccountPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.userName.length < 5 && (
+								<p className="text-red-500">{errors.userName}</p>
+							)}
 						</label>
 						<label className="flex flex-col w-full">
 							Email
@@ -113,6 +145,7 @@ function ProfileAccountPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
+							{formData.email && <p className="text-red-500">{errors.email}</p>}
 						</label>
 					</div>
 					<div className="flex flex-col sm:flex-row gap-6">
@@ -146,8 +179,10 @@ function ProfileAccountPage() {
 								value={formData.newPassword}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
+							{formData.newPassword.length < 8 && (
+								<p className="text-red-500">{errors.newPassword}</p>
+							)}
 						</label>
 					</div>
 
