@@ -16,7 +16,10 @@
 		@apply text-2xl font-semibold;
 	}
 	h4 {
-		@apply font-semibold;
+		@apply text-xl font-semibold;
+	}
+	h5 {
+		@apply text-base font-semibold;
 	}
 
 	img {
