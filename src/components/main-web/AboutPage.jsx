@@ -8,27 +8,26 @@ function AboutPage() {
 			<main>
 				{/* <Banner /> */}
 
-				<section id="content" className=" mr-[56px] my-[66px]">
-					<div className="flex justify-center gap-5 mb-8">
+				<section id="content" className="mx-6 my-[66px]">
+					<div className="flex flex-col md:flex-row items-center justify-center gap-5 mb-8">
 						<div className="min-w-[140px] w-[140px] md:w-[160px] ">
 							<img src={Image} alt="Elviro Logo" />
 						</div>
-						<div id="brandCaption" className="flex-col content-center content">
-							<h2 className="text-[50px] md:text-[80px] mb-3 text-left">
-								Elviro
-							</h2>
-							<p className="text-xl md:text-2xl italic font-normal">
+						<div className="flex flex-col items-center md:items-start">
+							<h2 className="text-5xl md:text-8xl mb-3 text-left">Elviro</h2>
+							<p className="text-lg md:text-3xl italic font-normal">
 								"We care about your family"
 							</p>
 						</div>
 					</div>
-					<div id="textContent" className="text-lg">
-						<p className="mb-5">
+					<div id="textContent" className="text-sm md:text-2xl md:mx-20">
+						<p className="mb-5 ">
 							Furniture is more than just furniture. We understand how
 							meaningful it can be to your growing family. <b>Elviro</b> is
-							derived from an <i>elf</i>, a magical in a fantasy fairytale and{" "}
-							<i>environment</i>. We are here to make your experience of
-							shopping magical.
+							derived from an <span className="italic">elf</span>, a magical in
+							a fantasy fairytale and{" "}
+							<span className="italic">environment</span>. We are here to make
+							your experience of shopping magical.
 						</p>
 						<p className="mb-5">
 							Not only is our furniture environmentally friendly, and safe for

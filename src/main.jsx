@@ -2,11 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from "./App";
-import AboutPage from "./components/main-web/AboutPage";
+import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		{/* <App /> */}
-		<AboutPage />
+		<App />
 	</React.StrictMode>
 );
