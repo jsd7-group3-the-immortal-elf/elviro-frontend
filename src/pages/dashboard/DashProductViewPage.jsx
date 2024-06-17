@@ -1,4 +1,6 @@
-import mockPic from "../../../public/images/mockup-living.jpg";
+import mockPic from "/images/mockup-living.jpg";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+
 export default function DashProductViewPage() {
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
@@ -146,12 +148,10 @@ export default function DashProductViewPage() {
 									className="accent-green w-4 h-4 m-3 "
 								/>
 							</th>
-							<th>Product Name</th>
-							<th>Room</th>
-							<th>Category</th>
+							<th>Order Date</th>
 							<th>Unit Price</th>
-							<th>In-Stock</th>
-							<th>Total Value</th>
+							<th>Quantity</th>
+							<th>Order Total</th>
 							<th>Status</th>
 						</tr>
 					</thead>
@@ -165,14 +165,12 @@ export default function DashProductViewPage() {
 									className="accent-green w-4 h-4 m-3 "
 								/>
 							</th>
-							<th>Product Name</th>
-							<th>Room</th>
-							<th>Category</th>
-							<th>Unit Price</th>
-							<th>In-Stock</th>
-							<th>Total Value</th>
+							<th>12 Aug 2022 - 12:25 am</th>
+							<th>12400</th>
+							<th>1</th>
+							<th>12400</th>
 							<th>
-								<select name="" id="">
+								<select name="" id="" className="w-fit">
 									<option value="published">Published</option>
 									<option value="unpublished">Unpublished</option>
 								</select>
@@ -180,6 +178,7 @@ export default function DashProductViewPage() {
 						</tr>
 					</tbody>
 				</table>
+
 				<footer className="flex justify-between border-t pt-2">
 					<div className="flex gap-6">
 						<select name="" id="" className="bg-neutral-100 rounded-md px-2">
@@ -196,8 +195,8 @@ export default function DashProductViewPage() {
 							<option value="">3</option>
 						</select>
 						of 44 pages
-						{/* <FaChevronLeft />
-						<FaChevronRight /> */}
+						<FaChevronLeft />
+						<FaChevronRight />
 					</div>
 				</footer>
 			</section>
