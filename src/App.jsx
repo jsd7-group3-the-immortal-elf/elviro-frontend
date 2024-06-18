@@ -12,7 +12,7 @@ import DashboardNav from "./components/DashBoardNav";
 // import ProductPage from "./pages/main-web/ProductPage";
 // import CartPage from "./pages/main-web/CartPage";
 // import CheckoutPage from "./pages/main-web/CheckoutPage";
-// import AboutPage from "./pages/main-web/AboutPage";
+import AboutPage from "./pages/main-web/AboutPage";
 // import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
@@ -67,7 +67,7 @@ export default function App() {
 				},
 				{
 					path: "about",
-					// element: <AboutPage />,
+					element: <AboutPage />,
 				},
 				{
 					path: "contact",
