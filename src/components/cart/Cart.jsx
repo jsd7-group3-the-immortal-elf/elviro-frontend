@@ -5,14 +5,12 @@ import CartTotal from "./CartTotal";
 function Cart() {
 	return (
 		<>
-			<div className="flex justify-center">
-				<CartBanner />
-			</div>
-			<div className="flex justify-center">
-				<div className="basis-2/3 px-8 hidden lg:block">
+			<CartBanner />
+			<div className="flex flex-col md:flex-row justify-center gap-4">
+				<div className="md:basis-2/3">
 					<CartList />
 				</div>
-				<div className="basis-1/3 px-8 hidden lg:block">
+				<div className="md:basis-1/3">
 					<CartTotal />
 				</div>
 			</div>
