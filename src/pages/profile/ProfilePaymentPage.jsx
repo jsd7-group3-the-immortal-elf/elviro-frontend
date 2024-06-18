@@ -4,12 +4,12 @@ function ProfilePaymentPage() {
 	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
-		expiryDate: "2024-12",
+		expiryDate: "",
 		cvvNumber: "123",
 	};
 
 	const mockBankData = {
-		bank: "banka",
+		bank: "",
 		accountHolderName: "John Doe",
 		accountNumber: "1234567890",
 	};
@@ -120,7 +120,6 @@ function ProfilePaymentPage() {
 								type="month"
 								name="expiryDate"
 								value={formData.expiryDate}
-								placeholder="yyyy-mm"
 								min="2018-01"
 								max="2030-12"
 								onChange={handleInputChange}
@@ -155,6 +154,7 @@ function ProfilePaymentPage() {
 						<label className="flex flex-col w-full">
 							Bank
 							<select className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg">
+								<option value="banka">Select Bank</option>
 								<option value="banka">Bank A</option>
 								<option value="bankb">Bank B</option>
 								<option value="bankc">Bank C</option>
@@ -174,10 +174,7 @@ function ProfilePaymentPage() {
 								<p className="text-red-500">{errors.accountHolderName}</p>
 							)}
 						</label>
-					</div>
-
-					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-1/2">
+						<label className="flex flex-col w-full">
 							Account Number
 							<input
 								type="number"

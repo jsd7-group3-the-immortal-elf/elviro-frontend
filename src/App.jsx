@@ -10,14 +10,14 @@ import DashboardNav from "./components/DashBoardNav";
 import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
 // import ProductPage from "./pages/main-web/ProductPage";
-// import CartPage from "./pages/main-web/CartPage";
+import CartPage from "./pages/main-web/CartPage";
 // import CheckoutPage from "./pages/main-web/CheckoutPage";
 // import AboutPage from "./pages/main-web/AboutPage";
 // import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
-// import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
-// import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
+import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
+import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
@@ -55,7 +55,7 @@ export default function App() {
 				},
 				{
 					path: "cart",
-					// element: <CartPage />,
+					element: <CartPage />,
 				},
 				{
 					path: "cart/checkout",
@@ -93,11 +93,11 @@ export default function App() {
 				},
 				{
 					path: "account",
-					// element: <ProfileAccountPage />,
+					element: <ProfileAccountPage />,
 				},
 				{
 					path: "payment",
-					// element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage />,
 				},
 				{
 					path: "order-history",
