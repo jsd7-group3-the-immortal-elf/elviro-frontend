@@ -169,44 +169,46 @@ export default function DashProductViewPage() {
 				</table>
 			</section>
 
-			<section className="bg-white rounded-lg p-4">
-				<h4 className="mb-3">Purchases</h4>
-				<table className="w-full">
-					<thead className="border-y">
-						<tr>
-							<th className="text-white w-5">
-								<input
-									type="checkbox"
-									name=""
-									id=""
-									className="accent-green w-4 h-4 m-3 "
-								/>
-							</th>
-							<th>Order Date</th>
-							<th>Unit Price</th>
-							<th>Quantity</th>
-							<th>Order Total</th>
-							<th>Status</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th className="text-white w-5">
-								<input
-									type="checkbox"
-									name=""
-									id=""
-									className="accent-green w-4 h-4 m-3 "
-								/>
-							</th>
-							<th>12 Aug 2022 - 12:25 am</th>
-							<th>12400</th>
-							<th>1</th>
-							<th>12400</th>
-							<th>Complete</th>
-						</tr>
-					</tbody>
-				</table>
+			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-472px)] flex flex-col justify-between">
+				<div>
+					<h4 className="mb-3">Purchases</h4>
+					<table className="w-full">
+						<thead className="border-y">
+							<tr>
+								<th className="text-white w-5">
+									<input
+										type="checkbox"
+										name=""
+										id=""
+										className="accent-green w-4 h-4 m-3 "
+									/>
+								</th>
+								<th>Order Date</th>
+								<th>Unit Price</th>
+								<th>Quantity</th>
+								<th>Order Total</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th className="text-white w-5">
+									<input
+										type="checkbox"
+										name=""
+										id=""
+										className="accent-green w-4 h-4 m-3 "
+									/>
+								</th>
+								<th>12 Aug 2022 - 12:25 am</th>
+								<th>12400</th>
+								<th>1</th>
+								<th>12400</th>
+								<th>Complete</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 				<DashChangePage />
 			</section>
