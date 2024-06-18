@@ -150,7 +150,11 @@ export default function App() {
 					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product",
+					path: "product/edit-product/:id",
+					element: <DashProductAddPage />,
+				},
+				{
+					path: "product/view-product/:id",
 					element: <DashProductViewPage />,
 				},
 				{

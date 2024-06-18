@@ -1,9 +1,8 @@
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
 import DashProductItem from "../../components/dashboard/DashProductItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
 
 export default function DashProductPage() {
 	const [productList, setProductList] = useState([]);
@@ -14,7 +13,6 @@ export default function DashProductPage() {
 				"https://store-crud.onrender.com/api/product/"
 			);
 			const data = await response.data;
-			console.log(data);
 			setProductList(data);
 		} catch (error) {
 			console.error("Failed to get data:", error);
@@ -26,8 +24,6 @@ export default function DashProductPage() {
 	}, []);
 
 	function handleChange(e, Id) {
-		// setProductStatus(e.target.value);
-		// setProductList((prev) => [{ ...prev, status: productStatus }]);
 		const { name, value } = e.target;
 
 		setProductList((prev) =>
@@ -55,6 +51,7 @@ export default function DashProductPage() {
 									className="accent-green w-4 h-4 m-3 "
 								/>
 							</th>
+							<th></th>
 							<th>Product Name</th>
 							<th>Room</th>
 							<th>Category</th>
@@ -68,7 +65,7 @@ export default function DashProductPage() {
 					<tbody>
 						{productList.map((product) => (
 							<DashProductItem
-								key={product.id}
+								key={product._id}
 								product={product}
 								setProductList={setProductList}
 								handleChange={handleChange}

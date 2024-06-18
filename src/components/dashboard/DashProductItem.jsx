@@ -6,30 +6,38 @@ export default function DashProductItem({ product, handleChange }) {
 	// const [productStatus, setProductStatus] = useState(product.status);
 
 	return (
-		<tr key={product.id}>
+		<tr key={product._id} className="">
 			<th className="text-white w-5">
 				<input
 					type="checkbox"
-					name=""
-					id=""
+					name="checkbox"
+					onChange={(e) => handleChange(e, product._id)}
 					className="accent-green w-4 h-4 m-3 "
 				/>
 			</th>
 			<th>
-				<Link to="/dashboard/product/view-product" className="hover:underline">
+				<div className="overflow-hidden h-10 w-10 flex justify-center items-center">
+					<img src={product.image} alt={product.name} className=" " />
+				</div>
+			</th>
+			<th>
+				<Link
+					to={`/dashboard/product/view-product/${product._id}`}
+					className="hover:underline"
+				>
 					{product.name}
 				</Link>
 			</th>
 			<th>{product.room}</th>
 			<th>{product.category}</th>
 			<th>{product.price}</th>
-			<th>{product.stock}</th>
-			<th>{product.price * product.stock}</th>
+			<th>{product.quantity}</th>
+			<th>{product.price * product.quantity}</th>
 			<th>
 				<select
 					name="status"
 					id=""
-					onChange={(e) => handleChange(e, product.id)}
+					onChange={(e) => handleChange(e, product._id)}
 				>
 					<option value="Published">Published</option>
 					<option value="Unpublished">Unpublished</option>

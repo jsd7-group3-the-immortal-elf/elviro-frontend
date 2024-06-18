@@ -1,19 +1,53 @@
 import DashChangePage from "../../components/dashboard/DashChangePage";
-import mockPic from "/images/mockup-living.jpg";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function DashProductViewPage() {
+	const [product, setProduct] = useState({});
+
+	const { id } = useParams();
+
+	async function getProduct() {
+		try {
+			const response = await axios.get(
+				"https://store-crud.onrender.com/api/product/" + id
+			);
+			const data = await response.data;
+
+			setProduct(data);
+		} catch (error) {
+			console.error("Failed to get data:", error);
+		}
+	}
+
+	useEffect(() => {
+		getProduct();
+	}, []);
+
+	// function handleChange(e, Id) {
+	// 	const { name, value } = e.target;
+
+	// 	setProductList((prev) =>
+	// 		prev.map((item) => (item.id === Id ? { ...item, [name]: value } : item))
+	// 	);
+	// }
+
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
 			<section className="flex items-center justify-between">
 				<div>
-					<h3>Parup Sofa</h3>
-					<p>Product URL : this-is/product-link</p>
+					<h3>{product.name}</h3>
+					<p>Product URL : {product._id}</p>
 				</div>
 				<div className="flex gap-4">
-					<button className="bg-green rounded-lg text-white px-4 py-2">
+					<Link
+						to={`/dashboard/product/edit-product/${product._id}`}
+						className="bg-green rounded-lg text-white px-4 py-2 hover:bg-darkgreen"
+					>
 						Edit Product
-					</button>
-					<button className="bg-red-400 rounded-lg text-white px-4 py-2">
+					</Link>
+					<button className="bg-red-400 rounded-lg text-white px-4 py-2 hover:bg-red-600">
 						Unpublish Product
 					</button>
 				</div>
@@ -21,7 +55,7 @@ export default function DashProductViewPage() {
 
 			<section className="flex h-32 gap-6">
 				<div className="rounded-lg aspect-square overflow-hidden w-1/2">
-					<img src={mockPic} alt="Sofa" className="h-full" />
+					<img src={product.image} alt={product.name} className="h-full" />
 				</div>
 
 				<div className="flex flex-col bg-white rounded-lg w-full justify-between items-end p-2">
@@ -41,8 +75,8 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>12300</td>
-								<td>60</td>
+								<td>{product.price}</td>
+								<td>{product.quantity}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -169,12 +203,7 @@ export default function DashProductViewPage() {
 							<th>12400</th>
 							<th>1</th>
 							<th>12400</th>
-							<th>
-								<select name="" id="" className="w-fit">
-									<option value="published">Published</option>
-									<option value="unpublished">Unpublished</option>
-								</select>
-							</th>
+							<th>Complete</th>
 						</tr>
 					</tbody>
 				</table>
