@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import {
 	FaChartLine,
-	FaShoppingCart,
-	FaUserFriends,
-	FaPlusCircle,
+	FaCartShopping,
+	FaUserGroup,
+	FaCirclePlus,
 	FaBox,
-	FaUserCircle,
-	FaCog,
-} from "react-icons/fa";
+	FaCircleUser,
+	FaGear,
+} from "react-icons/fa6";
 
 export default function DashBoardNav() {
 	return (
@@ -38,7 +38,7 @@ export default function DashBoardNav() {
 								to="/dashboard/order"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaShoppingCart />
+								<FaCartShopping />
 								<span className="flex">Order Management</span>
 							</Link>
 						</li>
@@ -47,7 +47,7 @@ export default function DashBoardNav() {
 								to="/dashboard/customer"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaUserFriends />
+								<FaUserGroup />
 								<span className="flex">Customers</span>
 							</Link>
 						</li>
@@ -60,7 +60,7 @@ export default function DashBoardNav() {
 								to="/dashboard/product/add-product"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaPlusCircle />
+								<FaCirclePlus />
 								<span className="flex">Add Products</span>
 							</Link>
 						</li>
@@ -82,7 +82,7 @@ export default function DashBoardNav() {
 								to="/dashboard/admin"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaUserCircle />
+								<FaCircleUser />
 								<span className="flex">Manage Admins</span>
 							</Link>
 						</li>
@@ -91,7 +91,7 @@ export default function DashBoardNav() {
 								to="/dashboard/admin/admin-setting"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaCog />
+								<FaGear />
 								<span className="flex">Admin Roles</span>
 							</Link>
 						</li>
