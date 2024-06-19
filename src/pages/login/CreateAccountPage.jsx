@@ -56,22 +56,21 @@ function CreateAccountPage() {
 
 				<div className="md:bg-white md:w-1/2 md:h-full md:flex md:items-center md:justify-center md:overflow-hidden">
 					<form onSubmit={handleSubmit} className="flex flex-col md:w-2/3">
-						<label
-							htmlFor="firstName"
-							className="flex flex-col text-2xl pb-5 font-semibold"
-						>
+						<label className="flex flex-col text-2xl pb-5 font-semibold">
 							First Name
+							<input
+								id="firstName"
+								className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-2xl font-normal "
+								type="text"
+								name="firstName"
+								value={formData.firstName}
+								onChange={handleChange}
+								required
+							/>
 						</label>
-						<input
-							id="firstName"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-2xl font-normal "
-							type="text"
-							name="firstName"
-							value={formData.firstName}
-							onChange={handleChange}
-							required
-						/>
-						<label
+
+						{/* Other label */}
+						{/* <label
 							htmlFor="lastName"
 							className="flex flex-col text-2xl pb-5 font-semibold"
 						>
@@ -115,7 +114,7 @@ function CreateAccountPage() {
 							value={formData.password}
 							onChange={handleChange}
 							required
-						/>
+						/> */}
 
 						<button
 							type="submit"
