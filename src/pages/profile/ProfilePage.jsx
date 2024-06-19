@@ -107,7 +107,8 @@ function ProfilePage() {
 											type="number"
 											className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 											required
-											minLength="10"
+											minLength={9}
+											maxLength={10}
 										/>
 									</label>
 								</div>
@@ -116,7 +117,7 @@ function ProfilePage() {
 								<hr className="my-2 border-[#B5C18E]" />
 								<div className="flex flex-col sm:flex-row gap-6">
 									<label className="flex flex-col w-full">
-										Street Address 1
+										Address
 										<input
 											type="text"
 											className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
@@ -124,7 +125,7 @@ function ProfilePage() {
 										/>
 									</label>
 									<label className="flex flex-col w-full">
-										Street Address 2
+										A
 										<input
 											type="text"
 											className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
