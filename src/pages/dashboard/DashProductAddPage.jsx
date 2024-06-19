@@ -12,11 +12,7 @@ export default function DashProductAddPage({ reload }) {
 
 	async function createProduct() {
 		try {
-			// eslint-disable-next-line no-unused-vars
-			const response = await axios.post(
-				"https://store-crud.onrender.com/api/product/",
-				product
-			);
+			await axios.post("https://store-crud.onrender.com/api/product/", product);
 		} catch (error) {
 			console.error("Failed to create data:", error);
 		}
@@ -28,7 +24,6 @@ export default function DashProductAddPage({ reload }) {
 				"https://store-crud.onrender.com/api/product/" + id
 			);
 			const data = await response.data;
-
 			setProduct(data);
 		} catch (error) {
 			console.error("Failed to get data:", error);
@@ -37,13 +32,12 @@ export default function DashProductAddPage({ reload }) {
 
 	async function editProduct() {
 		try {
-			// eslint-disable-next-line no-unused-vars
-			const response = await axios.put(
+			await axios.put(
 				"https://store-crud.onrender.com/api/product/" + id,
 				product
 			);
 		} catch (error) {
-			console.error("Failed to create data:", error);
+			console.error("Failed to edit data:", error);
 		}
 	}
 
@@ -54,7 +48,6 @@ export default function DashProductAddPage({ reload }) {
 	}, [id]);
 
 	if (reload) {
-		console.log(reload);
 		location.reload();
 	}
 

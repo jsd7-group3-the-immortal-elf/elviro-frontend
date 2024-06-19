@@ -14,10 +14,18 @@ export default function DashProductViewPage() {
 				"https://store-crud.onrender.com/api/product/" + id
 			);
 			const data = await response.data;
-
 			setProduct(data);
 		} catch (error) {
 			console.error("Failed to get data:", error);
+		}
+	}
+
+	async function deleteProduct() {
+		try {
+			await axios.delete("https://store-crud.onrender.com/api/product/" + id);
+			location.href = "http://localhost:5173/dashboard/product";
+		} catch (error) {
+			console.error("Failed to delete data:", error);
 		}
 	}
 
@@ -39,8 +47,14 @@ export default function DashProductViewPage() {
 					>
 						Edit Product
 					</Link>
-					<button className="bg-red-400 rounded-lg text-white px-4 py-2 hover:bg-red-600">
+					<button className="border border-red-400 rounded-lg px-4 py-2 hover:bg-red-100">
 						Unpublish Product
+					</button>
+					<button
+						onClick={() => deleteProduct(id)}
+						className="bg-red-400 rounded-lg text-white px-4 py-2 hover:bg-red-600"
+					>
+						Delete Product
 					</button>
 				</div>
 			</section>
