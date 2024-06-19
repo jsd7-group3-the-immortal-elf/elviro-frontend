@@ -72,9 +72,9 @@ export default function DashProductAddPage({ reload }) {
 
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 h-[calc(100vh-64px)]">
-			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-				<header className="flex justify-between">
-					<h4>New Product</h4>
+			<form onSubmit={handleSubmit} className="flex flex-col gap-4 h-full">
+				<header className="flex justify-between items-center">
+					<h4>{id ? "Edit Product" : "New Product"}</h4>
 					<button
 						type="submit"
 						className="bg-green text-white px-4 py-2 rounded-lg hover:bg-darkgreen"
@@ -83,7 +83,7 @@ export default function DashProductAddPage({ reload }) {
 					</button>
 				</header>
 
-				<main className="flex gap-6">
+				<main className="flex gap-6 h-full">
 					<section className="bg-white flex gap-8 p-6 rounded-xl w-2/3">
 						<div className="flex flex-col gap-6 w-1/2">
 							<input
@@ -199,7 +199,7 @@ export default function DashProductAddPage({ reload }) {
 						</div>
 					</section>
 
-					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3">
+					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3 overflow-y-scroll">
 						<DashImageInput product={product} />
 
 						<h5>Additional Images</h5>

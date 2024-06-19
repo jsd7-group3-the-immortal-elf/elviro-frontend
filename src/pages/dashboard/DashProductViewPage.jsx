@@ -34,7 +34,7 @@ export default function DashProductViewPage() {
 	}, [id]);
 
 	return (
-		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
+		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6">
 			<section className="flex items-center justify-between">
 				<div>
 					<h3>{product.name}</h3>
@@ -175,7 +175,7 @@ export default function DashProductViewPage() {
 				</table>
 			</section>
 
-			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-472px)] flex flex-col justify-between">
+			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-496px)] flex flex-col justify-between">
 				<div>
 					<h4 className="mb-3">Purchases</h4>
 					<table className="w-full">

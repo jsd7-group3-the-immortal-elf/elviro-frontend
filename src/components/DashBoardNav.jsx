@@ -19,7 +19,7 @@ export default function DashBoardNav({ reload, setReload }) {
 				</h1>
 			</div>
 
-			<div className="hidden xl:flex bg-white h-[calc(100vh-64px)] p-6 fixed w-72 top-0 left-0">
+			<div className="hidden xl:flex bg-white h-[calc(100vh-64px)] p-6 fixed w-72 top-16 left-0">
 				<ul className="flex flex-col gap-6">
 					<ul className="flex flex-col gap-2">
 						<li className="text-xs px-4 flex justify-between">
