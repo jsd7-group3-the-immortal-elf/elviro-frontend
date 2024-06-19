@@ -1,14 +1,14 @@
-import DashChangePage from "../../components/dashboard/DashChangePage";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import DashChangePage from "../../components/dashboard/DashChangePage";
 
 export default function DashProductViewPage() {
 	const [product, setProduct] = useState({});
 
 	const { id } = useParams();
 
-	async function getProduct() {
+	async function getProduct(id) {
 		try {
 			const response = await axios.get(
 				"https://store-crud.onrender.com/api/product/" + id
@@ -22,16 +22,8 @@ export default function DashProductViewPage() {
 	}
 
 	useEffect(() => {
-		getProduct();
-	}, []);
-
-	// function handleChange(e, Id) {
-	// 	const { name, value } = e.target;
-
-	// 	setProductList((prev) =>
-	// 		prev.map((item) => (item.id === Id ? { ...item, [name]: value } : item))
-	// 	);
-	// }
+		getProduct(id);
+	}, [id]);
 
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">

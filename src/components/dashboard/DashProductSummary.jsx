@@ -1,4 +1,6 @@
-export default function DashProductSummary() {
+import PropTypes from "prop-types";
+
+export default function DashProductSummary({ productList }) {
 	return (
 		<section className="flex gap-6 h-32">
 			<div className="bg-green rounded-lg w-1/2 flex items-end p-2 text-white">
@@ -12,9 +14,9 @@ export default function DashProductSummary() {
 					</thead>
 					<tbody className="font-medium">
 						<tr>
-							<td>350</td>
-							<td>350</td>
-							<td>350</td>
+							<td>{productList.length}</td>
+							<td>{productList.length}</td>
+							<td>0</td>
 						</tr>
 					</tbody>
 				</table>
@@ -30,8 +32,10 @@ export default function DashProductSummary() {
 					</thead>
 					<tbody className="font-medium">
 						<tr>
-							<td>350</td>
-							<td>350</td>
+							<td className="text-red-500">
+								{productList.filter((product) => product.quantity < 10).length}
+							</td>
+							<td>0</td>
 						</tr>
 					</tbody>
 				</table>
@@ -39,3 +43,7 @@ export default function DashProductSummary() {
 		</section>
 	);
 }
+
+DashProductSummary.propTypes = {
+	productList: PropTypes.array,
+};

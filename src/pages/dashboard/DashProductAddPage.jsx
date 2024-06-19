@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { FaCloudArrowUp, FaImage } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
+import { FaCloudArrowUp, FaImage } from "react-icons/fa6";
+import PropTypes from "prop-types";
 import axios from "axios";
 import DashImageInput from "../../components/dashboard/DashImageInput";
 
-export default function DashProductAddPage() {
+export default function DashProductAddPage({ reload }) {
 	const [product, setProduct] = useState({});
 
 	const { id } = useParams();
@@ -21,7 +22,7 @@ export default function DashProductAddPage() {
 		}
 	}
 
-	async function getProduct() {
+	async function getProduct(id) {
 		try {
 			const response = await axios.get(
 				"https://store-crud.onrender.com/api/product/" + id
@@ -48,9 +49,14 @@ export default function DashProductAddPage() {
 
 	useEffect(() => {
 		if (id) {
-			getProduct();
+			getProduct(id);
 		}
-	}, []);
+	}, [id]);
+
+	if (reload) {
+		console.log(reload);
+		location.reload();
+	}
 
 	function handleChange(e) {
 		const { name, value } = e.target;
@@ -59,13 +65,16 @@ export default function DashProductAddPage() {
 		});
 	}
 
-	function handleSubmit() {
+	async function handleSubmit(e) {
+		e.preventDefault();
+
 		if (id) {
-			editProduct();
-			return;
+			await editProduct();
+		} else {
+			await createProduct();
 		}
 
-		createProduct();
+		location.href = "http://localhost:5173/dashboard/product";
 	}
 
 	return (
@@ -235,3 +244,7 @@ export default function DashProductAddPage() {
 		</div>
 	);
 }
+
+DashProductAddPage.propTypes = {
+	reload: PropTypes.bool,
+};

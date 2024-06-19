@@ -29,10 +29,13 @@ import DashboardNav from "./components/DashBoardNav";
 import DashProductPage from "./pages/dashboard/DashProductPage";
 import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
+import { useState } from "react";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
 export default function App() {
+	const [reload, setReload] = useState(false);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -115,7 +118,7 @@ export default function App() {
 			element: (
 				<>
 					{/* <NavBar /> */}
-					<DashboardNav />
+					<DashboardNav reload={reload} setReload={setReload} />
 					<Outlet />
 				</>
 			),
@@ -147,7 +150,7 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
-					element: <DashProductAddPage />,
+					element: <DashProductAddPage reload={reload} />,
 				},
 				{
 					path: "product/edit-product/:id",

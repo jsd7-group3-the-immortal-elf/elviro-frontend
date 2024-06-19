@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
 import DashProductItem from "../../components/dashboard/DashProductItem";
-import { useState, useEffect } from "react";
-import axios from "axios";
 
 export default function DashProductPage() {
 	const [productList, setProductList] = useState([]);
@@ -35,7 +35,7 @@ export default function DashProductPage() {
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
 			<h4>Product Summary</h4>
 
-			<DashProductSummary />
+			<DashProductSummary productList={productList} />
 
 			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-316px)] flex flex-col justify-between">
 				<div>

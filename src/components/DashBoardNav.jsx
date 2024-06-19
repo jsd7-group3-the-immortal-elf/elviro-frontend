@@ -8,8 +8,9 @@ import {
 	FaCircleUser,
 	FaGear,
 } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
-export default function DashBoardNav() {
+export default function DashBoardNav({ reload, setReload }) {
 	return (
 		<>
 			<div className="bg-neutral-100 xl:hidden h-screen flex justify-center items-center">
@@ -58,6 +59,9 @@ export default function DashBoardNav() {
 						<li className="rounded hover:bg-green">
 							<Link
 								to="/dashboard/product/add-product"
+								onClick={() => {
+									setReload(!reload);
+								}}
 								className="flex items-center gap-2 px-4 py-2"
 							>
 								<FaCirclePlus />
@@ -101,3 +105,8 @@ export default function DashBoardNav() {
 		</>
 	);
 }
+
+DashBoardNav.propTypes = {
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
+};
