@@ -35,6 +35,11 @@
 		@apply font-normal;
 	}
 
+	/* th,
+	td {
+		@apply border;
+	} */
+
 	input,
 	select {
 		@apply outline-none;

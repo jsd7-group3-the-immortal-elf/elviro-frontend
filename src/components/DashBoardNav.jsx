@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import {
 	FaChartLine,
-	FaShoppingCart,
-	FaUserFriends,
-	FaPlusCircle,
+	FaCartShopping,
+	FaUserGroup,
+	FaCirclePlus,
 	FaBox,
-	FaUserCircle,
-	FaCog,
-} from "react-icons/fa";
+	FaCircleUser,
+	FaGear,
+} from "react-icons/fa6";
+import PropTypes from "prop-types";
 
-export default function DashBoardNav() {
+export default function DashBoardNav({ reload, setReload }) {
 	return (
 		<>
 			<div className="bg-neutral-100 xl:hidden h-screen flex justify-center items-center">
@@ -38,7 +39,7 @@ export default function DashBoardNav() {
 								to="/dashboard/order"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaShoppingCart />
+								<FaCartShopping />
 								<span className="flex">Order Management</span>
 							</Link>
 						</li>
@@ -47,7 +48,7 @@ export default function DashBoardNav() {
 								to="/dashboard/customer"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaUserFriends />
+								<FaUserGroup />
 								<span className="flex">Customers</span>
 							</Link>
 						</li>
@@ -58,9 +59,12 @@ export default function DashBoardNav() {
 						<li className="rounded hover:bg-green">
 							<Link
 								to="/dashboard/product/add-product"
+								onClick={() => {
+									setReload(!reload);
+								}}
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaPlusCircle />
+								<FaCirclePlus />
 								<span className="flex">Add Products</span>
 							</Link>
 						</li>
@@ -82,7 +86,7 @@ export default function DashBoardNav() {
 								to="/dashboard/admin"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaUserCircle />
+								<FaCircleUser />
 								<span className="flex">Manage Admins</span>
 							</Link>
 						</li>
@@ -91,7 +95,7 @@ export default function DashBoardNav() {
 								to="/dashboard/admin/admin-setting"
 								className="flex items-center gap-2 px-4 py-2"
 							>
-								<FaCog />
+								<FaGear />
 								<span className="flex">Admin Roles</span>
 							</Link>
 						</li>
@@ -101,3 +105,8 @@ export default function DashBoardNav() {
 		</>
 	);
 }
+
+DashBoardNav.propTypes = {
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
+};
