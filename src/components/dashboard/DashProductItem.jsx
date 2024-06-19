@@ -16,8 +16,12 @@ export default function DashProductItem({ product, handleChange }) {
 				/>
 			</th>
 			<th>
-				<div className="overflow-hidden h-10 w-10 flex justify-center items-center">
-					<img src={product.image} alt={product.name} className=" " />
+				<div className="h-10 w-10 flex justify-center items-center">
+					<img
+						src={product.image}
+						alt={product.name}
+						className="aspect-square rounded-md"
+					/>
 				</div>
 			</th>
 			<th>

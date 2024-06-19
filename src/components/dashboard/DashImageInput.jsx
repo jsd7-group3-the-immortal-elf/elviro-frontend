@@ -5,21 +5,15 @@ export default function DashImageInput({ product }) {
 	return (
 		<>
 			{product.image ? (
-				<picture className="aspect-square rounded-xl">
-					<img src={product.image} />
+				<picture className="rounded-xl">
+					<img src={product.image} className="aspect-square" />
 				</picture>
 			) : (
-				<label className="dash-input h-1/2 aspect-square flex flex-col justify-center items-center text-green gap-4 relative">
+				<label className="dash-input aspect-square flex flex-col justify-center items-center text-green gap-4 relative">
 					<FaImage className="text-5xl" />
-					<p className="flex items-center gap-2">
+					<p className="flex items-center gap-2 text-sm">
 						<FaCloudArrowUp /> Upload Image
 					</p>
-					<div className="flex flex-col items-center text-neutral-500 gap-1">
-						<p className="text-sm">Upload a cover image for your product.</p>
-						<p className="text-xs flex items-center">
-							Recommend Size 600 x 600 px (1:1)
-						</p>
-					</div>
 					<input
 						type="file"
 						name="image"

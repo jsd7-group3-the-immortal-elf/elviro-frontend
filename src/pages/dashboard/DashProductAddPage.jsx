@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaCloudArrowUp, FaImage } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import axios from "axios";
+import DashImageInputMain from "../../components/dashboard/DashImageInputMain";
 import DashImageInput from "../../components/dashboard/DashImageInput";
 
 export default function DashProductAddPage({ reload }) {
@@ -199,37 +199,16 @@ export default function DashProductAddPage({ reload }) {
 						</div>
 					</section>
 
-					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3 overflow-y-scroll">
-						<DashImageInput product={product} />
+					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3 h-[calc(100vh-176px)] overflow-y-scroll">
+						<DashImageInputMain product={product} />
 
-						<h5>Additional Images</h5>
+						{product.image && <h5>Additional Images (max 4)</h5>}
 
-						<div className="flex gap-4">
-							<label className="dash-input w-1/2 aspect-square flex flex-col justify-center items-center text-green gap-4 relative">
-								<FaImage className="text-5xl" />
-								<p className="flex items-center gap-2 text-sm">
-									<FaCloudArrowUp /> Upload Image
-								</p>
-								<input
-									type="file"
-									name="image"
-									accept="image/*"
-									className="h-full w-full absolute opacity-0"
-								/>
-							</label>
-
-							<label className="dash-input w-1/2 aspect-square flex flex-col justify-center items-center text-green gap-4 relative">
-								<FaImage className="text-5xl" />
-								<p className="flex items-center gap-2 text-sm">
-									<FaCloudArrowUp /> Upload Image
-								</p>
-								<input
-									type="file"
-									name="image"
-									accept="image/*"
-									className="h-full w-full absolute opacity-0"
-								/>
-							</label>
+						<div className="grid grid-cols-2 gap-4">
+							{product.image && <DashImageInput product={product} />}
+							{product.image && <DashImageInput product={product} />}
+							{product.image && <DashImageInput product={product} />}
+							{product.image && <DashImageInput product={product} />}
 						</div>
 					</section>
 				</main>

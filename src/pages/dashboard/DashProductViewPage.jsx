@@ -60,8 +60,12 @@ export default function DashProductViewPage() {
 			</section>
 
 			<section className="flex h-32 gap-6">
-				<div className="rounded-lg aspect-square overflow-hidden w-1/2">
-					<img src={product.image} alt={product.name} className="h-full" />
+				<div className="aspect-square">
+					<img
+						src={product.image}
+						alt={product.name}
+						className="aspect-square rounded-lg h-full"
+					/>
 				</div>
 
 				<div className="flex flex-col bg-white rounded-lg w-full justify-between items-end p-2">
