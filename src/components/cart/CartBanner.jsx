@@ -17,7 +17,7 @@ function CartBanner() {
 						<h3>Check your items well before checkout.</h3>
 						<p className="text-[#6B6B6B]">
 							All items will include
-							<span className="font-bold">tax of 7% </span>
+							<span className="font-bold"> tax of 7% </span>
 							Shipping fee will be included. Free shipping of
 							<span className="font-bold"> 1,000 Baht</span> purchase after tax.
 						</p>

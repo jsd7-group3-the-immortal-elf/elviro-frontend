@@ -50,9 +50,10 @@ function CartList() {
 										</picture>
 									</td>
 									<td>{product.productName}</td>
-									<td>{parseFloat(product.productPrice).toLocaleString()}</td>
+									<td>฿ {parseFloat(product.productPrice).toLocaleString()}</td>
 									<td className="bg-slate-200">{product.productQuanlity}</td>
 									<td>
+										฿{" "}
 										{parseFloat(
 											product.productQuanlity * product.productPrice
 										).toLocaleString()}
