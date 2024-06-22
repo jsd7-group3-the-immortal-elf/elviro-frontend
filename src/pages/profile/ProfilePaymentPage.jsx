@@ -1,3 +1,4 @@
+import { object } from "prop-types";
 import { useState } from "react";
 
 function ProfilePaymentPage() {
@@ -6,12 +7,13 @@ function ProfilePaymentPage() {
 		nameOnCard: "John Doe",
 		expiryDate: "2024-12",
 		cvv: "123",
-		bank: "banka",
+		bank: "bankb",
 		accountHolderName: "John Doe",
 		accountNumber: "1234567890",
 	};
 
 	const [formData, setFormData] = useState(mockData);
+	const [errors, setErrors] = useState({});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -21,10 +23,41 @@ function ProfilePaymentPage() {
 		}));
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const newErrors = validateForm(formData);
+		setErrors(newErrors);
+		if (object.keys(newErrors).length === 0) {
+			alert("Form Submitted Successfully!");
+		} else {
+			alert("Form Submitted failed!");
+		}
+	};
+
+	const validateForm = (data) => {
+		const errors = {};
+		if (!data.cardNumber) {
+			errors.cardNumber = "Card number is required";
+		} else if (data.cardNumber.length < 16) {
+			errors.cardNumber = "Card number must be 16 Digits Long";
+		}
+		if (!data.nameOnCard.trim()) {
+			errors.nameOnCard = "Card Holder Name is required";
+		}
+		if (!data.expiryDate) {
+			errors.expiryDate = "Expiry Date is required";
+		}
+		if (!data.cvv) {
+			errors.cvv = "CVV number is required";
+		} else if (data.cvv.length < 3) {
+			errors.cvv = "CVV number must be 3 Digits Long";
+		}
+		return errors;
+	};
 	return (
 		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
-				<form action="" className="flex flex-col gap-6">
+				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Payment</h2>
 
@@ -43,8 +76,12 @@ function ProfilePaymentPage() {
 								value={formData.cardNumber}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
+							{errors.cardNumber && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.cardNumber}
+								</span>
+							)}
 						</label>
 						<label className="flex flex-col w-full">
 							Name on card
@@ -54,21 +91,31 @@ function ProfilePaymentPage() {
 								value={formData.nameOnCard}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
+							{errors.nameOnCard && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.nameOnCard}
+								</span>
+							)}
 						</label>
 					</div>
 					<div className="flex flex-col sm:flex-row gap-6">
 						<label className="flex flex-col w-full">
 							Expiry Date
 							<input
-								type="date"
+								type="month"
 								name="expiryDate"
 								value={formData.expiryDate}
 								onChange={handleInputChange}
+								min={"2018-01"}
+								max={"2030-12"}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
+							{errors.expiryDate && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.expiryDate}
+								</span>
+							)}
 						</label>
 						<label className="flex flex-col w-full">
 							CVV
@@ -78,8 +125,10 @@ function ProfilePaymentPage() {
 								value={formData.cvv}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
+							{errors.cvv && (
+								<span className="text-red-500 text-sm mt-1">{errors.cvv}</span>
+							)}
 						</label>
 					</div>
 
@@ -94,6 +143,7 @@ function ProfilePaymentPage() {
 						<label className="flex flex-col w-full">
 							Bank
 							<select className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg">
+								<option>Select Bank</option>
 								<option value="banka">Bank A</option>
 								<option value="bankb">Bank B</option>
 								<option value="bankc">Bank C</option>
@@ -107,7 +157,6 @@ function ProfilePaymentPage() {
 								value={formData.accountHolderName}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
 						</label>
 					</div>
@@ -121,7 +170,6 @@ function ProfilePaymentPage() {
 								value={formData.accountNumber}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
 						</label>
 					</div>

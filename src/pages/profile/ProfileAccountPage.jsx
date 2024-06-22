@@ -70,9 +70,10 @@ function ProfileAccountPage() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			const passwordField = formData.newPassword || formData.password;
 			await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
 				...formData,
-				password: formData.newPassword,
+				password: passwordField,
 			});
 			alert("Password update!");
 
@@ -122,9 +123,7 @@ function ProfileAccountPage() {
 								type={passwordVisible ? "text" : "password"}
 								name="password"
 								value={formData.password}
-								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg pr-16"
-								required
 							/>
 							<button
 								type="button"
@@ -146,7 +145,6 @@ function ProfileAccountPage() {
 								value={formData.newPassword}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								required
 							/>
 						</label>
 					</div>
