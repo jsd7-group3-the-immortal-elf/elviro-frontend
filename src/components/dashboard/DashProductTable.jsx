@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // import { useState } from "react";
 
-export default function DashProductItem({ product, handleChange }) {
+export default function DashProductTable({ product, handleChange }) {
 	// const [productStatus, setProductStatus] = useState(product.status);
 
 	return (
@@ -60,7 +60,7 @@ export default function DashProductItem({ product, handleChange }) {
 	);
 }
 
-DashProductItem.propTypes = {
+DashProductTable.propTypes = {
 	product: PropTypes.object,
 	handleChange: PropTypes.func,
 };

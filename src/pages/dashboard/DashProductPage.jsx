@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
-import DashProductItem from "../../components/dashboard/DashProductItem";
+import DashProductTable from "../../components/dashboard/DashProductTable";
 
 export default function DashProductPage() {
 	const [productList, setProductList] = useState([]);
@@ -64,7 +64,7 @@ export default function DashProductPage() {
 						</thead>
 						<tbody>
 							{productList.map((product) => (
-								<DashProductItem
+								<DashProductTable
 									key={product._id}
 									product={product}
 									setProductList={setProductList}
