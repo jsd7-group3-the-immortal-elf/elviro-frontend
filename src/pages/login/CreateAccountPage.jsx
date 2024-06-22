@@ -1,7 +1,9 @@
 //ใช้ useState
 import { useState } from "react";
-import ImageWhite from "../../../public/images/elviro_logo_white.png";
-import ImageBlack from "../../../public/images/elviro_logo_black.png";
+import ImageWhite from "/images/elviro_logo_white.png";
+import ImageBlack from "/images/elviro_logo_black.png";
+import { FaTimes, FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 
 function CreateAccountPage() {
 	//ไว้รับค่า object จาก formData
@@ -11,6 +13,20 @@ function CreateAccountPage() {
 		email: "",
 		password: "",
 	});
+
+	//state ของเปิด form
+	const [openForm, setOpenForm] = useState(true);
+
+	//-----------Password--------------//
+	//สร้าง state สลับระหว่างโชว์ password/text
+	const [showPassword, setShowPassword] = useState(false);
+
+	//Toggle ค่า true false
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
+	};
+
+	//----------ไว้ validate email + password -----------//
 
 	//สร้าง array ไว้รับค่าจาก formData
 	const [tableData, setTableData] = useState([]);
@@ -25,6 +41,11 @@ function CreateAccountPage() {
 		}));
 	};
 
+	//toggle เปิดปิด form
+	const toggleOpenForm = () => {
+		setOpenForm(!openForm);
+	};
+
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
@@ -34,97 +55,107 @@ function CreateAccountPage() {
 	};
 
 	return (
-		<div className="md:bg-gray-500 md:h-screen md:flex md:justify-center md:items-center">
-			<section className="flex flex-col md:flex-row items-center md:w-4/5 md:h-4/5">
-				<div className="flex my-9 justify-center items-center gap-4 md:my-0  md:bg-green md:w-1/2 md:h-full md:flex-col">
-					<img
-						src={ImageBlack}
-						alt="Elviro Logo"
-						className="w-1/2 md:hidden
-					"
+		<div className={openForm ? "block" : "hidden"}>
+			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
+				<section className="relative h-4/5 mt-14 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+					<FaXmark
+						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
+						onClick={toggleOpenForm}
 					/>
-					<img
-						src={ImageWhite}
-						alt="Elviro Logo"
-						className="hidden md:flex w-1/2 
+					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
+						<img
+							src={ImageBlack}
+							alt="Elviro Logo"
+							className="w-1/2 max-w-lg lg:hidden
 					"
-					/>
-					<h1 className="hidden md:block font-semibold text-2xl md:text-7xl md:text-white">
-						Elviro
-					</h1>
-				</div>
-
-				<div className="md:bg-white md:w-1/2 md:h-full md:flex md:items-center md:justify-center md:overflow-hidden">
-					<form onSubmit={handleSubmit} className="flex flex-col md:w-2/3">
-						<label className="flex flex-col text-2xl pb-5 font-semibold">
-							First Name
-							<input
-								id="firstName"
-								className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-2xl font-normal "
-								type="text"
-								name="firstName"
-								value={formData.firstName}
-								onChange={handleChange}
-								required
-							/>
-						</label>
-
-						{/* Other label */}
-						{/* <label
-							htmlFor="lastName"
-							className="flex flex-col text-2xl pb-5 font-semibold"
-						>
-							Last Name
-						</label>
-						<input
-							id="lastName"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-2xl font-normal"
-							type="text"
-							name="lastName"
-							value={formData.lastName}
-							onChange={handleChange}
-							required
 						/>
-						<label
-							htmlFor="email"
-							className="flex flex-col text-2xl pb-5 font-semibold"
-						>
-							Email
-						</label>
-						<input
-							id="email"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-2xl font-normal"
-							type="email"
-							name="email"
-							value={formData.email}
-							onChange={handleChange}
-							required
+						<img
+							src={ImageWhite}
+							alt="Elviro Logo"
+							className="hidden lg:flex w-1/2 
+					"
 						/>
-						<label
-							htmlFor="password"
-							className="flex flex-col text-2xl pb-5 font-semibold"
-						>
-							Password
-						</label>
-						<input
-							id="password"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-16 text-2xl font-normal"
-							type="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
-						/> */}
+						<h1 className="hidden lg:block font-semibold text-2xl md:text-7xl md:text-white">
+							Elviro
+						</h1>
+					</div>
 
-						<button
-							type="submit"
-							className="bg-orange-300 p-5 rounded-full font-semibold text-2xl mb-5 md:mb-0 border-8 border-orange-300 hover:border-orange-400 hover:shadow-xl"
+					<div className="0 h-full flex flex-col items-center justify-center md:overflow-hidden  lg:h-full lg:w-1/2">
+						{/* Main form */}
+						<form
+							onSubmit={handleSubmit}
+							className="flex flex-col md:w-lg gap-5"
 						>
-							Create Account
-						</button>
-					</form>
-				</div>
-			</section>
+							<h1 className="text-2xl md:text-4xl">Create a new account</h1>
+							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
+								First Name
+								<input
+									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal "
+									type="text"
+									name="firstName"
+									value={formData.firstName}
+									onChange={handleChange}
+									required
+								/>
+							</label>
+
+							{/* Other label */}
+							<label className="text-neutral-500 text-md flex flex-col font-semibold">
+								Last Name
+								<input
+									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									type="text"
+									name="lastName"
+									value={formData.lastName}
+									onChange={handleChange}
+									required
+								/>
+							</label>
+							{/* Email */}
+							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
+								Email
+								<input
+									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									type="email"
+									name="email"
+									value={formData.email}
+									onChange={handleChange}
+									required
+								/>
+							</label>
+							{/* Password */}
+							<label className="text-neutral-500 text-md  flex flex-col pb-5 font-semibold">
+								Password
+								<div id="password-relative" className="relative">
+									<input
+										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
+										// type={showPassword ? "text" : "password"}
+										name="password"
+										type={showPassword ? "text" : "password"}
+										value={formData.password}
+										onChange={handleChange}
+										minLength="5"
+										required
+									/>
+									<span
+										className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+										onClick={togglePasswordVisibility}
+									>
+										{showPassword ? <FaEye /> : <FaEyeSlash />}
+									</span>
+								</div>
+							</label>
+
+							<button
+								type="submit"
+								className="bg-orange-200 p-1 md:p-3 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5 md:mb-0 hover:bg-orange-300  hover:shadow-xl"
+							>
+								Create Account
+							</button>
+						</form>
+					</div>
+				</section>
+			</div>
 		</div>
 	);
 }
