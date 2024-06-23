@@ -6,21 +6,21 @@ function CartTotal({ totalPrice }) {
 	const total = totalPrice + tax + delivery;
 	return (
 		<div className="w-full md:basis-1/3">
-			<div className="bg-[#F9F1E7] p-4 rounded-lg">
-				<p className="text-2xl md:text-3xl text-center font-semibold">
+			<div className="md:bg-[#F9F1E7] p-4 rounded-lg">
+				<p className="text-2xl md:text-3xl hidden md:block text-center font-semibold">
 					Cart Totals
 				</p>
 				<table className="min-w-full divide-y divide-gray-200 mt-4">
 					<tbody className="divide-y divide-gray-200">
-						<tr className="bg-[#F9F1E7]">
+						<tr className="md:bg-[#F9F1E7]">
 							<td className="font-semibold">Subtotal</td>
 							<td className="text-right">฿ {totalPrice.toLocaleString()}</td>
 						</tr>
-						<tr className="bg-[#F9F1E7]">
+						<tr className="md:bg-[#F9F1E7]">
 							<td className="font-semibold">7% Tax</td>
 							<td className="text-right">฿ {tax.toLocaleString()}</td>
 						</tr>
-						<tr className="bg-[#F9F1E7]">
+						<tr className="md:bg-[#F9F1E7]">
 							<td className="font-semibold">Delivery</td>
 							<td className="text-right">฿ {delivery.toLocaleString()}</td>
 						</tr>

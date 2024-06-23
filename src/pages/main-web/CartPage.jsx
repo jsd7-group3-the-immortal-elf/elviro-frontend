@@ -30,13 +30,13 @@ function CartPage() {
 	}, 0);
 
 	return (
-		<>
+		<div className="w-full px-4 md:px-20">
 			<CartBanner />
 			<div className="flex flex-col md:flex-row justify-center gap-4">
-				<div className="md:basis-2/3">
+				<div className="w-full md:basis-2/3">
 					<CartList />
 				</div>
-				<div className="md:basis-1/3">
+				<div className="w-full md:basis-1/3">
 					<CartTotal totalPrice={totalPrice} />
 				</div>
 			</div>
@@ -45,7 +45,7 @@ function CartPage() {
 					Missing any items? continue <span>shopping</span>
 				</h3>
 			</div>
-		</>
+		</div>
 	);
 }
 export default CartPage;

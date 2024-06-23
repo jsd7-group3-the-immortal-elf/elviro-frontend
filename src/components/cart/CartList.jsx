@@ -25,11 +25,11 @@ function CartList() {
 	return (
 		<>
 			<section className="px-8" id="cart_item">
-				<div className="">
+				<div className="hidden md:block">
 					<table className="table-auto w-full text-center">
 						<thead className="bg-[#DEAC80]">
 							<tr>
-								<th className="font-semibold"></th>
+								<th className=" min-w-12 md:max-w-16 font-semibold"></th>
 								<th className="font-semibold">Product</th>
 								<th className="font-semibold">Price</th>
 								<th className="font-semibold">Quanlity</th>
@@ -41,9 +41,8 @@ function CartList() {
 							{priceList.map((product, index) => (
 								<tr key={index}>
 									<td>
-										<picture>
+										<picture className="w-16 h-16 object-cover">
 											<img
-												className="py-2 w-24"
 												src={product.productPicture}
 												alt={product.productName}
 											/>
@@ -51,7 +50,11 @@ function CartList() {
 									</td>
 									<td>{product.productName}</td>
 									<td>฿ {parseFloat(product.productPrice).toLocaleString()}</td>
-									<td className="bg-slate-200">{product.productQuanlity}</td>
+									<td className="bg-slate-200">
+										<button className="px-2">-</button>
+										<span className="">{product.productQuanlity}</span>
+										<button className="px-2">+</button>
+									</td>
 									<td>
 										฿{" "}
 										{parseFloat(
@@ -68,22 +71,37 @@ function CartList() {
 						</tbody>
 					</table>
 				</div>
-				<div>
-					<div className="flex md:hidden">
-						<picture>
-							<img className="w-1/2" src="/public/images/mockup-sofa.png" />
-						</picture>
-						<div className="px-2 py-8 bg-[#F4F4F4]">
-							<h3>PÄRUP sofa</h3>
-							<p>Description</p>
-							<h3>THB 999</h3>
-							<div className="flex justify-between items-center">
-								<p>
-									-<span className="px-2 py-1 border-2 border-black">1</span>+
-								</p>
-								<FaTrash />
+				<div className="w-full px-4">
+					<div className="grid grid-col-1 gap-2">
+						{priceList.map((product, index) => (
+							<div key={index} className="flex md:hidden">
+								<picture className="flex w-full border-2 py">
+									<img
+										className="px-4"
+										src={product.productPicture}
+										alt={product.productName}
+									/>
+								</picture>
+								<div className="w-full px-2 py-4 bg-[#F4F4F4]">
+									<h3 className="text-base">{product.productName}</h3>
+									<h3 className="text-base">
+										฿ {parseFloat(product.productPrice).toLocaleString()}
+									</h3>
+									<div className="flex py-2 justify-between items-center">
+										<p className="px-4">
+											<button className="px-2">-</button>
+											<span className="px-2 py-1 border-2 border-gray-500">
+												{product.productQuanlity}
+											</span>
+											<button className="px-2">+</button>
+										</p>
+										<button className="px-2">
+											<FaTrash />
+										</button>
+									</div>
+								</div>
 							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</section>
