@@ -5,6 +5,7 @@ export default function CheckoutBilling() {
 			id="user_profile"
 			className="flex flex-col items-center w-full max-w-[600px] "
 		>
+			{/* --------------------  ข้อมูลทั่วไป  -------------------- */}
 			<article id="personal " className=" w-full flex flex-col items-center">
 				<h2 className="mb-4">Billing details</h2>
 				<h3 className="text-darkgreen mb-6">Personal information</h3>
@@ -34,7 +35,7 @@ export default function CheckoutBilling() {
 						/>
 					</label>
 					<label className=" size-full" id="last_name">
-						{/* --------------------  นามสลุก  -------------------- */}
+						{/* --------------------  นามสกุล  -------------------- */}
 						<h4>Last Name</h4>
 						<input
 							type="text"
@@ -61,7 +62,7 @@ export default function CheckoutBilling() {
 				</div>
 				<br />
 			</article>
-
+			{/* --------------------  ข้อมูลที่อยู่  -------------------- */}
 			<article id="user_contact" className="flex flex-col items-center w-full">
 				<h3 className="text-darkgreen mb-6">Address</h3>
 				{/* --------------------  CheckBox  -------------------- */}

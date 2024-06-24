@@ -4,45 +4,47 @@ import MasterCard from "../../../public/images/MasterCard.png";
 
 export default function PayCard() {
 	return (
-		<div>
-			<div>
-				<div id="card" className="my-1">
-					<h4>Please select a card</h4>
-					<input
-						type="text"
-						className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-auto"
-						placeholder=" Visa"
-					/>
-				</div>
-				<div id="cardNumber" className="my-1">
-					<h4>Card Number</h4>
-					<input
-						type="text"
-						className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-auto"
-					/>
-				</div>
-				<div id="expiration" className="my-1">
+		<section className="py-16 flex flex-col items-start w-full gap-7">
+			<div id="card" className="my-1 w-full">
+				<h4>Please select a card</h4>
+				<input
+					type="text"
+					className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
+					placeholder=" Visa"
+				/>
+			</div>
+			<div id="cardNumber" className="my-1 w-full">
+				<h4>Card Number</h4>
+				<input
+					type="text"
+					className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
+				/>
+			</div>
+			{/* --------------------เลขบัตรการด์-------------------- */}
+			<section className="flex w-full gap-8 ">
+				<div id="expiration" className="mb-1 w-3/5">
 					<h4>Expiration Date</h4>
 					<div className="flex">
 						<input
 							type="month"
-							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-auto"
+							min="2024-05" //ตั้งค่าต่ำสุดตามวันปัจจุบัน
+							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</div>
 				</div>
-				<div id="SecurityCode" className="my-1">
+				<div id="SecurityCode" className="mb-1 w-2/5">
 					<h4>Security Code</h4>
 					<input
-						type="text"
-						className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-auto"
+						type="number"
+						className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 					/>
 				</div>
-				<figure className="flex gap-4 ">
-					<img src={VISA} className="h-20 w-20" />
-					<img src={JCB} className="h-20 w-20" />
-					<img src={MasterCard} className="h-20 w-20" />
-				</figure>
-			</div>
-		</div>
+			</section>
+			<figure className="flex w-full justify-around ">
+				<img src={VISA} className="h-auto w-1/4 max-h-44 max-w-44 " />
+				<img src={JCB} className="h-auto w-1/4 max-h-44 max-w-44 " />
+				<img src={MasterCard} className="h-auto w-1/4 max-h-44 max-w-44 " />
+			</figure>
+		</section>
 	);
 }
