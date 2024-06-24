@@ -23,15 +23,16 @@ import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
 import DashOrderPage from "./pages/dashboard/DashOrderPage";
-// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 import DashProductPage from "./pages/dashboard/DashProductPage";
 import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
-import { useState } from "react";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
+
+import { useState } from "react";
 
 export default function App() {
 	const [reload, setReload] = useState(false);
@@ -134,7 +135,7 @@ export default function App() {
 				},
 				{
 					path: "order/view-order",
-					// element: <DashOrderViewPage />,
+					element: <DashOrderViewPage />,
 				},
 				{
 					path: "customer",
