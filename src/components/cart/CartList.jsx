@@ -3,19 +3,19 @@ import { FaTrash } from "react-icons/fa";
 function CartList() {
 	const priceList = [
 		{
-			productPicture: "/public/images/mockup-sofa.png",
+			productPicture: "/images/mockup-sofa.png",
 			productName: "PÄRUP sofa",
 			productQuanlity: "3",
 			productPrice: "8999",
 		},
 		{
-			productPicture: "/public/images/mockup-sofa.png",
+			productPicture: "/images/mockup-sofa.png",
 			productName: "VIMLE sofa",
 			productQuanlity: "1",
 			productPrice: "15999",
 		},
 		{
-			productPicture: "/public/images/mockup-sofa.png",
+			productPicture: "/images/mockup-sofa.png",
 			productName: "GLOSTAD sofa",
 			productQuanlity: "2",
 			productPrice: "2999",

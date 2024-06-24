@@ -5,10 +5,7 @@ function CartBanner() {
 				<h3 className="pt-4 pl-4 md:hidden">Cart (1)</h3>
 				<div className="hidden md:flex flex-row py-12 align-middle">
 					<picture>
-						<img
-							className="max-w-96 px-8"
-							src="/public/images/cart-image.png"
-						/>
+						<img className="max-w-96 px-8" src="/images/cart-image.png" />
 					</picture>
 					<div className="flex flex-col gap-2 px-8 justify-center">
 						<h2 className="text-left italic text-4xl pb-4 text-[#B99470]">
