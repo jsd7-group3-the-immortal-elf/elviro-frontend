@@ -13,7 +13,7 @@ import DashboardNav from "./components/DashBoardNav";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
 import AboutPage from "./pages/main-web/AboutPage";
-// import ContactPage from "./pages/main-web/ContactPage";
+import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
@@ -31,7 +31,6 @@ import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
-import { useState } from "react";
 
 import { useState } from "react";
 
@@ -76,7 +75,7 @@ export default function App() {
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
