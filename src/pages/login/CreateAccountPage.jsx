@@ -57,7 +57,7 @@ function CreateAccountPage() {
 	return (
 		<div className={openForm ? "block" : "hidden"}>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
-				<section className="relative h-4/5 mt-14 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
 						onClick={toggleOpenForm}
@@ -148,7 +148,7 @@ function CreateAccountPage() {
 
 							<button
 								type="submit"
-								className="bg-orange-200 p-1 md:p-3 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5 md:mb-0 hover:bg-orange-300  hover:shadow-xl"
+								className="bg-orange-200 p-5 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5  hover:bg-orange-300  hover:shadow-xl"
 							>
 								Create Account
 							</button>
