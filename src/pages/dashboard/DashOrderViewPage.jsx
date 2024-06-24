@@ -130,9 +130,9 @@ export default function DashProductViewPage() {
 				</div>
 			</section>
 
-			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-496px)] flex flex-col justify-between">
+			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-364px)] flex flex-col justify-between">
 				<div>
-					<h4 className="mb-3">Purchases</h4>
+					<h4 className="mb-3">Item : 3</h4>
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
@@ -140,11 +140,11 @@ export default function DashProductViewPage() {
 									<input
 										type="checkbox"
 										name=""
-										id=""
 										className="accent-green w-4 h-4 m-3 "
 									/>
 								</th>
-								<th>Order Date</th>
+								<th></th>
+								<th>Product Name</th>
 								<th>Unit Price</th>
 								<th>Quantity</th>
 								<th>Order Total</th>
@@ -161,11 +161,30 @@ export default function DashProductViewPage() {
 										className="accent-green w-4 h-4 m-3 "
 									/>
 								</th>
-								<th>12 Aug 2022 - 12:25 am</th>
+								<th>
+									<div className="h-10 w-10 flex justify-center items-center">
+										<img
+											src={customerPic}
+											alt="mock"
+											className="aspect-square rounded-md"
+										/>
+									</div>
+								</th>
+								<th>Sofa</th>
 								<th>12400</th>
 								<th>1</th>
 								<th>12400</th>
-								<th>Complete</th>
+								<th>
+									<select name="orederStatus">
+										<option value="Pending">Pending</option>
+										<option value="Confirmed">Confirmed</option>
+										<option value="Processing">Processing</option>
+										<option value="Picked">Picked</option>
+										<option value="Shipped">Shipped</option>
+										<option value="Delivered">Delivered</option>
+										<option value="Cancelled">Cancelled</option>
+									</select>
+								</th>
 							</tr>
 						</tbody>
 					</table>
