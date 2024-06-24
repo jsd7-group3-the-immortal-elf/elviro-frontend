@@ -7,7 +7,7 @@ function ContactPage() {
 						<picture className="flex justify-center py-8">
 							<img
 								className="h-40 w-40 rounded-full"
-								src="public/contact.png"
+								src="public/images/contact.png"
 								alt="Banner"
 							/>
 						</picture>
