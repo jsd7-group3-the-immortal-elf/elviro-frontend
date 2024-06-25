@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
 	body {
-		@apply font-[Montserrat] text-neutral-700 text-lg;
+		@apply font-[Montserrat] text-neutral-700;
 	}
 
 	h1 {
@@ -16,7 +16,7 @@
 		@apply text-2xl font-semibold;
 	}
 	h4 {
-		@apply font-semibold;
+		@apply text-xl font-semibold;
 	}
 
 	img {
@@ -29,6 +29,33 @@
 	*,
 	:hover {
 		@apply transition duration-200;
+	}
+
+	th {
+		@apply font-normal;
+	}
+
+	/* th,
+	td {
+		@apply border;
+	} */
+
+	input,
+	select,
+	textarea {
+		@apply outline-none;
+	}
+
+	.input {
+		@apply px-4 py-2 border border-neutral-300 rounded-lg;
+	}
+
+	.dash-input {
+		@apply px-4 py-2 bg-neutral-100 rounded-lg;
+	}
+
+	.btn {
+		@apply px-4 py-2 rounded-lg;
 	}
 }
 
