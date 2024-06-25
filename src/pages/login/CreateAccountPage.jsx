@@ -1,8 +1,8 @@
 //ใช้ useState
 import { useState } from "react";
-import ImageWhite from "/images/elviro_logo_white.png";
-import ImageBlack from "/images/elviro_logo_black.png";
-import { FaTimes, FaEyeSlash, FaEye } from "react-icons/fa";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
 function CreateAccountPage() {
