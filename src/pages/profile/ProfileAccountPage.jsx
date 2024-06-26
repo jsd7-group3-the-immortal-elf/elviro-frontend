@@ -158,13 +158,9 @@ function ProfileAccountPage() {
 							<button
 								type="button"
 								onClick={togglePasswordVisible}
-								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-3 mt-3"
+								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-4 mt-3"
 							>
-								{passwordVisible ? (
-									<FaEyeSlash size={24} />
-								) : (
-									<FaEye size={24} />
-								)}
+								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
 						</label>
 						<label className="flex flex-col w-full">
