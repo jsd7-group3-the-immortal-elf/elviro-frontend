@@ -1,4 +1,3 @@
-import { object } from "prop-types";
 import { useState } from "react";
 
 function ProfilePaymentPage() {
@@ -27,7 +26,7 @@ function ProfilePaymentPage() {
 		e.preventDefault();
 		const newErrors = validateForm(formData);
 		setErrors(newErrors);
-		if (object.keys(newErrors).length === 0) {
+		if (Object.keys(newErrors).length === 0) {
 			alert("Form Submitted Successfully!");
 		} else {
 			alert("Form Submitted failed!");
