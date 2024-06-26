@@ -1,16 +1,22 @@
-import mockup_sofa from "../../../public/images/mockup_sofa.png";
+import mockup_sofa from "/images/mockup_sofa.png";
 
 export default function CheckoutProduct() {
 	return (
 		<div className="w-full flex flex-col items-center">
+			{/* --------------------  รูป  -------------------- */}
+			<img
+				alt="image_product"
+				src={mockup_sofa}
+				className="max-w-52 bg-origin-border rounded-2xl"
+			/>
 			{/* --------------------  หัวข้อ  -------------------- */}
-			<div id="price" className="flex flex-col justify-between w-full mb-4">
+			<div className="flex flex-col justify-between w-full mb-4">
 				<div className="flex justify-between w-full">
 					<h3>Product</h3>
 					<h3>Subtotal</h3>
 				</div>
 				{/* --------------------  ลิสรายการ  -------------------- */}
-				<ul id="total_price" className="w-full gap-4 flex flex-col mb-7">
+				<ul className="w-full gap-4 flex flex-col mb-7">
 					<li className="flex justify-between">
 						<span>
 							Name_Product x <span>1</span>
@@ -33,14 +39,6 @@ export default function CheckoutProduct() {
 					</li>
 				</ul>
 			</div>
-			{/* --------------------  รูป  -------------------- */}
-			<input
-				type="image"
-				id="image_product"
-				alt="image_product"
-				src={mockup_sofa}
-				className="max-w-52 bg-origin-border rounded-2xl"
-			/>
 			<hr className=" border-neutral-800" />
 		</div>
 	);

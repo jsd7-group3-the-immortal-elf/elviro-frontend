@@ -1,6 +1,6 @@
-import VISA from "../../../public/images/VISA.png";
-import JCB from "../../../public/images/JCB.png";
-import MasterCard from "../../../public/images/MasterCard.png";
+import VISA from "/images/VISA.png";
+import JCB from "/images/JCB.png";
+import MasterCard from "/images/MasterCard.png";
 
 export default function PayCard() {
 	return (
@@ -22,7 +22,7 @@ export default function PayCard() {
 			</div>
 			{/* --------------------เลขบัตรการด์-------------------- */}
 			<section className="flex w-full gap-8 ">
-				<div id="expiration" className="mb-1 w-3/5">
+				<div id="expiration" className="mb-1 w-1/2">
 					<h4>Expiration Date</h4>
 					<div className="flex">
 						<input
@@ -32,7 +32,7 @@ export default function PayCard() {
 						/>
 					</div>
 				</div>
-				<div id="SecurityCode" className="mb-1 w-2/5">
+				<div id="SecurityCode" className="mb-1 w-1/2">
 					<h4>Security Code</h4>
 					<input
 						type="number"
