@@ -6,18 +6,28 @@ function ProfilePaymentPage() {
 		nameOnCard: "John Doe",
 		expiryDate: "2024-12",
 		cvv: "123",
-		bank: "bankb",
-		accountHolderName: "John Doe",
-		accountNumber: "1234567890",
+		bank: "",
+		accountHolderName: "",
+		accountNumber: "",
 	};
 
-	const [formData, setFormData] = useState(mockData);
+	const initialFormData = {
+		cardNumber: mockData.cardNumber || "",
+		nameOnCard: mockData.nameOnCard || "",
+		expiryDate: mockData.expiryDate || "",
+		cvv: mockData.cvv || "",
+		bank: mockData.bank || "",
+		accountHolderName: mockData.accountHolderName || "",
+		accountNumber: mockData.accountNumber || "",
+	};
+
+	const [formData, setFormData] = useState(initialFormData);
 	const [errors, setErrors] = useState({});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		setFormData((prevFormdata) => ({
-			...prevFormdata,
+		setFormData((prevFormData) => ({
+			...prevFormData,
 			[name]: value,
 		}));
 	};
@@ -35,24 +45,40 @@ function ProfilePaymentPage() {
 
 	const validateForm = (data) => {
 		const errors = {};
-		if (!data.cardNumber) {
-			errors.cardNumber = "Card number is required";
-		} else if (data.cardNumber.length < 16) {
-			errors.cardNumber = "Card number must be 16 Digits Long";
+		const isCardDetailsFilled =
+			data.cardNumber || data.nameOnCard || data.expiryDate || data.cvv;
+		const isBankDetailsFilled =
+			data.bank || data.accountHolderName || data.accountNumber;
+
+		if (isCardDetailsFilled) {
+			if (data.cardNumber.length !== 16) {
+				errors.cardNumber = "Card number must be 16 Digits Long";
+			}
+			if (!data.nameOnCard.trim()) {
+				errors.nameOnCard = "Card Holder Name is required";
+			}
+			if (!data.expiryDate) {
+				errors.expiryDate = "Expiry Date is required";
+			}
+			if (data.cvv.length !== 3) {
+				errors.cvv = "CVV number must be 3 Digits Long";
+			}
 		}
-		if (!data.nameOnCard.trim()) {
-			errors.nameOnCard = "Card Holder Name is required";
-		}
-		if (!data.expiryDate) {
-			errors.expiryDate = "Expiry Date is required";
-		}
-		if (!data.cvv) {
-			errors.cvv = "CVV number is required";
-		} else if (data.cvv.length < 3) {
-			errors.cvv = "CVV number must be 3 Digits Long";
+		if (isBankDetailsFilled) {
+			if (!data.bank) {
+				errors.bank = "Bank is required";
+			}
+
+			if (!data.accountHolderName) {
+				errors.accountHolderName = "Account Holder name is required";
+			}
+			if (data.accountNumber.length !== 10) {
+				errors.accountNumber = "Account number must be 10 Digits Long";
+			}
 		}
 		return errors;
 	};
+
 	return (
 		<div className="px-8">
 			<section className="py-10 xl:py-10 xl:px-16">
@@ -132,21 +158,30 @@ function ProfilePaymentPage() {
 					</div>
 
 					<div className="flex flex-col sm:w-1/2 sm:pr-4">card logo</div>
-
+				</form>
+				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*!-- address -->*/}
-					<h2 className="text-left mt-8">Bank Account</h2>
+					<h3 className="text-left mt-8">Bank Account</h3>
 
 					<hr className="my-2 border-[#B5C18E]" />
 
 					<div className="flex flex-col sm:flex-row gap-6">
 						<label className="flex flex-col w-full">
 							Bank
-							<select className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg">
-								<option>Select Bank</option>
+							<select
+								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								name="bank"
+								value={formData.bank}
+								onChange={handleInputChange}
+							>
+								<option value="">Select Bank</option>
 								<option value="banka">Bank A</option>
 								<option value="bankb">Bank B</option>
 								<option value="bankc">Bank C</option>
 							</select>
+							{errors.bank && (
+								<span className="text-red-500 text-sm mt-1">{errors.bank}</span>
+							)}
 						</label>
 						<label className="flex flex-col w-full">
 							Account Holder Name
@@ -157,11 +192,16 @@ function ProfilePaymentPage() {
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
+							{errors.accountHolderName && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.accountHolderName}
+								</span>
+							)}
 						</label>
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-1/2">
+						<label className="flex flex-col w-full">
 							Account Number
 							<input
 								type="number"
@@ -170,6 +210,11 @@ function ProfilePaymentPage() {
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
+							{errors.accountNumber && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.accountNumber}
+								</span>
+							)}
 						</label>
 					</div>
 
