@@ -57,7 +57,7 @@ function CreateAccountPage() {
 	return (
 		<div className={openForm ? "block" : "hidden"}>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
-				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
 						onClick={toggleOpenForm}
@@ -87,7 +87,7 @@ function CreateAccountPage() {
 							className="flex flex-col md:w-lg gap-5"
 						>
 							<h1 className="text-2xl md:text-4xl">Create a new account</h1>
-							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
+							<label className="label-login">
 								First Name
 								<input
 									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal "
@@ -100,10 +100,10 @@ function CreateAccountPage() {
 							</label>
 
 							{/* Other label */}
-							<label className="text-neutral-500 text-md flex flex-col font-semibold">
+							<label className="label-login">
 								Last Name
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									className="bg-white border-b-2 border-neutral-200 p-1 font-normal"
 									type="text"
 									name="lastName"
 									value={formData.lastName}
@@ -112,7 +112,7 @@ function CreateAccountPage() {
 								/>
 							</label>
 							{/* Email */}
-							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
+							<label className="label-login">
 								Email
 								<input
 									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
@@ -124,12 +124,11 @@ function CreateAccountPage() {
 								/>
 							</label>
 							{/* Password */}
-							<label className="text-neutral-500 text-md  flex flex-col pb-5 font-semibold">
+							<label className="label-login">
 								Password
 								<div id="password-relative" className="relative">
 									<input
 										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
-										// type={showPassword ? "text" : "password"}
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={formData.password}
@@ -146,10 +145,7 @@ function CreateAccountPage() {
 								</div>
 							</label>
 
-							<button
-								type="submit"
-								className="bg-orange-200 p-5 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5  hover:bg-orange-300  hover:shadow-xl"
-							>
+							<button type="submit" className="btn-login">
 								Create Account
 							</button>
 						</form>
