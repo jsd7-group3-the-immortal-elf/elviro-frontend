@@ -1,14 +1,13 @@
+//ใช้ useState
 import { useState } from "react";
-import ImageWhite from "/images/elviro_logo_white.png";
-import ImageBlack from "/images/elviro_logo_black.png";
-import { FaTimes, FaEyeSlash, FaEye } from "react-icons/fa";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
-function LoginPage() {
+function CreateAccountPage() {
 	//ไว้รับค่า object จาก formData
-	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
+	const [loginData, setLoginData] = useState({
 		email: "",
 		password: "",
 	});
@@ -34,7 +33,7 @@ function LoginPage() {
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
-		setFormData((prevData) => ({
+		setLoginData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
@@ -45,32 +44,29 @@ function LoginPage() {
 		setOpenForm(!openForm);
 	};
 
-	//ตอนกด Submit
-	// const handleSubmit = (event) => {
-	// 	event.preventDefault(); //ไม่ให้ refresh หน้า
-	// 	console.log("Form Submitted:", formData); //ไว้ดู check
-	// 	setTableData((prevData) => [...prevData, formData]);
-	// 	console.log(...tableData, formData);
-	// };
+	//Check username passwore
+
+	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
-		const username = event.target.username.value;
-		const password = event.target.username.value;
-
-		if (username === "username") {
-			if (password === "password") {
-				console.log("Login successful");
-			}
-		} else {
+		if (
+			loginData.email !== "example@email.com" ||
+			loginData.password !== "password"
+		) {
+			window.alert("Your username or password is incorrect.");
 			return;
 		}
+
+		console.log("Form Submitted:", loginData); //ไว้ดู check
+		window.alert("Login Successful");
+		toggleOpenForm();
 	};
 
 	return (
 		<div className={openForm ? "block" : "hidden"}>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
-				<section className="relative h-4/5 mt-14 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
 						onClick={toggleOpenForm}
@@ -80,13 +76,13 @@ function LoginPage() {
 							src={ImageBlack}
 							alt="Elviro Logo"
 							className="w-1/2 max-w-lg lg:hidden
-						"
+					"
 						/>
 						<img
 							src={ImageWhite}
 							alt="Elviro Logo"
 							className="hidden lg:flex w-1/2 
-						"
+					"
 						/>
 						<h1 className="hidden lg:block font-semibold text-2xl md:text-7xl md:text-white">
 							Elviro
@@ -95,37 +91,35 @@ function LoginPage() {
 
 					<div className="0 h-full flex flex-col items-center justify-center md:overflow-hidden  lg:h-full lg:w-1/2">
 						{/* Main form */}
-
-						<h1 className="text-5xl lg:text-6xl text-center">Elviro</h1>
-						<h2 className="font-medium text-neutral-400 text-lg md:text-2xl text-center">
-							WELCOME BACK.
+						<h1 className="text-5xl md:text-6xl">Elviro</h1>
+						<h2 className="text-neutral-500 text-2xl md:text-3xl mb-10">
+							Welcome Back
 						</h2>
 						<form
 							onSubmit={handleSubmit}
-							className="flex flex-col md:w-lg gap-5 lg:w-4/5"
+							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Email */}
-							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
-								Email / Username
+							<label className="label-login">
+								Email
 								<input
 									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
 									type="email"
 									name="email"
-									value={formData.email}
+									value={loginData.email}
 									onChange={handleChange}
 									required
 								/>
 							</label>
 							{/* Password */}
-							<label className="text-neutral-500 text-md  flex flex-col pb-5 font-semibold">
+							<label className="label-login">
 								Password
 								<div id="password-relative" className="relative">
 									<input
 										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
-										// type={showPassword ? "text" : "password"}
 										name="password"
 										type={showPassword ? "text" : "password"}
-										value={formData.password}
+										value={loginData.password}
 										onChange={handleChange}
 										minLength="5"
 										required
@@ -139,12 +133,15 @@ function LoginPage() {
 								</div>
 							</label>
 
-							<button
-								type="submit"
-								className="bg-orange-200 p-4 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5  hover:bg-orange-300  hover:shadow-xl"
-							>
-								Login
+							<button type="submit" className="btn-login">
+								Create Account
 							</button>
+							<a
+								href="./ForgetPage"
+								className="hover:cursor-pointer hover:text-orange-800 hover:font-bold"
+							>
+								<p className="text-right">Forget your password?</p>
+							</a>
 						</form>
 					</div>
 				</section>
@@ -153,4 +150,4 @@ function LoginPage() {
 	);
 }
 
-export default LoginPage;
+export default CreateAccountPage;

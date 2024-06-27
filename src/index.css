@@ -59,7 +59,7 @@
 	}
 
 	.btn-login {
-		@apply bg-orange-200 p-5 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5  hover:bg-orange-300  hover:shadow-xl;
+		@apply bg-orange-200 p-5 rounded-full font-semibold text-lg  md:text-2xl   hover:bg-orange-300  hover:shadow-xl;
 	}
 
 	.label-login {

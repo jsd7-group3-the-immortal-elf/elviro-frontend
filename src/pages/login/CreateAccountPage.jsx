@@ -145,7 +145,7 @@ function CreateAccountPage() {
 								</div>
 							</label>
 
-							<button type="submit" className="btn-login">
+							<button type="submit" className="btn-login mb-5">
 								Create Account
 							</button>
 						</form>
