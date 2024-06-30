@@ -13,7 +13,7 @@ import DashboardNav from "./components/DashBoardNav";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
 import AboutPage from "./pages/main-web/AboutPage";
-// import ContactPage from "./pages/main-web/ContactPage";
+import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
@@ -23,7 +23,7 @@ import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
 import DashOrderPage from "./pages/dashboard/DashOrderPage";
-// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 import DashProductPage from "./pages/dashboard/DashProductPage";
@@ -31,6 +31,7 @@ import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
+
 import { useState } from "react";
 
 export default function App() {
@@ -74,7 +75,7 @@ export default function App() {
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
@@ -134,7 +135,7 @@ export default function App() {
 				},
 				{
 					path: "order/view-order",
-					// element: <DashOrderViewPage />,
+					element: <DashOrderViewPage />,
 				},
 				{
 					path: "customer",
