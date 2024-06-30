@@ -19,15 +19,18 @@ function CreateAccountPage() {
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
 
+	const [showAlert, setShowAlert] = useState(false);
+
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
 
-	//----------ไว้ validate email + password -----------//
+	const toggleShowAlert = () => {
+		setShowAlert(!showAlert);
+	};
 
-	//สร้าง array ไว้รับค่าจาก formData
-	const [tableData, setTableData] = useState([]);
+	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
@@ -44,7 +47,10 @@ function CreateAccountPage() {
 		setOpenForm(!openForm);
 	};
 
-	//Check username passwore
+	//คลิก forgetPassword
+	const forgetPassword = () => {
+		toggleOpenForm();
+	};
 
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
@@ -54,12 +60,15 @@ function CreateAccountPage() {
 			loginData.email !== "example@email.com" ||
 			loginData.password !== "password"
 		) {
-			window.alert("Your username or password is incorrect.");
+			if (showAlert === false) {
+				toggleShowAlert();
+			}
+
 			return;
 		}
 
 		console.log("Form Submitted:", loginData); //ไว้ดู check
-		window.alert("Login Successful");
+
 		toggleOpenForm();
 	};
 
@@ -132,16 +141,22 @@ function CreateAccountPage() {
 									</span>
 								</div>
 							</label>
+							<section className="mx-4 text-red-500 font-semibold text-lg">
+								<span className={showAlert ? "block" : "hidden"}>
+									Your Username or Password is incorrect.
+								</span>
+							</section>
 
 							<button type="submit" className="btn-login">
-								Create Account
+								Login
 							</button>
-							<a
-								href="./ForgetPage"
-								className="hover:cursor-pointer hover:text-orange-800 hover:font-bold"
+
+							<section
+								onClick={forgetPassword}
+								className="text-right mb-5 hover:cursor-pointer hover:text-orange-800 hover:font-bold"
 							>
-								<p className="text-right">Forget your password?</p>
-							</a>
+								Forget your password?
+							</section>
 						</form>
 					</div>
 				</section>

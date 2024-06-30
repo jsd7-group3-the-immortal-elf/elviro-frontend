@@ -1,88 +1,166 @@
+//ใช้ useState
 import { useState } from "react";
-import ImageWhite from "../../../public/images/elviro_logo_white.png";
-import ImageBlack from "../../../public/images/elviro_logo_black.png";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 
 function ResetPage() {
 	//ไว้รับค่า object จาก formData
-	const [emailData, setEmailData] = useState({ email: "" });
+	const [loginData, setLoginData] = useState({
+		email: "",
+		password: "",
+	});
+
+	//state ของเปิด form
+	const [openForm, setOpenForm] = useState(true);
+
+	//-----------Password--------------//
+	//สร้าง state สลับระหว่างโชว์ password/text
+	const [showPassword, setShowPassword] = useState(false);
+
+	const [showAlert, setShowAlert] = useState(false);
+
+	//Toggle ค่า true false
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
+	};
+
+	const toggleShowAlert = () => {
+		setShowAlert(!showAlert);
+	};
+
+	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
-		setEmailData((prevData) => ({
+		setLoginData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	//handleSubmit ให้ส่งเข้าิีเมล์เดี๋ยวแยกทีหลัง
+	//toggle เปิดปิด form
+	const toggleOpenForm = () => {
+		setOpenForm(!openForm);
+	};
+
+	//คลิก forgetPassword
+	const forgetPassword = () => {
+		toggleOpenForm();
+	};
+
+	//เอาค่าไปเก็บใน array
+	const handleSubmit = (event) => {
+		event.preventDefault(); //ไม่ให้ refresh หน้า
+
+		if (
+			loginData.email !== "example@email.com" ||
+			loginData.password !== "password"
+		) {
+			if (showAlert === false) {
+				toggleShowAlert();
+			}
+
+			return;
+		}
+
+		console.log("Form Submitted:", loginData); //ไว้ดู check
+
+		toggleOpenForm();
+	};
 
 	return (
-		<div className="md:bg-gray-500 md:h-screen md:flex md:justify-center md:items-center">
-			<section className="flex flex-col md:flex-row items-center md:w-4/5 md:h-4/5">
-				<div className="flex my-9 justify-center items-center gap-4 md:my-0  md:bg-green md:w-1/2 md:h-full md:flex-col">
-					<img
-						src={ImageBlack}
-						alt="Elviro Logo"
-						className="w-1/2 md:hidden
-					"
+		<div className={openForm ? "block" : "hidden"}>
+			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
+				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+					<FaXmark
+						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
+						onClick={toggleOpenForm}
 					/>
-					<img
-						src={ImageWhite}
-						alt="Elviro Logo"
-						className="hidden md:flex w-1/2 
+					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
+						<img
+							src={ImageBlack}
+							alt="Elviro Logo"
+							className="w-1/2 max-w-lg lg:hidden
 					"
-					/>
-					<h1 className="hidden md:block font-semibold text-2xl md:text-7xl md:text-white">
-						Elviro
-					</h1>
-				</div>
+						/>
+						<img
+							src={ImageWhite}
+							alt="Elviro Logo"
+							className="hidden lg:flex w-1/2 
+					"
+						/>
+						<h1 className="hidden lg:block font-semibold text-2xl md:text-7xl md:text-white">
+							Elviro
+						</h1>
+					</div>
 
-				<div className="md:bg-white md:w-1/2 md:h-full md:flex md:flex-col md:items-center md:justify-center md:gap-14 md:overflow-hidden">
-					<h1 className="text-4xl md:text-5xl mb-10 md:mb-0">Reset Password</h1>
-					<form className="flex flex-col md:w-2/3">
-						<label
-							htmlFor="email"
-							className="text-neutral-500 flex flex-col text-2xl md:text-3xl pb-5 font-semibold"
+					<div className="0 h-full flex flex-col items-center justify-center md:overflow-hidden  lg:h-full lg:w-1/2">
+						{/* Main form */}
+						<h1 className="text-5xl md:text-6xl">Elviro</h1>
+						<h2 className="text-neutral-500 text-2xl md:text-3xl mb-10">
+							Welcome Back
+						</h2>
+						<form
+							onSubmit={handleSubmit}
+							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
-							New Password
-						</label>
-						<input
-							id="email"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-xl md:text-2xl font-normal "
-							type="email"
-							name="email"
-							value={emailData.email}
-							onChange={handleChange}
-							minLength="10"
-							required
-						/>
-						<label
-							htmlFor="emailConfirm"
-							className="text-neutral-500 flex flex-col text-2xl md:text-3xl pb-5 font-semibold"
-						>
-							Confirm new password
-						</label>
-						<input
-							id="emailConfirm"
-							className="bg-white border-b-2 border-gray-800 p-1 mb-8 text-xl md:text-2xl font-normal "
-							type="email"
-							name="emailConfirm"
-							value={emailData.emailConfirm}
-							onChange={handleChange}
-							minLength="10"
-							required
-						/>
-						<button
-							type="submit"
-							className="bg-orange-300 p-3 md:p-5 rounded-full font-semibold md:text-2xl mb-5 md:mb-0 border-8 border-orange-300 hover:border-orange-400 hover:shadow-xl"
-						>
-							Reset Password
-						</button>
-					</form>
-				</div>
-			</section>
+							{/* Email */}
+							<label className="label-login">
+								Email
+								<input
+									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									type="email"
+									name="email"
+									value={loginData.email}
+									onChange={handleChange}
+									required
+								/>
+							</label>
+							{/* Password */}
+							<label className="label-login">
+								Password
+								<div id="password-relative" className="relative">
+									<input
+										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
+										name="password"
+										type={showPassword ? "text" : "password"}
+										value={loginData.password}
+										onChange={handleChange}
+										minLength="5"
+										required
+									/>
+									<span
+										className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+										onClick={togglePasswordVisibility}
+									>
+										{showPassword ? <FaEye /> : <FaEyeSlash />}
+									</span>
+								</div>
+							</label>
+							<section className="mx-4 text-red-500 font-semibold text-lg">
+								<span className={showAlert ? "block" : "hidden"}>
+									Your Username or Password is incorrect.
+								</span>
+							</section>
+
+							<button type="submit" className="btn-login">
+								Login
+							</button>
+
+							<section
+								onClick={forgetPassword}
+								className="text-right mb-5 hover:cursor-pointer hover:text-orange-800 hover:font-bold"
+							>
+								Forget your password?
+							</section>
+						</form>
+					</div>
+				</section>
+			</div>
 		</div>
 	);
 }
