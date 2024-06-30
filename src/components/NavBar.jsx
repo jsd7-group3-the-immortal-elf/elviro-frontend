@@ -1,26 +1,21 @@
-import LogoImage from "../../public/images/elviro_logo.svg";
+import LogoImage from "/images/elviro_logo.svg";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
-	faMagnifyingGlass,
-	faBars,
-	faShoppingCart,
-	faUser,
-	faXmark,
-	faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
+	FaMagnifyingGlass,
+	FaUser,
+	FaCartShopping,
+	FaBars,
+	FaXmark,
+	FaCircleXmark,
+} from "react-icons/fa6";
 
 function NavBar() {
 	return (
 		<header className="text-xl sticky top-0 z-50">
-			<nav className="flex justify-between items-center px-5 h-16 border-b bg-white">
+			<nav className="flex justify-between items-center px-5 h-16 border-b bg-white border-green">
 				{/*------------------ logo ------------------*/}
-				<Link
-					// to="index.html"
-					to="/"
-					id="logo-nav"
-					className="flex items-center gap-4 xl:mr-40"
-				>
+				<Link to="/" id="logo-nav" className="flex items-center gap-4 xl:mr-40">
 					<picture className="w-12">
 						<img src={LogoImage} alt="Logo" />
 					</picture>
@@ -32,14 +27,14 @@ function NavBar() {
 					<ul className="flex justify-end items-center gap-5 w-full">
 						<li
 							id="search-mobile"
-							className="hidden lg:flex items-center border border-neutral-500 rounded-full w-full lg:w-40"
+							className="hidden md:flexx lg:flex items-center border border-neutral-500 rounded-full w-full lg:w-40"
 						>
 							<input
 								type="text"
 								className="rounded-full outline-none py-1 px-4 text-ellipsis overflow-hidden text-base flex-grow"
 							/>
 							<button type="submit">
-								<FontAwesomeIcon icon={faMagnifyingGlass} className="mr-4" />
+								<FaMagnifyingGlass className="mr-4" />
 							</button>
 						</li>
 						{/* profile */}
@@ -48,23 +43,23 @@ function NavBar() {
 								onClick="showNav('sub-profile-mobile')"
 								className="h-full flex items-center"
 							>
-								<FontAwesomeIcon icon={faUser} />
+								<FaUser />
 							</button>
 						</li>
 						<li id="cart-mobile" className="h-full">
 							<Link to="/cart" className="h-full flex items-center">
-								<FontAwesomeIcon icon={faShoppingCart} />
+								<FaCartShopping />
 							</Link>
 						</li>
 						{/* shop */}
 						<li id="mobile-toggle-open" className="">
 							<button onClick="showNav('sub-mobile-nav'), toggleMobileNav(), showNav('search-mobile'), showNav('profile-mobile'), showNav('cart-mobile'), showNav('logo-nav')">
-								<FontAwesomeIcon icon={faBars} />
+								<FaBars />
 							</button>
 						</li>
 						<li id="mobile-toggle-close" className="text-2xl w-[17.5px] hidden">
 							<button onClick="showNav('sub-mobile-nav'), toggleMobileNav(), showNav('search-mobile'), showNav('profile-mobile'), showNav('cart-mobile'), showNav('logo-nav')">
-								<FontAwesomeIcon icon={faXmark} />
+								<FaXmark />
 							</button>
 						</li>
 					</ul>
@@ -193,7 +188,7 @@ function NavBar() {
 				<nav className="hidden lg:flex h-full w-full">
 					<ul className="flex justify-center h-full w-full">
 						{/* for kid */}
-						<li className="h-full hover:bg-green">
+						<li className="h-full hover:bg-[#B5C18E]">
 							<Link
 								to="/shop"
 								className="flex justify-center items-center h-full px-6 hover:text-white"
@@ -202,12 +197,12 @@ function NavBar() {
 							</Link>
 						</li>
 						{/* room */}
-						<li className="h-full hover:bg-green">
+						<li className="h-full hover:bg-[#B5C18E]">
 							<Link
 								to="/shop"
 								className="flex justify-center items-center h-full px-6 hover:text-white"
-								onMouseEnter="showNav('sub-room')"
-								onMouseLeave="showNav('sub-room')"
+								onmouseenter="showNav('sub-room')"
+								onmouseleave="showNav('sub-room')"
 							>
 								Room
 							</Link>
@@ -217,8 +212,8 @@ function NavBar() {
 							>
 								<ul
 									className="flex justify-center gap-32 bg-white px-14 py-6 m-auto w-fit border border-t-0"
-									onMouseEnter="showNav('sub-room')"
-									onMouseLeave="showNav('sub-room')"
+									onmouseenter="showNav('sub-room')"
+									onmouseleave="showNav('sub-room')"
 								>
 									<li className="flex flex-col gap-4">
 										<Link
@@ -374,20 +369,20 @@ function NavBar() {
 							</nav>
 						</li>
 						{/* product */}
-						<li className="h-full hover:bg-green">
+						<li className="h-full hover:bg-[#B5C18E]">
 							<Link
 								to="/shop"
 								className="flex justify-center items-center h-full px-6 hover:text-white"
-								onMouseEnter="showNav('sub-product')"
-								onMouseLeave="showNav('sub-product')"
+								onmouseenter="showNav('sub-product')"
+								onmouseleave="showNav('sub-product')"
 							>
 								Product
 							</Link>
 							<nav
 								id="sub-product"
 								className="hidden absolute top-16 left-0 z-49 w-full"
-								onMouseEnter="showNav('sub-product')"
-								onMouseLeave="showNav('sub-product')"
+								onmouseenter="showNav('sub-product')"
+								onmouseleave="showNav('sub-product')"
 							>
 								<ul className="flex justify-center gap-32 bg-white px-14 py-6 m-auto w-fit border border-t-0">
 									<li className="flex flex-col gap-4">
@@ -564,7 +559,7 @@ function NavBar() {
 							</nav>
 						</li>
 						{/* about */}
-						<li className="h-full hover:bg-green">
+						<li className="h-full hover:bg-[#B5C18E]">
 							<Link
 								to="/about"
 								className="flex justify-center items-center h-full px-6 hover:text-white"
@@ -584,30 +579,29 @@ function NavBar() {
 								className="rounded-full outline-none py-1 px-4 text-ellipsis overflow-hidden w-40 text-base"
 							/>
 							<button type="submit">
-								<i className="fa-solid fa-magnifying-glass mr-4" />
-								<FontAwesomeIcon icon={faMagnifyingGlass} className="mr-4" />
+								<FaMagnifyingGlass className="mr-4" />
 							</button>
 						</li>
 						{/* cart */}
 						<li className="h-full">
 							<Link
 								to="/cart"
-								onMouseEnter="showNav('cart-nav')"
-								onMouseLeave="showNav('cart-nav')"
+								onmouseenter="showNav('cart-nav')"
+								onmouseleave="showNav('cart-nav')"
 								className="h-full flex items-center"
 							>
-								<FontAwesomeIcon icon={faShoppingCart} />
+								<FaCartShopping />
 							</Link>
 						</li>
 						{/* profile */}
 						<li className="h-full">
 							<Link
 								to="/profile"
-								onMouseEnter="showNav('profile-nav')"
-								onMouseLeave="showNav('profile-nav')"
+								onmouseenter="showNav('profile-nav')"
+								onmouseleave="showNav('profile-nav')"
 								className="h-full flex items-center"
 							>
-								<FontAwesomeIcon icon={faUser} />
+								<FaUser />
 							</Link>
 						</li>
 					</ul>
@@ -615,8 +609,8 @@ function NavBar() {
 				{/* cart nav */}
 				<nav
 					id="cart-nav"
-					onMouseEnter="showNav('cart-nav')"
-					onMouseLeave="showNav('cart-nav')"
+					onmouseenter="showNav('cart-nav')"
+					onmouseleave="showNav('cart-nav')"
 					className="hidden fixed top-16 right-0 z-49 text-center bg-white"
 				>
 					<div className="fixed top-16 right-0 w-96 border border-t-0 bg-white">
@@ -644,8 +638,8 @@ function NavBar() {
 									<h4>Sofaaaaaa</h4>
 									<p>1 x price</p>
 								</div>
-								<button className="text-green h-fit text-xl">
-									<FontAwesomeIcon icon={faCircleXmark} />
+								<button className="text-[#B5C18E] h-fit text-xl">
+									<FaCircleXmark />
 								</button>
 							</li>
 							<li className="flex items-center gap-4 p-4">
@@ -669,8 +663,8 @@ function NavBar() {
 									<h4>Sofaaaaaa</h4>
 									<p>1 x price</p>
 								</div>
-								<button className="text-green h-fit text-xl">
-									<i className="fa-solid fa-circle-xmark" />
+								<button className="text-[#B5C18E] h-fit text-xl">
+									<FaCircleXmark />
 								</button>
 							</li>
 							<li className="flex items-center gap-4 p-4">
@@ -694,8 +688,8 @@ function NavBar() {
 									<h4>Sofaaaaaa</h4>
 									<p>1 x price</p>
 								</div>
-								<button className="text-green h-fit text-xl">
-									<i className="fa-solid fa-circle-xmark" />
+								<button className="text-[#B5C18E] h-fit text-xl">
+									<FaCircleXmark />
 								</button>
 							</li>
 							<li className="flex items-center gap-4 p-4">
@@ -719,8 +713,8 @@ function NavBar() {
 									<h4>Sofaaaaaa</h4>
 									<p>1 x price</p>
 								</div>
-								<button className="text-green h-fit text-xl">
-									<i className="fa-solid fa-circle-xmark" />
+								<button className="text-[#B5C18E] h-fit text-xl">
+									<FaCircleXmark />
 								</button>
 							</li>
 						</ul>
@@ -732,13 +726,12 @@ function NavBar() {
 							<hr />
 							<div className="flex p-4 gap-4">
 								<Link
-									// to="checkout.html"
 									to="/cart/checkout"
-									className="bg-green text-white p-2 w-1/2 rounded-full text-center"
+									className="bg-[#B5C18E] text-white p-2 w-1/2 rounded-full text-center"
 								>
 									Checkout
 								</Link>
-								<button className="bg-green text-white p-2 w-1/2 rounded-full">
+								<button className="bg-[#B5C18E] text-white p-2 w-1/2 rounded-full">
 									Comparison
 								</button>
 							</div>
@@ -748,14 +741,13 @@ function NavBar() {
 				{/* profile nav */}
 				<nav
 					id="profile-nav"
-					onMouseEnter="showNav('profile-nav')"
-					onMouseLeave="showNav('profile-nav')"
+					onmouseenter="showNav('profile-nav')"
+					onmouseleave="showNav('profile-nav')"
 					className="hidden fixed top-16 right-0 z-49 text-center bg-white"
 				>
 					<ul className="w-40 h-full border border-t-0">
-						<li className="w-full hover:bg-green">
+						<li className="w-full hover:bg-[#B5C18E]">
 							<Link
-								// to="/profile"
 								to="/profile"
 								className="w-full h-full p-3 block hover:text-white"
 							>
@@ -763,9 +755,8 @@ function NavBar() {
 							</Link>
 						</li>
 						<hr />
-						<li className="w-full hover:bg-green">
+						<li className="w-full hover:bg-[#B5C18E]">
 							<Link
-								// to="/profile"
 								to="/profile"
 								className="w-full h-full p-3 block hover:text-white"
 							>
@@ -773,9 +764,8 @@ function NavBar() {
 							</Link>
 						</li>
 						<hr />
-						<li className="w-full hover:bg-green">
+						<li className="w-full hover:bg-[#B5C18E]">
 							<Link
-								// to="/profile"
 								to="/profile"
 								className="w-full h-full p-3 block hover:text-white"
 							>
@@ -783,7 +773,7 @@ function NavBar() {
 							</Link>
 						</li>
 						<hr />
-						<li className="w-full hover:bg-green">
+						<li className="w-full hover:bg-[#B5C18E]">
 							<Link
 								to="/profile"
 								className="w-full h-full p-3 block hover:text-white"

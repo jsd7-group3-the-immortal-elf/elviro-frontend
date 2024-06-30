@@ -10,6 +10,9 @@ function ProfileAccountPage() {
 		newPassword: "",
 	});
 
+	const [passwordVisible, setPasswordVisble] = useState(false);
+	const [errors, setErrors] = useState({});
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -37,45 +40,54 @@ function ProfileAccountPage() {
 		}));
 	};
 
-	const [passwordVisible, setPasswordVisble] = useState(false);
-	const [errors, setErrors] = useState({});
-
 	const togglePasswordVisible = () => {
 		setPasswordVisble(!passwordVisible);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const newErrors = validationForm(formData);
+		const newErrors = validateForm(formData);
 		setErrors(newErrors);
-
 		if (Object.keys(newErrors).length === 0) {
-			const updateFormData = { ...formData };
-			if (formData.newPassword) {
-				updateFormData.password = formData.newPassword;
-			}
 			try {
-				const response = await axios.put(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3",
-					updateFormData
-				);
-				console.log(response);
-				alert("Form Sumbit Successful!");
-				const freshData = await axios.get(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
-				);
-				setFormData({
-					userName: freshData.data.userName,
-					email: freshData.data.email,
-					password: freshData.data.password,
-					newPassword: "",
+				await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
+					userName: formData.userName,
+					email: formData.email,
 				});
+				alert("Form Submitted Successfully!");
+
+				if (formData.newPassword.trim() !== "") {
+					handleChangePassword();
+				}
 			} catch (error) {
-				alert(`Form Submit Faied: ${error}`);
+				console.error("Error updating Profile: ", error);
+				alert("Profile update failed!");
 			}
 		} else {
-			const errorMessages = Object.values(newErrors).join("\n");
-			alert(`Form Submit Failed:\n${errorMessages}`);
+			alert("Form Submitted failed!");
+		}
+	};
+
+	const handleChangePassword = async () => {
+		try {
+			if (formData.newPassword.length < 8) {
+				setErrors((prevErrors) => ({
+					...prevErrors,
+					newPassword: "New password must be a least 8 charecters long",
+				}));
+				return;
+			}
+			await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
+				password: formData.newPassword,
+			});
+			alert("Password updated");
+			setFormData((prevFormData) => ({
+				...prevFormData,
+				password: formData.newPassword,
+				newPassword: "",
+			}));
+		} catch (error) {
+			console.error("Error updating password", error);
 		}
 	};
 	const validationForm = (data) => {
@@ -100,18 +112,16 @@ function ProfileAccountPage() {
 		return errors;
 	};
 
-	// 	try {
-	// 		await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
-	// 			...formData,
-	// 			password: formData.newPassword,
-	// 		});
-	// 		alert("Password update!");
-
-	// 		setIsPasswordUpdated(true);
-	// 	} catch (error) {
-	// 		console.error("Error updating password: ", error);
-	// 	}
-	// };
+	const validateForm = (data) => {
+		const errors = {};
+		if (!data.userName.trim()) {
+			errors.userName = "User Name is required";
+		}
+		if (!data.email.trim()) {
+			errors.email = "Email is required";
+		}
+		return errors;
+	};
 
 	return (
 		<div className="px-8">
@@ -133,8 +143,10 @@ function ProfileAccountPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
-							{formData.userName.length < 5 && (
-								<p className="text-red-500">{errors.userName}</p>
+							{errors.userName && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.userName}
+								</span>
 							)}
 						</label>
 						<label className="flex flex-col w-full">
@@ -147,7 +159,11 @@ function ProfileAccountPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 								required
 							/>
-							{formData.email && <p className="text-red-500">{errors.email}</p>}
+							{errors.email && (
+								<span className="text-red-500 text-sm mt-1">
+									{errors.email}
+								</span>
+							)}
 						</label>
 					</div>
 					<div className="flex flex-col sm:flex-row gap-6">
@@ -159,18 +175,13 @@ function ProfileAccountPage() {
 								value={formData.password}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg pr-16"
-								required
 							/>
 							<button
 								type="button"
 								onClick={togglePasswordVisible}
-								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-3"
+								className="absolute inset-y-0 right-0 top-auto flex items-center px-3 py-4 mt-3"
 							>
-								{passwordVisible ? (
-									<FaEyeSlash size={24} />
-								) : (
-									<FaEye size={24} />
-								)}
+								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
 						</label>
 						<label className="flex flex-col w-full">
@@ -183,11 +194,12 @@ function ProfileAccountPage() {
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
 							{errors.newPassword && (
-								<p className="text-red-500">{errors.newPassword}</p>
+								<span className="text-red-500 text-sm mt-1">
+									{errors.newPassword}
+								</span>
 							)}
 						</label>
 					</div>
-
 					<button
 						type="submit"
 						className="py-4 px-6 rounded-xl bg-orange-200 hover:bg-orange-300 mx-auto"
@@ -199,4 +211,5 @@ function ProfileAccountPage() {
 		</div>
 	);
 }
+
 export default ProfileAccountPage;

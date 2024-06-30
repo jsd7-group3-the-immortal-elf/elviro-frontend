@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 // import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 import DashboardNav from "./components/DashBoardNav";
@@ -11,9 +11,9 @@ import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
 // import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
-// import CheckoutPage from "./pages/main-web/CheckoutPage";
-// import AboutPage from "./pages/main-web/AboutPage";
-// import ContactPage from "./pages/main-web/ContactPage";
+import CheckoutPage from "./pages/main-web/CheckoutPage";
+import AboutPage from "./pages/main-web/AboutPage";
+import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
@@ -22,8 +22,8 @@ import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
-// import DashOrderPage from "./pages/dashboard/DashOrderPage";
-// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+import DashOrderPage from "./pages/dashboard/DashOrderPage";
+import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 import DashProductPage from "./pages/dashboard/DashProductPage";
@@ -32,13 +32,17 @@ import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
+import { useState } from "react";
+
 export default function App() {
+	const [reload, setReload] = useState(false);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
 			element: (
 				<>
-					{/* <NavBar /> */}
+					<NavBar />
 					<Outlet />
 					{/* <Footer /> */}
 				</>
@@ -59,7 +63,7 @@ export default function App() {
 				},
 				{
 					path: "cart/checkout",
-					// element: <CheckoutPage />,
+					element: <CheckoutPage />,
 				},
 				{
 					path: "cart/checkout/purchased",
@@ -67,11 +71,11 @@ export default function App() {
 				},
 				{
 					path: "about",
-					// element: <AboutPage />,
+					element: <AboutPage />,
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
@@ -80,7 +84,7 @@ export default function App() {
 			path: "/profile",
 			element: (
 				<>
-					{/* <NavBar /> */}
+					<NavBar />
 					<Outlet />
 					{/* <Footer/> */}
 				</>
@@ -114,8 +118,8 @@ export default function App() {
 			path: "/dashboard",
 			element: (
 				<>
-					{/* <NavBar /> */}
-					<DashboardNav />
+					<NavBar />
+					<DashboardNav reload={reload} setReload={setReload} />
 					<Outlet />
 				</>
 			),
@@ -127,11 +131,11 @@ export default function App() {
 				},
 				{
 					path: "order",
-					// element: <DashOrderPage />,
+					element: <DashOrderPage />,
 				},
 				{
 					path: "order/view-order",
-					// element: <DashOrderViewPage />,
+					element: <DashOrderViewPage />,
 				},
 				{
 					path: "customer",
@@ -147,10 +151,14 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
+					element: <DashProductAddPage reload={reload} />,
+				},
+				{
+					path: "product/edit-product/:id",
 					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product",
+					path: "product/view-product/:id",
 					element: <DashProductViewPage />,
 				},
 				{
