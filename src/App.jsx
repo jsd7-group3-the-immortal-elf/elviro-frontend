@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 import DashboardNav from "./components/DashBoardNav";
 
@@ -86,7 +86,7 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer/> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
