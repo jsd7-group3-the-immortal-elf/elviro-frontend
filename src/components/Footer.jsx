@@ -1,6 +1,6 @@
 function Footer() {
 	return (
-		<div>
+		<div className="py-4">
 			<footer className="flex flex-col gap-4 p-4 md:py-8 md:px-20 border-t border-[#B5C18E]">
 				<div className="hidden md:flex gap-36">
 					<ul className="flex flex-col gap-8">
@@ -63,3 +63,4 @@ function Footer() {
 		</div>
 	);
 }
+export default Footer;

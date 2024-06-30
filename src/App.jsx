@@ -44,7 +44,7 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer /> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
