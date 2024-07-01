@@ -1,6 +1,6 @@
 // import NavBar from "../NavBar";
 // import Banner from "../Banner";
-import Image from "../../../public/images/elviro_logo.svg";
+import Image from "/images/elviro_logo.svg";
 
 function AboutPage() {
 	return (

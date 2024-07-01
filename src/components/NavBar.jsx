@@ -1,4 +1,4 @@
-import LogoImage from "../../public/images/elviro_logo.svg";
+import LogoImage from "/images/elviro_logo.svg";
 import { Link } from "react-router-dom";
 
 import {

@@ -16,14 +16,14 @@ import CheckoutPage from "./pages/main-web/CheckoutPage";
 // import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
-// import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
-// import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
+import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
+import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
-// import DashOrderPage from "./pages/dashboard/DashOrderPage";
-// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+import DashOrderPage from "./pages/dashboard/DashOrderPage";
+import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 // import DashProductPage from "./pages/dashboard/DashProductPage";
@@ -32,7 +32,11 @@ import CheckoutPage from "./pages/main-web/CheckoutPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
+import { useState } from "react";
+
 export default function App() {
+	const [reload, setReload] = useState(false);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -55,7 +59,7 @@ export default function App() {
 				},
 				{
 					path: "cart",
-					// element: <CartPage />,
+					element: <CartPage />,
 				},
 				{
 					path: "cart/checkout",
@@ -71,7 +75,7 @@ export default function App() {
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
@@ -80,7 +84,7 @@ export default function App() {
 			path: "/profile",
 			element: (
 				<>
-					{/* <NavBar /> */}
+					<NavBar />
 					<Outlet />
 					{/* <Footer/> */}
 				</>
@@ -93,11 +97,11 @@ export default function App() {
 				},
 				{
 					path: "account",
-					// element: <ProfileAccountPage />,
+					element: <ProfileAccountPage />,
 				},
 				{
 					path: "payment",
-					// element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage />,
 				},
 				{
 					path: "order-history",
@@ -127,11 +131,11 @@ export default function App() {
 				},
 				{
 					path: "order",
-					// element: <DashOrderPage />,
+					element: <DashOrderPage />,
 				},
 				{
 					path: "order/view-order",
-					// element: <DashOrderViewPage />,
+					element: <DashOrderViewPage />,
 				},
 				{
 					path: "customer",
@@ -147,11 +151,15 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
-					// element: <DashProductAddPage />,
+					element: <DashProductAddPage reload={reload} />,
+				},
+				{
+					path: "product/edit-product/:id",
+					element: <DashProductAddPage />,
 				},
 				{
 					path: "product/view-product",
-					// element: <DashProductViewPage />,
+					element: <DashProductViewPage />,
 				},
 				{
 					path: "admin",

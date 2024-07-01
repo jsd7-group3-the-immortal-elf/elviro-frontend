@@ -35,13 +35,27 @@
 		@apply font-normal;
 	}
 
+	/* th,
+	td {
+		@apply border;
+	} */
+
 	input,
-	select {
+	select,
+	textarea {
 		@apply outline-none;
+	}
+
+	.input {
+		@apply px-4 py-2 border border-neutral-300 rounded-lg;
 	}
 
 	.dash-input {
 		@apply px-4 py-2 bg-neutral-100 rounded-lg;
+	}
+
+	.btn {
+		@apply px-4 py-2 rounded-lg;
 	}
 }
 
