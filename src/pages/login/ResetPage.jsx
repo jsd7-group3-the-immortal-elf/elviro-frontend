@@ -5,15 +5,12 @@ import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
-function ResetPage() {
+function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
 		email: "",
 		password: "",
 	});
-
-	//state ของเปิด form
-	const [openForm, setOpenForm] = useState(true);
 
 	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
@@ -42,16 +39,6 @@ function ResetPage() {
 		}));
 	};
 
-	//toggle เปิดปิด form
-	const toggleOpenForm = () => {
-		setOpenForm(!openForm);
-	};
-
-	//คลิก forgetPassword
-	const forgetPassword = () => {
-		toggleOpenForm();
-	};
-
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
@@ -68,17 +55,15 @@ function ResetPage() {
 		}
 
 		console.log("Form Submitted:", loginData); //ไว้ดู check
-
-		toggleOpenForm();
 	};
 
 	return (
-		<div className={openForm ? "block" : "hidden"}>
+		<div className={openResetPage ? "block" : "hidden"}>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenForm}
+						onClick={toggleOpenReset}
 					/>
 					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
 						<img
@@ -150,13 +135,6 @@ function ResetPage() {
 							<button type="submit" className="btn-login">
 								Login
 							</button>
-
-							<section
-								onClick={forgetPassword}
-								className="text-right mb-5 hover:cursor-pointer hover:text-orange-800 hover:font-bold"
-							>
-								Forget your password?
-							</section>
 						</form>
 					</div>
 				</section>
