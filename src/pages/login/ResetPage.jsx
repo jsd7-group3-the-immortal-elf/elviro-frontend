@@ -58,7 +58,9 @@ function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 	};
 
 	return (
-		<div className={openResetPage ? "block" : "hidden"}>
+		<div
+			className={`z-50 top-0 w-screen ${openResetPage ? "fixed" : "hidden"}`}
+		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
@@ -95,7 +97,7 @@ function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 						>
 							{/* Email */}
 							<label className="label-login">
-								Email
+								sdsd
 								<input
 									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
 									type="email"
