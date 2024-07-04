@@ -69,6 +69,15 @@
 	.input-login {
 		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal text-xl lg:text-xl;
 	}
+
+	@keyframes openLogin {
+		from {
+			top: -200px;
+		}
+		to {
+			top: 0px;
+		}
+	}
 }
 
 /* hidden scrollbar */

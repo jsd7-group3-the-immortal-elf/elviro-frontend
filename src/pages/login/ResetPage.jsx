@@ -111,9 +111,9 @@ function ResetPage({
 							{/* Password */}
 							<label className="label-login">
 								New Password
-								<div id="password-relative" className="relative">
+								<div className="relative">
 									<input
-										className="input-login"
+										className="input-login w-full"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={resetData.password}
@@ -131,9 +131,9 @@ function ResetPage({
 							</label>
 							<label className="label-login">
 								Confirm Password
-								<div id="password-relative" className="relative">
+								<div className="relative">
 									<input
-										className="input-login"
+										className="input-login w-full"
 										name="confirmPassword"
 										type={showConfirmPassword ? "text" : "password"}
 										value={resetData.confirmPassword}

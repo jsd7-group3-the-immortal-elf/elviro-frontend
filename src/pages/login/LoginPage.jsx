@@ -79,7 +79,7 @@ function LoginPage({
 	return (
 		<div
 			className={`z-50 top-0 w-screen ${
-				openLoginPage ? "fixed" : "hidden fade-in"
+				openLoginPage ? "fixed" : "hidden animate-openLogin"
 			}`}
 		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
