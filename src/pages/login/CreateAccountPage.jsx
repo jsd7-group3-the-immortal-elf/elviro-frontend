@@ -61,7 +61,9 @@ function CreateAccountPage({
 
 	return (
 		<div
-			className={`z-50 top-0 w-screen ${openAccountPage ? "fixed" : "hidden"}`}
+			className={`z-50 top-0 w-screen transition-opacity ${
+				openAccountPage ? "fixed" : "hidden"
+			}`}
 		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">

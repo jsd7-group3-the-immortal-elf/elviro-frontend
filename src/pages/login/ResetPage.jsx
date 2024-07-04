@@ -5,26 +5,36 @@ import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
-function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
+function ResetPage({
+	openResetPage,
+	setOpenResetPage,
+	toggleOpenReset,
+	toggleOpenLogin,
+}) {
 	//ไว้รับค่า object จาก formData
-	const [loginData, setLoginData] = useState({
-		email: "",
+	const [resetData, setResetData] = useState({
 		password: "",
+		confirmPassword: "",
 	});
 
 	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-	const [showAlert, setShowAlert] = useState(false);
+	const [showAlertMatch, setShowAlertMatch] = useState(false);
 
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
+	const toggleConfirmPasswordVisibility = () => {
+		setShowConfirmPassword(!showConfirmPassword);
+	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
+	//สลับแสดงเตือนว่า password ตรงไหม
+	const toggleAlertMatch = () => {
+		setShowAlertMatch(!showAlertMatch);
 	};
 
 	//----------ไว้ validate email + password -----------//
@@ -33,29 +43,32 @@ function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
-		setLoginData((prevData) => ({
+		setResetData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	//เอาค่าไปเก็บใน array
+	//ตอนกด submit
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
-		if (
-			loginData.email !== "example@email.com" ||
-			loginData.password !== "password"
-		) {
-			if (showAlert === false) {
-				toggleShowAlert();
+		if (resetData.password !== resetData.confirmPassword) {
+			if (showAlertMatch === false) {
+				toggleAlertMatch();
 			}
-
 			return;
 		}
-
-		console.log("Form Submitted:", loginData); //ไว้ดู check
+		console.log("Form Submitted:", resetData); //ไว้ดู check
+		if (showAlertMatch === true) {
+			toggleAlertMatch();
+		}
+		window.alert("Password Reset Successful!");
+		toggleOpenReset();
+		toggleOpenLogin();
 	};
+
+	//เอาค่าไปเก็บใน array
 
 	return (
 		<div
@@ -95,27 +108,15 @@ function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 							onSubmit={handleSubmit}
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
-							{/* Email */}
-							<label className="label-login">
-								sdsd
-								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
-									type="email"
-									name="email"
-									value={loginData.email}
-									onChange={handleChange}
-									required
-								/>
-							</label>
 							{/* Password */}
 							<label className="label-login">
-								Password
+								New Password
 								<div id="password-relative" className="relative">
 									<input
-										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
+										className="input-login"
 										name="password"
 										type={showPassword ? "text" : "password"}
-										value={loginData.password}
+										value={resetData.password}
 										onChange={handleChange}
 										minLength="5"
 										required
@@ -128,14 +129,34 @@ function ResetPage({ openResetPage, setOpenResetPage, toggleOpenReset }) {
 									</span>
 								</div>
 							</label>
+							<label className="label-login">
+								Confirm Password
+								<div id="password-relative" className="relative">
+									<input
+										className="input-login"
+										name="confirmPassword"
+										type={showConfirmPassword ? "text" : "password"}
+										value={resetData.confirmPassword}
+										onChange={handleChange}
+										minLength="5"
+										required
+									/>
+									<span
+										className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+										onClick={toggleConfirmPasswordVisibility}
+									>
+										{showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+									</span>
+								</div>
+							</label>
 							<section className="mx-4 text-red-500 font-semibold text-lg">
-								<span className={showAlert ? "block" : "hidden"}>
-									Your Username or Password is incorrect.
+								<span className={showAlertMatch ? "block" : "hidden"}>
+									Passwords do not match
 								</span>
 							</section>
 
 							<button type="submit" className="btn-login">
-								Login
+								Reset Password
 							</button>
 						</form>
 					</div>

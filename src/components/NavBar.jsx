@@ -369,6 +369,7 @@ function NavBar() {
 					openResetPage={openResetPage}
 					setOpenResetPage={setOpenResetPage}
 					toggleOpenReset={toggleOpenReset}
+					toggleOpenLogin={toggleOpenLogin}
 				/>
 			</main>
 		</>
