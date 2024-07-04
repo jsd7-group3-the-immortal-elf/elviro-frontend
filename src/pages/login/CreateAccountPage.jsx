@@ -4,8 +4,13 @@ import ImageWhite from "/images/elviro_logo_white.svg";
 import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
-function CreateAccountPage() {
+function CreateAccountPage({
+	openAccountPage,
+	toggleOpenAccount,
+	toggleOpenLogin,
+}) {
 	//ไว้รับค่า object จาก formData
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -13,9 +18,6 @@ function CreateAccountPage() {
 		email: "",
 		password: "",
 	});
-
-	//state ของเปิด form
-	const [openForm, setOpenForm] = useState(true);
 
 	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
@@ -41,26 +43,53 @@ function CreateAccountPage() {
 		}));
 	};
 
-	//toggle เปิดปิด form
-	const toggleOpenForm = () => {
-		setOpenForm(!openForm);
-	};
-
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 		console.log("Form Submitted:", formData); //ไว้ดู check
 		setTableData((prevData) => [...prevData, formData]);
 		console.log(...tableData, formData);
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
+	};
+
+	//link ไปหน้า login
+	const changeToLogin = () => {
+		toggleOpenAccount();
+		toggleOpenLogin();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
+	};
+
+	const toggleCloseAccount = () => {
+		toggleOpenAccount();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
 	};
 
 	return (
-		<div className={openForm ? "block" : "hidden"}>
+		<div
+			className={`z-50 top-0 w-screen  ${
+				openAccountPage ? "fixed " : "hidden"
+			}`}
+		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenForm}
+						onClick={toggleCloseAccount}
 					/>
 					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
 						<img
@@ -86,11 +115,13 @@ function CreateAccountPage() {
 							onSubmit={handleSubmit}
 							className="flex flex-col md:w-lg gap-5"
 						>
-							<h1 className="text-2xl md:text-4xl">Create a new account</h1>
+							<h1 className="text-center text-2xl md:text-4xl">
+								Create a new account
+							</h1>
 							<label className="label-login">
 								First Name
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal "
+									className="input-login"
 									type="text"
 									name="firstName"
 									value={formData.firstName}
@@ -103,7 +134,7 @@ function CreateAccountPage() {
 							<label className="label-login">
 								Last Name
 								<input
-									className="bg-white border-b-2 border-neutral-200 p-1 font-normal"
+									className="input-login"
 									type="text"
 									name="lastName"
 									value={formData.lastName}
@@ -115,7 +146,7 @@ function CreateAccountPage() {
 							<label className="label-login">
 								Email
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									className="input-login"
 									type="email"
 									name="email"
 									value={formData.email}
@@ -128,7 +159,7 @@ function CreateAccountPage() {
 								Password
 								<div id="password-relative" className="relative">
 									<input
-										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
+										className="input-login w-full pr-10"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={formData.password}
@@ -145,9 +176,18 @@ function CreateAccountPage() {
 								</div>
 							</label>
 
-							<button type="submit" className="btn-login mb-5">
+							<button type="submit" className="btn-login mb-5 ">
 								Create Account
 							</button>
+							<section className="flex flex-col md:block text-center text-md md:text-xl pb-5">
+								Already have an account?{" "}
+								<span
+									className="text-red-500 font-medium text-xl cursor-pointer hover:font-bold"
+									onClick={changeToLogin}
+								>
+									Login
+								</span>
+							</section>
 						</form>
 					</div>
 				</section>
@@ -155,5 +195,14 @@ function CreateAccountPage() {
 		</div>
 	);
 }
+
+CreateAccountPage.propTypes = {
+	openAccountPage: PropTypes.bool,
+	setOpenAccountPage: PropTypes.func,
+	toggleOpenAccount: PropTypes.func,
+	openLoginPage: PropTypes.bool,
+	setOpenLoginPage: PropTypes.func,
+	toggleOpenLogin: PropTypes.func,
+};
 
 export default CreateAccountPage;

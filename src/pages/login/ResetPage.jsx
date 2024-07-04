@@ -4,30 +4,32 @@ import ImageWhite from "/images/elviro_logo_white.svg";
 import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
-function ResetPage() {
+function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 	//ไว้รับค่า object จาก formData
-	const [loginData, setLoginData] = useState({
-		email: "",
+	const [resetData, setResetData] = useState({
 		password: "",
+		confirmPassword: "",
 	});
 
-	//state ของเปิด form
-	const [openForm, setOpenForm] = useState(true);
-
-	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-	const [showAlert, setShowAlert] = useState(false);
+	const [showAlertMatch, setShowAlertMatch] = useState(false);
 
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
+	const toggleConfirmPasswordVisibility = () => {
+		setShowConfirmPassword(!showConfirmPassword);
+	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
+	//สลับแสดงเตือนว่า password ตรงไหม
+	const toggleAlertMatch = () => {
+		setShowAlertMatch(!showAlertMatch);
 	};
 
 	//----------ไว้ validate email + password -----------//
@@ -36,49 +38,49 @@ function ResetPage() {
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
-		setLoginData((prevData) => ({
+		setResetData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	//toggle เปิดปิด form
-	const toggleOpenForm = () => {
-		setOpenForm(!openForm);
-	};
-
-	//คลิก forgetPassword
-	const forgetPassword = () => {
-		toggleOpenForm();
-	};
-
-	//เอาค่าไปเก็บใน array
+	//ตอนกด submit
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
-		if (
-			loginData.email !== "example@email.com" ||
-			loginData.password !== "password"
-		) {
-			if (showAlert === false) {
-				toggleShowAlert();
+		if (resetData.password !== resetData.confirmPassword) {
+			if (showAlertMatch === false) {
+				toggleAlertMatch();
 			}
-
 			return;
 		}
+		console.log("Form Submitted:", resetData); //ไว้ดู check
+		if (showAlertMatch === true) {
+			toggleAlertMatch();
+		}
+		alert("Password Reset Successful!");
+		toggleOpenReset();
+		toggleOpenLogin();
+	};
 
-		console.log("Form Submitted:", loginData); //ไว้ดู check
-
-		toggleOpenForm();
+	//กด Fxmark
+	const toggleCloseReset = () => {
+		toggleOpenReset();
+		setResetData({
+			password: "",
+			confirmPassword: "",
+		});
 	};
 
 	return (
-		<div className={openForm ? "block" : "hidden"}>
+		<div
+			className={`z-50 top-0 w-screen ${openResetPage ? "fixed" : "hidden"}`}
+		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenForm}
+						onClick={toggleCloseReset}
 					/>
 					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
 						<img
@@ -108,27 +110,15 @@ function ResetPage() {
 							onSubmit={handleSubmit}
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
-							{/* Email */}
-							<label className="label-login">
-								Email
-								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
-									type="email"
-									name="email"
-									value={loginData.email}
-									onChange={handleChange}
-									required
-								/>
-							</label>
 							{/* Password */}
 							<label className="label-login">
-								Password
-								<div id="password-relative" className="relative">
+								New Password
+								<div className="relative">
 									<input
-										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
+										className="input-login w-full"
 										name="password"
 										type={showPassword ? "text" : "password"}
-										value={loginData.password}
+										value={resetData.password}
 										onChange={handleChange}
 										minLength="5"
 										required
@@ -141,22 +131,35 @@ function ResetPage() {
 									</span>
 								</div>
 							</label>
+							<label className="label-login">
+								Confirm Password
+								<div className="relative">
+									<input
+										className="input-login w-full"
+										name="confirmPassword"
+										type={showConfirmPassword ? "text" : "password"}
+										value={resetData.confirmPassword}
+										onChange={handleChange}
+										minLength="5"
+										required
+									/>
+									<span
+										className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+										onClick={toggleConfirmPasswordVisibility}
+									>
+										{showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+									</span>
+								</div>
+							</label>
 							<section className="mx-4 text-red-500 font-semibold text-lg">
-								<span className={showAlert ? "block" : "hidden"}>
-									Your Username or Password is incorrect.
+								<span className={showAlertMatch ? "block" : "hidden"}>
+									Passwords do not match
 								</span>
 							</section>
 
 							<button type="submit" className="btn-login">
-								Login
+								Reset Password
 							</button>
-
-							<section
-								onClick={forgetPassword}
-								className="text-right mb-5 hover:cursor-pointer hover:text-orange-800 hover:font-bold"
-							>
-								Forget your password?
-							</section>
 						</form>
 					</div>
 				</section>
@@ -164,5 +167,11 @@ function ResetPage() {
 		</div>
 	);
 }
+
+ResetPage.propTypes = {
+	openResetPage: PropTypes.bool,
+	toggleOpenReset: PropTypes.func,
+	toggleOpenLogin: PropTypes.func,
+};
 
 export default ResetPage;

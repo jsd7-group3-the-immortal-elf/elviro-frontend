@@ -59,15 +59,24 @@
 	}
 
 	.btn-login {
-		@apply mx-4 bg-orange-200 p-5 rounded-full font-semibold text-xl  md:text-2xl   hover:bg-orange-300  hover:shadow-xl;
+		@apply bg-orange-200 p-5 rounded-full font-semibold text-xl  md:text-2xl   hover:bg-orange-300  hover:shadow-xl;
 	}
 
 	.label-login {
-		@apply mx-4 text-neutral-500 text-xl md:text-2xl flex flex-col font-semibold;
+		@apply mx-0 text-neutral-500 text-xl md:text-2xl flex flex-col font-semibold;
 	}
 
 	.input-login {
-		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal;
+		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal text-xl lg:text-xl;
+	}
+
+	@keyframes openLogin {
+		from {
+			top: -200px;
+		}
+		to {
+			top: 0px;
+		}
 	}
 }
 
