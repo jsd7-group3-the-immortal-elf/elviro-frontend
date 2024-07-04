@@ -4,13 +4,11 @@ import ImageWhite from "/images/elviro_logo_white.svg";
 import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
 function CreateAccountPage({
 	openAccountPage,
-	setOpenAccountPage,
 	toggleOpenAccount,
-	openLoginPage,
-	setOpenLoginPage,
 	toggleOpenLogin,
 }) {
 	//ไว้รับค่า object จาก formData
@@ -51,12 +49,34 @@ function CreateAccountPage({
 		console.log("Form Submitted:", formData); //ไว้ดู check
 		setTableData((prevData) => [...prevData, formData]);
 		console.log(...tableData, formData);
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
 	};
 
 	//link ไปหน้า login
 	const changeToLogin = () => {
 		toggleOpenAccount();
 		toggleOpenLogin();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
+	};
+
+	const toggleCloseAccount = () => {
+		toggleOpenAccount();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+		});
 	};
 
 	return (
@@ -69,7 +89,7 @@ function CreateAccountPage({
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenAccount}
+						onClick={toggleCloseAccount}
 					/>
 					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
 						<img
@@ -175,5 +195,14 @@ function CreateAccountPage({
 		</div>
 	);
 }
+
+CreateAccountPage.propTypes = {
+	openAccountPage: PropTypes.bool,
+	setOpenAccountPage: PropTypes.func,
+	toggleOpenAccount: PropTypes.func,
+	openLoginPage: PropTypes.bool,
+	setOpenLoginPage: PropTypes.func,
+	toggleOpenLogin: PropTypes.func,
+};
 
 export default CreateAccountPage;

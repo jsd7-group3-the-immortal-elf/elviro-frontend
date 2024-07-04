@@ -142,7 +142,7 @@ function NavBar() {
 
 					{/* Sub Mobile Nav */}
 					{mobileNavVisible && (
-						<section className={toggleScreenNav ? block : hidden}>
+						<section className={toggleScreenNav ? "block" : "hidden"}>
 							<nav
 								id="sub-mobile-nav"
 								className="absolute top-16 left-0 z-50 w-full overflow-y-scroll h-[calc(100vh-64px)]"
@@ -343,10 +343,7 @@ function NavBar() {
 			<main>
 				<CreateAccountPage
 					openAccountPage={openAccountPage}
-					setOpenAccountPage={setOpenAccountPage}
 					toggleOpenAccount={toggleOpenAccount}
-					openLoginPage={openLoginPage}
-					setOpenLoginPage={setOpenLoginPage}
 					toggleOpenLogin={toggleOpenLogin}
 				/>
 				<LoginPage
@@ -360,14 +357,12 @@ function NavBar() {
 				/>
 				<ForgetPage
 					openForgetPage={openForgetPage}
-					setOpenForgetPage={setOpenForgetPage}
 					toggleOpenForget={toggleOpenForget}
 					toggleOpenLogin={toggleOpenLogin}
 					toggleOpenReset={toggleOpenReset}
 				/>
 				<ResetPage
 					openResetPage={openResetPage}
-					setOpenResetPage={setOpenResetPage}
 					toggleOpenReset={toggleOpenReset}
 					toggleOpenLogin={toggleOpenLogin}
 				/>

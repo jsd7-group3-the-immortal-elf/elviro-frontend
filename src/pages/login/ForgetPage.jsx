@@ -3,16 +3,16 @@ import { useState } from "react";
 import ImageWhite from "/images/elviro_logo_white.svg";
 import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaXmark, FaArrowLeft } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
 function ForgetPage({
 	openForgetPage,
-	setOpenForgetPage,
 	toggleOpenForget,
 	toggleOpenLogin,
 	toggleOpenReset,
 }) {
 	//ไว้รับค่า object จาก formData
-	const [loginData, setLoginData] = useState({
+	const [forgetData, setForgetData] = useState({
 		email: "",
 	});
 
@@ -26,7 +26,7 @@ function ForgetPage({
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 
-		setLoginData((prevData) => ({
+		setForgetData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
@@ -42,7 +42,7 @@ function ForgetPage({
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
-		if (loginData.email !== "example@email.com") {
+		if (forgetData.email !== "example@email.com") {
 			{
 				if (showAlert === false) {
 					toggleShowAlert();
@@ -52,14 +52,27 @@ function ForgetPage({
 			}
 		}
 
-		window.alert("Reset link has been sent to your email");
+		alert("Reset link has been sent to your email");
 		toggleOpenForget();
 		toggleOpenReset();
+		setForgetData({
+			email: "",
+		});
 	};
 
 	const changeToLogin = () => {
 		toggleOpenForget();
 		toggleOpenLogin();
+		setForgetData({
+			email: "",
+		});
+	};
+
+	const toggleCloseForget = () => {
+		toggleOpenForget();
+		setForgetData({
+			email: "",
+		});
 	};
 
 	return (
@@ -70,7 +83,7 @@ function ForgetPage({
 				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenForget}
+						onClick={toggleCloseForget}
 					/>
 					<FaArrowLeft
 						className="text-3xl cursor-pointer absolute left-6 top-6 hover:text-4xl"
@@ -111,7 +124,7 @@ function ForgetPage({
 									className="input-login"
 									type="email"
 									name="email"
-									value={loginData.email}
+									value={forgetData.email}
 									onChange={handleChange}
 									required
 								/>
@@ -137,5 +150,12 @@ function ForgetPage({
 		</div>
 	);
 }
+
+ForgetPage.propTypes = {
+	openForgetPage: PropTypes.bool,
+	toggleOpenForget: PropTypes.func,
+	toggleOpenLogin: PropTypes.func,
+	toggleOpenReset: PropTypes.func,
+};
 
 export default ForgetPage;
