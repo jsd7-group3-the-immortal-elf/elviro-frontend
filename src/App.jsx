@@ -1,38 +1,42 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 import DashboardNav from "./components/DashBoardNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
-// import HomePage from "./pages/main-web/HomePage";
+import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
 // import ProductPage from "./pages/main-web/ProductPage";
-// import CartPage from "./pages/main-web/CartPage";
-// import CheckoutPage from "./pages/main-web/CheckoutPage";
-// import AboutPage from "./pages/main-web/AboutPage";
-// import ContactPage from "./pages/main-web/ContactPage";
+import CartPage from "./pages/main-web/CartPage";
+import CheckoutPage from "./pages/main-web/CheckoutPage";
+import AboutPage from "./pages/main-web/AboutPage";
+import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
-// import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
-// import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
+import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
+import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
-// import DashOrderPage from "./pages/dashboard/DashOrderPage";
-// import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
+import DashOrderPage from "./pages/dashboard/DashOrderPage";
+import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
 import DashProductPage from "./pages/dashboard/DashProductPage";
 import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
-// import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
+import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
+import { useState } from "react";
+
 export default function App() {
+	const [reload, setReload] = useState(false);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -40,14 +44,14 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer /> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
 					path: "",
-					// element: <HomePage />,
+					element: <HomePage />,
 				},
 				{
 					path: "shop",
@@ -55,11 +59,11 @@ export default function App() {
 				},
 				{
 					path: "cart",
-					// element: <CartPage />,
+					element: <CartPage />,
 				},
 				{
 					path: "cart/checkout",
-					// element: <CheckoutPage />,
+					element: <CheckoutPage />,
 				},
 				{
 					path: "cart/checkout/purchased",
@@ -67,11 +71,11 @@ export default function App() {
 				},
 				{
 					path: "about",
-					// element: <AboutPage />,
+					element: <AboutPage />,
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
@@ -80,9 +84,9 @@ export default function App() {
 			path: "/profile",
 			element: (
 				<>
-					{/* <NavBar /> */}
+					<NavBar />
 					<Outlet />
-					{/* <Footer/> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
@@ -93,11 +97,11 @@ export default function App() {
 				},
 				{
 					path: "account",
-					// element: <ProfileAccountPage />,
+					element: <ProfileAccountPage />,
 				},
 				{
 					path: "payment",
-					// element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage />,
 				},
 				{
 					path: "order-history",
@@ -114,8 +118,8 @@ export default function App() {
 			path: "/dashboard",
 			element: (
 				<>
-					{/* <NavBar /> */}
-					<DashboardNav />
+					<NavBar />
+					<DashboardNav reload={reload} setReload={setReload} />
 					<Outlet />
 				</>
 			),
@@ -127,11 +131,11 @@ export default function App() {
 				},
 				{
 					path: "order",
-					// element: <DashOrderPage />,
+					element: <DashOrderPage />,
 				},
 				{
 					path: "order/view-order",
-					// element: <DashOrderViewPage />,
+					element: <DashOrderViewPage />,
 				},
 				{
 					path: "customer",
@@ -147,11 +151,15 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
+					element: <DashProductAddPage reload={reload} />,
+				},
+				{
+					path: "product/edit-product/:id",
 					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product",
-					// element: <DashProductViewPage />,
+					path: "product/view-product/:id",
+					element: <DashProductViewPage />,
 				},
 				{
 					path: "admin",

@@ -35,13 +35,48 @@
 		@apply font-normal;
 	}
 
+	/* th,
+	td {
+		@apply border;
+	} */
+
 	input,
-	select {
+	select,
+	textarea {
 		@apply outline-none;
+	}
+
+	.input {
+		@apply px-4 py-2 border border-neutral-300 rounded-lg;
 	}
 
 	.dash-input {
 		@apply px-4 py-2 bg-neutral-100 rounded-lg;
+	}
+
+	.btn {
+		@apply px-4 py-2 rounded-lg;
+	}
+
+	.btn-login {
+		@apply bg-orange-200 p-5 rounded-full font-semibold text-xl  md:text-2xl   hover:bg-orange-300  hover:shadow-xl;
+	}
+
+	.label-login {
+		@apply mx-0 text-neutral-500 text-xl md:text-2xl flex flex-col font-semibold;
+	}
+
+	.input-login {
+		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal text-xl lg:text-xl;
+	}
+
+	@keyframes openLogin {
+		from {
+			top: -200px;
+		}
+		to {
+			top: 0px;
+		}
 	}
 }
 
