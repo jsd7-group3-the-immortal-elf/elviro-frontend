@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ProfileNav from "../../components/ProfileNav";
 
 function ProfilePaymentPage() {
 	const mockCardData = {
@@ -80,8 +81,10 @@ function ProfilePaymentPage() {
 	};
 
 	return (
-		<div className="px-8">
-			<section className="py-10 xl:py-10 xl:px-16">
+		<div className="flex flex-col items-center gap-10 bg-[#ccccca] py-10">
+			<div className="flex flex-col lg:flex-row gap-8 w-11/12 xl:w-4/5">
+			<ProfileNav className="w-1/3" />
+			<section className="py-10 lg:w-2/3 xl:py-10 xl:px-16 md:w-full">
 				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Payment</h2>
@@ -228,6 +231,7 @@ function ProfilePaymentPage() {
 					</button>
 				</form>
 			</section>
+			</div>
 		</div>
 	);
 }
