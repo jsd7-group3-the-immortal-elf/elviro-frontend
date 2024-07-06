@@ -5,7 +5,7 @@ import RoomCard from "../../components/home/RoomCard";
 
 function HomePage() {
 	return (
-		<div>
+		<div >
 			<BannerHome />
 			<RoomCard />
 			<ProductCard />
