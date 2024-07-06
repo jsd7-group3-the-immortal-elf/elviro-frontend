@@ -61,7 +61,7 @@ function ProductCard() {
 
 	return (
 		<div className="flex items-center justify-center">
-			<div className="grid grid-cols-2 md:grid-cols-4 pt-4 gap-6 pb-8 w-11/12">
+			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-4 gap-6 pb-8 w-11/12">
 				{productMock.map((product, index) => (
 					<div key={index}>
 						<Link to="/" >
@@ -74,8 +74,8 @@ function ProductCard() {
 								/>
 							</picture>
 							<article className="flex flex-col gap-2 p-4">
-								<h3>{product.productName}</h3>
-								<p className="">฿ {product.productPrice.toLocaleString()}</p>
+								<h3 className="text-lg font-semibold">{product.productName}</h3>
+								<p className="text-sm font-medium text-gray-700">฿ {product.productPrice.toLocaleString()}</p>
 							</article>
 						</div>
 						</Link>
