@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ProfileNav from "../../components/ProfileNav";
 
 function ProfileAccountPage() {
 	const [formData, setFormData] = useState({
@@ -124,8 +125,10 @@ function ProfileAccountPage() {
 	};
 
 	return (
-		<div className="px-8">
-			<section className="py-10 xl:py-10 xl:px-16">
+		<div className="flex flex-col items-center bg-[#ccccca] py-10">
+			<div className="flex flex-col lg:flex-row gap-8 w-10/12 xl:w-4/5">
+			<ProfileNav className="w-1/3" />
+			<section className="xl:py-10 xl:px-16">
 				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Account</h2>
@@ -208,6 +211,7 @@ function ProfileAccountPage() {
 					</button>
 				</form>
 			</section>
+			</div>
 		</div>
 	);
 }
