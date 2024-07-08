@@ -154,11 +154,11 @@ export default function App() {
 					element: <DashProductAddPage reload={reload} />,
 				},
 				{
-					path: "product/edit-product/:id",
+					path: "product/edit/:id",
 					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product/:id",
+					path: "product/:id",
 					element: <DashProductViewPage />,
 				},
 				{

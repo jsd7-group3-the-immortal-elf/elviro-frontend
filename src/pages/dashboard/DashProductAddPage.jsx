@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import DashImageInputMain from "../../components/dashboard/DashImageInputMain";
-import DashImageInput from "../../components/dashboard/DashImageInput";
 
 export default function DashProductAddPage({ reload }) {
 	const [product, setProduct] = useState({});
+	const [dimension, setDimension] = useState({});
 
 	const { id } = useParams();
 
 	async function createProduct() {
 		try {
-			await axios.post("https://store-crud.onrender.com/api/product/", product);
+			await axiosInstance.post("/products", product);
 		} catch (error) {
 			console.error("Failed to create data:", error);
 		}
@@ -20,11 +20,10 @@ export default function DashProductAddPage({ reload }) {
 
 	async function getProduct(id) {
 		try {
-			const response = await axios.get(
-				"https://store-crud.onrender.com/api/product/" + id
-			);
-			const data = await response.data;
+			const response = await axiosInstance.get(`/products/${id}`);
+			const { data } = await response.data;
 			setProduct(data);
+			setDimension(data.dimension);
 		} catch (error) {
 			console.error("Failed to get data:", error);
 		}
@@ -32,10 +31,7 @@ export default function DashProductAddPage({ reload }) {
 
 	async function editProduct() {
 		try {
-			await axios.put(
-				"https://store-crud.onrender.com/api/product/" + id,
-				product
-			);
+			await axiosInstance.put(`/products/${id}`, product);
 		} catch (error) {
 			console.error("Failed to edit data:", error);
 		}
@@ -66,8 +62,7 @@ export default function DashProductAddPage({ reload }) {
 		} else {
 			await createProduct();
 		}
-
-		location.href = "http://localhost:5173/dashboard/product";
+		location.href = `${import.meta.env.VITE_FRONTEND_URL}/dashboard/product`;
 	}
 
 	return (
@@ -84,19 +79,20 @@ export default function DashProductAddPage({ reload }) {
 				</header>
 
 				<main className="flex gap-6 h-full">
-					<section className="bg-white flex gap-8 p-6 rounded-xl w-2/3">
+					<section className="bg-white flex gap-8 p-6 rounded-xl w-2/3 h-[calc(100vh-176px)]">
 						<div className="flex flex-col gap-6 w-1/2">
 							<input
 								type="text"
 								placeholder="Product Name"
-								name="name"
-								value={product.name}
+								name="productName"
+								value={product.productName}
 								onChange={handleChange}
 								required
 								className="dash-input"
 							/>
 							<select
-								name="room"
+								name="rooms"
+								value={product.rooms}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -108,6 +104,7 @@ export default function DashProductAddPage({ reload }) {
 							</select>
 							<select
 								name="category"
+								value={product.category}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -134,6 +131,7 @@ export default function DashProductAddPage({ reload }) {
 									min={0}
 									placeholder="Cost Price"
 									name="cost"
+									value={product.cost}
 									// onChange={handleChange}
 									required
 									className="dash-input w-1/2"
@@ -144,7 +142,7 @@ export default function DashProductAddPage({ reload }) {
 								min={0}
 								placeholder="Quantity in Stock"
 								name="quantity"
-								value={product.quantity}
+								value={product.stock}
 								onChange={handleChange}
 								required
 								className="dash-input"
@@ -154,6 +152,7 @@ export default function DashProductAddPage({ reload }) {
 								min={0}
 								placeholder="Width (cm)"
 								name="width"
+								value={dimension.width}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -161,8 +160,9 @@ export default function DashProductAddPage({ reload }) {
 							<input
 								type="number"
 								min={0}
-								placeholder="Length (cm)"
-								name="length"
+								placeholder="Depth (cm)"
+								name="depth"
+								value={dimension.depth}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -172,6 +172,7 @@ export default function DashProductAddPage({ reload }) {
 								min={0}
 								placeholder="Height (cm)"
 								name="height"
+								value={dimension.height}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -180,7 +181,8 @@ export default function DashProductAddPage({ reload }) {
 								type="number"
 								min={0}
 								placeholder="Warranty"
-								name="waranty"
+								name="warranty"
+								value={product.warranty}
 								// onChange={handleChange}
 								required
 								className="dash-input"
@@ -201,15 +203,6 @@ export default function DashProductAddPage({ reload }) {
 
 					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3 h-[calc(100vh-176px)] overflow-y-scroll">
 						<DashImageInputMain product={product} />
-
-						{product.image && <h5>Additional Images (max 4)</h5>}
-
-						<div className="grid grid-cols-2 gap-4">
-							{product.image && <DashImageInput product={product} />}
-							{product.image && <DashImageInput product={product} />}
-							{product.image && <DashImageInput product={product} />}
-							{product.image && <DashImageInput product={product} />}
-						</div>
 					</section>
 				</main>
 			</form>

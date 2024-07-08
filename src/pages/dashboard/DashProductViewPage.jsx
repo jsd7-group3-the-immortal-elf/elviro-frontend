@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 
 export default function DashProductViewPage() {
@@ -10,10 +10,8 @@ export default function DashProductViewPage() {
 
 	async function getProduct(id) {
 		try {
-			const response = await axios.get(
-				"https://store-crud.onrender.com/api/product/" + id
-			);
-			const data = await response.data;
+			const response = await axiosInstance.get(`/products/${id}`);
+			const { data } = await response.data;
 			setProduct(data);
 		} catch (error) {
 			console.error("Failed to get data:", error);
@@ -22,8 +20,8 @@ export default function DashProductViewPage() {
 
 	async function deleteProduct() {
 		try {
-			await axios.delete("https://store-crud.onrender.com/api/product/" + id);
-			location.href = "http://localhost:5173/dashboard/product";
+			await axiosInstance.delete(`/products/${id}`);
+			location.href = `${import.meta.env.VITE_FRONTEND_URL}/dashboard/product`;
 		} catch (error) {
 			console.error("Failed to delete data:", error);
 		}
@@ -31,18 +29,19 @@ export default function DashProductViewPage() {
 
 	useEffect(() => {
 		getProduct(id);
+		window.scrollTo(0, 0);
 	}, [id]);
 
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6">
 			<section className="flex items-center justify-between">
 				<div>
-					<h3>{product.name}</h3>
+					<h3>{product.productName}</h3>
 					<p>Product URL : {product._id}</p>
 				</div>
 				<div className="flex gap-4">
 					<Link
-						to={`/dashboard/product/edit-product/${product._id}`}
+						to={`/dashboard/product/edit/${product._id}`}
 						className="bg-green rounded-lg text-white px-4 py-2 hover:bg-darkgreen"
 					>
 						Edit Product
@@ -62,8 +61,8 @@ export default function DashProductViewPage() {
 			<section className="flex h-32 gap-6">
 				<div className="aspect-square">
 					<img
-						src={product.image}
-						alt={product.name}
+						src={product.productImage}
+						alt={product.productName}
 						className="aspect-square rounded-lg h-full"
 					/>
 				</div>
@@ -86,7 +85,7 @@ export default function DashProductViewPage() {
 						<tbody className="font-medium">
 							<tr>
 								<td>{product.price}</td>
-								<td>{product.quantity}</td>
+								<td>{product.stock}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -114,7 +113,7 @@ export default function DashProductViewPage() {
 					</table>
 				</div>
 
-				<div className="flex flex-col bg-white rounded-lg w-full justify-between items-end p-2">
+				{/* <div className="flex flex-col bg-white rounded-lg w-full justify-between items-end p-2">
 					<select name="" id="" className="w-fit text-center text-sm">
 						<option value="">All time</option>
 						<option value="">Last Year</option>
@@ -136,7 +135,7 @@ export default function DashProductViewPage() {
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div> */}
 			</section>
 
 			<section className="flex flex-col h-32 bg-white rounded-lg w-full justify-between items-end p-2">
