@@ -9,7 +9,7 @@ import DashboardNav from "./components/DashBoardNav";
 
 import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
-// import ProductPage from "./pages/main-web/ProductPage";
+import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
 import AboutPage from "./pages/main-web/AboutPage";
@@ -56,6 +56,10 @@ export default function App() {
 				{
 					path: "shop",
 					// element: <ShopPage />,
+				},
+				{
+					path: "shop/product",
+					element: <ProductPage />,
 				},
 				{
 					path: "cart",
