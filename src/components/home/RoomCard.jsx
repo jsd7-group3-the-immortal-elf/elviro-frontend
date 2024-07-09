@@ -21,8 +21,7 @@ function RoomCard() {
 						</picture>
 						<h3>Bedroom</h3>
 					</Link>
-					<a
-						href="shop.html"
+					<Link to="shop"
 						className="flex flex-col items-center gap-4 min-w-52"
 					>
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
@@ -33,9 +32,8 @@ function RoomCard() {
 							/>
 						</picture>
 						<h3>Living Room</h3>
-					</a>
-					<a
-						href="shop.html"
+					</Link>
+					<Link to="shop"
 						className="flex flex-col items-center gap-4 min-w-52"
 					>
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
@@ -46,7 +44,7 @@ function RoomCard() {
 							/>
 						</picture>
 						<h3>Kitchen</h3>
-					</a>
+					</Link>
 				</div>
 			</section>
 		</div>

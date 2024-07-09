@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function CartTotal({ totalPrice }) {
 	const delivery = 850;
 	const vat = 0.07;
@@ -32,9 +34,8 @@ function CartTotal({ totalPrice }) {
 					<p>฿ {total.toLocaleString()}</p>
 				</div>
 				<div className="flex justify-center">
-					<button className="bg-orange-500 text-white rounded-md px-4 py-2">
-						Check Out
-					</button>
+					<Link to={"/cart/checkout"} className=" bg-orange-500 text-white rounded-md px-4 py-2">
+						Check Out</Link>
 				</div>
 			</div>
 		</div>

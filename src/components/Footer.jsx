@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 function Footer() {
 	return (
 		<div className="py-4">
@@ -13,29 +15,29 @@ function Footer() {
 					<ul className="flex flex-col gap-4">
 						<li className="text-neutral-400 mb-4">Links</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="index.html">Home</a>
+							<Link to="/">Home</Link>
 						</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="shop.html">Shop</a>
+							<Link to="shop">Shop</Link>
 						</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="about.html">About</a>
+							<Link to="about">About</Link>
 						</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="">Contact</a>
+							<Link to="contact">Contact</Link>
 						</li>
 					</ul>
 
 					<ul className="flex flex-col gap-4">
 						<li className="text-neutral-400 mb-4">Help</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="index.html">Payment Options</a>
+							<Link to="/">Payment Options</Link>
 						</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="shop.html">Returns</a>
+							<Link to="shop">Returns</Link>
 						</li>
 						<li className="hover:text-[#939d73] hover:underline decoration-[#939d73]">
-							<a href="about.html">Privacy Policies</a>
+							<Link to="about">Privacy Policies</Link>
 						</li>
 					</ul>
 
