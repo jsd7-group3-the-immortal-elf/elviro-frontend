@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
 import DashProductTable from "../../components/dashboard/DashProductTable";
 
-export default function DashProductPage() {
+export default function DashProductPage({ reload, setReload }) {
 	const [productList, setProductList] = useState([]);
 
 	async function getProduct() {
@@ -17,17 +18,34 @@ export default function DashProductPage() {
 		}
 	}
 
+	async function editProduct(id, field) {
+		try {
+			await axiosInstance.patch(`/products/${id}`, field);
+			setReload(!reload);
+		} catch (error) {
+			console.error("Failed to edit data:", error);
+		}
+	}
+
 	useEffect(() => {
 		getProduct();
 		window.scrollTo(0, 0);
-	}, []);
+	}, [reload]);
 
-	function handleChange(e, Id) {
+	function handleChange(e, productId) {
 		const { name, value } = e.target;
 
 		setProductList((prev) =>
-			prev.map((item) => (item.id === Id ? { ...item, [name]: value } : item))
+			prev.map((item) =>
+				item.id === productId ? { ...item, [name]: value } : item
+			)
 		);
+
+		if (name == "isPublish") {
+			const bool = value == "Published" ? true : false;
+			const field = { [name]: bool };
+			editProduct(productId, field);
+		}
 	}
 
 	return (
@@ -79,3 +97,8 @@ export default function DashProductPage() {
 		</div>
 	);
 }
+
+DashProductPage.propTypes = {
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
+};

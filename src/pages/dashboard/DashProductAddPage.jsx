@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
 import DashImageInputMain from "../../components/dashboard/DashImageInputMain";
 
 export default function DashProductAddPage({ reload }) {
+	const navigate = useNavigate();
 	const [product, setProduct] = useState({});
 	const [dimension, setDimension] = useState({});
 	const [rooms, setRooms] = useState({
@@ -100,7 +101,7 @@ export default function DashProductAddPage({ reload }) {
 		} else {
 			await createProduct();
 		}
-		location.href = `${import.meta.env.VITE_FRONTEND_URL}/dashboard/product`;
+		navigate("/dashboard/product");
 	}
 
 	return (
@@ -112,7 +113,7 @@ export default function DashProductAddPage({ reload }) {
 						type="submit"
 						className="bg-green text-white px-4 py-2 rounded-lg hover:bg-darkgreen"
 					>
-						Save & Publish
+						{id ? "Save Change" : "Save & Publish"}
 					</button>
 				</header>
 

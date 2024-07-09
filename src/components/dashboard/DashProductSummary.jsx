@@ -43,7 +43,7 @@ export default function DashProductSummary({ productList }) {
 					<tbody className="font-medium">
 						<tr>
 							<td className="text-red-500">
-								{productList.filter((product) => product.quantity < 10).length}
+								{productList.filter((product) => product.stock < 10).length}
 							</td>
 							<td>0</td>
 						</tr>

@@ -32,12 +32,24 @@ export default function DashProductTable({ product, handleChange }) {
 			{/* <th>{product.price * product.stock}</th> */}
 			<th>
 				<select
-					name="status"
+					name="isPublish"
 					value={product.isPublish ? "Published" : "Unpublished"}
 					onChange={(e) => handleChange(e, product._id)}
 				>
-					<option value="Published">Published</option>
-					<option value="Unpublished">Unpublished</option>
+					<option
+						name="isPublish"
+						value="Published"
+						onChange={(e) => handleChange(e, product._id)}
+					>
+						Published
+					</option>
+					<option
+						name="isPublish"
+						value="Unpublished"
+						onChange={(e) => handleChange(e, product._id)}
+					>
+						Unpublished
+					</option>
 				</select>
 			</th>
 			<th>

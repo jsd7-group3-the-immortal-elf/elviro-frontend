@@ -147,7 +147,7 @@ export default function App() {
 				},
 				{
 					path: "product",
-					element: <DashProductPage />,
+					element: <DashProductPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "product/add-product",

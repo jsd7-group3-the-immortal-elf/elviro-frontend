@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 
 export default function DashProductViewPage() {
+	const navigate = useNavigate();
 	const [product, setProduct] = useState({});
-
 	const { id } = useParams();
 
 	async function getProduct(id) {
@@ -18,13 +18,27 @@ export default function DashProductViewPage() {
 		}
 	}
 
-	async function deleteProduct() {
+	async function deleteProduct(id) {
 		try {
 			await axiosInstance.delete(`/products/${id}`);
-			location.href = `${import.meta.env.VITE_FRONTEND_URL}/dashboard/product`;
+			navigate("/dashboard/product");
 		} catch (error) {
 			console.error("Failed to delete data:", error);
 		}
+	}
+
+	async function editProduct(id, field) {
+		try {
+			await axiosInstance.patch(`/products/${id}`, field);
+		} catch (error) {
+			console.error("Failed to edit data:", error);
+		}
+	}
+
+	async function handleEdit() {
+		const field = { isPublish: !product.isPublish };
+		await editProduct(id, field);
+		navigate("/dashboard/product");
 	}
 
 	useEffect(() => {
@@ -46,8 +60,15 @@ export default function DashProductViewPage() {
 					>
 						Edit Product
 					</Link>
-					<button className="border border-red-400 rounded-lg px-4 py-2 hover:bg-red-100">
-						Unpublish Product
+					<button
+						onClick={handleEdit}
+						className={`border rounded-lg px-4 py-2 ${
+							product.isPublish
+								? "border-red-400 hover:bg-red-100"
+								: "border-green hover:bg-lightgreen/40"
+						} `}
+					>
+						{product.isPublish ? "Unpublish Product" : "Publish Product"}
 					</button>
 					<button
 						onClick={() => deleteProduct(id)}
