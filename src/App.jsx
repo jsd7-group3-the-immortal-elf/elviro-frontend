@@ -1,9 +1,10 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
+import DashboardLayout from "./layouts/DashboardLayout";
+
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
-import DashboardNav from "./components/DashBoardNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
@@ -116,13 +117,7 @@ export default function App() {
 
 		{
 			path: "/dashboard",
-			element: (
-				<>
-					<NavBar />
-					<DashboardNav reload={reload} setReload={setReload} />
-					<Outlet />
-				</>
-			),
+			element: <DashboardLayout reload={reload} setReload={setReload} />,
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
@@ -136,14 +131,6 @@ export default function App() {
 				{
 					path: "order/view-order",
 					element: <DashOrderViewPage />,
-				},
-				{
-					path: "customer",
-					// element: <DashCustomerPage />,
-				},
-				{
-					path: "customer/view-customer",
-					// element: <DashCustomerViewPage />,
 				},
 				{
 					path: "product",
@@ -160,14 +147,6 @@ export default function App() {
 				{
 					path: "product/:id",
 					element: <DashProductViewPage />,
-				},
-				{
-					path: "admin",
-					// element: <DashAdminPage />,
-				},
-				{
-					path: "admin/admin-setting",
-					// element: <DashAdminSettingPage />,
 				},
 			],
 		},
