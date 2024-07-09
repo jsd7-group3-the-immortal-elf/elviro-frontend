@@ -12,6 +12,7 @@ export default function DashProductAddPage({ reload }) {
 		"Living Room": false,
 		Kitchen: false,
 	});
+	const [image, setImage] = useState("");
 
 	const { id } = useParams();
 
@@ -29,6 +30,7 @@ export default function DashProductAddPage({ reload }) {
 			const { data } = await response.data;
 			setProduct(data);
 			setDimension(data.dimension);
+			setImage(data.productImage);
 
 			for (let i = 0; i < data.rooms.length; i++) {
 				rooms[data.rooms[i]] = true;
@@ -307,7 +309,11 @@ export default function DashProductAddPage({ reload }) {
 					</section>
 
 					<section className="bg-white flex flex-col gap-4 p-6 rounded-xl w-1/3 h-[calc(100vh-176px)] overflow-y-scroll">
-						<DashImageInputMain product={product} />
+						<DashImageInputMain
+							image={image}
+							setImage={setImage}
+							setProduct={setProduct}
+						/>
 					</section>
 				</main>
 			</form>
