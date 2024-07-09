@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
 import DashProductTable from "../../components/dashboard/DashProductTable";
@@ -9,10 +9,8 @@ export default function DashProductPage() {
 
 	async function getProduct() {
 		try {
-			const response = await axios.get(
-				"https://store-crud.onrender.com/api/product/"
-			);
-			const data = await response.data;
+			const response = await axiosInstance.get("/products");
+			const { data } = await response.data;
 			setProductList(data);
 		} catch (error) {
 			console.error("Failed to get data:", error);
@@ -21,6 +19,7 @@ export default function DashProductPage() {
 
 	useEffect(() => {
 		getProduct();
+		window.scrollTo(0, 0);
 	}, []);
 
 	function handleChange(e, Id) {
@@ -57,9 +56,9 @@ export default function DashProductPage() {
 								<th>Category</th>
 								<th>Unit Price</th>
 								<th>In-Stock</th>
-								<th>Total Value</th>
+								{/* <th>Total Value</th> */}
 								<th>Action</th>
-								<th>Status</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>

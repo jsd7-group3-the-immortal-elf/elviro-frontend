@@ -4,9 +4,12 @@ import { FaCloudArrowUp, FaImage } from "react-icons/fa6";
 export default function DashImageInputMain({ product }) {
 	return (
 		<>
-			{product.image ? (
+			{product.productImage ? (
 				<div className="aspect-square">
-					<img src={product.image} className="aspect-square rounded-xl" />
+					<img
+						src={product.productImage}
+						className="aspect-square rounded-xl"
+					/>
 				</div>
 			) : (
 				<label className="dash-input h-1/2 aspect-square flex flex-col justify-center items-center text-green gap-4 relative">

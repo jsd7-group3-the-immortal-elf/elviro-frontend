@@ -1,13 +1,13 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
 import DashboardNav from "./components/DashBoardNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
-// import HomePage from "./pages/main-web/HomePage";
+import HomePage from "./pages/main-web/HomePage";
 // import ShopPage from "./pages/main-web/ShopPage";
 // import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
@@ -44,14 +44,14 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer /> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
 					path: "",
-					// element: <HomePage />,
+					element: <HomePage />,
 				},
 				{
 					path: "shop",
@@ -86,7 +86,7 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer/> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
@@ -154,11 +154,11 @@ export default function App() {
 					element: <DashProductAddPage reload={reload} />,
 				},
 				{
-					path: "product/edit-product/:id",
+					path: "product/edit/:id",
 					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product/:id",
+					path: "product/:id",
 					element: <DashProductViewPage />,
 				},
 				{

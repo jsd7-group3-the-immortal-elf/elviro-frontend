@@ -1,7 +1,8 @@
 import { useState } from "react";
+import ProfileNav from "../../components/ProfileNav";
 
 function ProfilePaymentPage() {
-	const mockData = {
+	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
 		expiryDate: "2024-12",
@@ -12,13 +13,13 @@ function ProfilePaymentPage() {
 	};
 
 	const initialFormData = {
-		cardNumber: mockData.cardNumber || "",
-		nameOnCard: mockData.nameOnCard || "",
-		expiryDate: mockData.expiryDate || "",
-		cvv: mockData.cvv || "",
-		bank: mockData.bank || "",
-		accountHolderName: mockData.accountHolderName || "",
-		accountNumber: mockData.accountNumber || "",
+		cardNumber: mockCardData.cardNumber || "",
+		nameOnCard: mockCardData.nameOnCard || "",
+		expiryDate: mockCardData.expiryDate || "",
+		cvv: mockCardData.cvv || "",
+		bank: mockCardData.bank || "",
+		accountHolderName: mockCardData.accountHolderName || "",
+		accountNumber: mockCardData.accountNumber || "",
 	};
 
 	const [formData, setFormData] = useState(initialFormData);
@@ -80,8 +81,10 @@ function ProfilePaymentPage() {
 	};
 
 	return (
-		<div className="px-8">
-			<section className="py-10 xl:py-10 xl:px-16">
+		<div className="flex flex-col items-center bg-[#ccccca] py-10">
+			<div className="flex flex-col lg:flex-row gap-8 w-10/12 xl:w-4/5">
+			<ProfileNav className="w-1/3" />
+			<section className="lg:w-2/3 xl:py-10 xl:px-16 md:w-full">
 				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Payment</h2>
@@ -131,9 +134,9 @@ function ProfilePaymentPage() {
 								type="month"
 								name="expiryDate"
 								value={formData.expiryDate}
+								min="2018-01"
+								max="2030-12"
 								onChange={handleInputChange}
-								min={"2018-01"}
-								max={"2030-12"}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
 							{errors.expiryDate && (
@@ -146,8 +149,8 @@ function ProfilePaymentPage() {
 							CVV
 							<input
 								type="number"
-								name="cvv"
-								value={formData.cvv}
+								name="cvvNumber"
+								value={formData.cvvNumber}
 								onChange={handleInputChange}
 								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
 							/>
@@ -220,12 +223,15 @@ function ProfilePaymentPage() {
 
 					<button
 						type="submit"
-						className="py-4 px-6 rounded-xl bg-orange-200 hover:bg-orange-300 mx-auto"
+						className={
+							"py-4 px-6 rounded-xl mx-auto bg-orange-200 hover:bg-orange-300"
+						}
 					>
 						Save Change
 					</button>
 				</form>
 			</section>
+			</div>
 		</div>
 	);
 }

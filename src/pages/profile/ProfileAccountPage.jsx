@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import ProfileNav from "../../components/ProfileNav";
 
 function ProfileAccountPage() {
 	const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ function ProfileAccountPage() {
 		const fetchData = async () => {
 			try {
 				const respones = await axios.get(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/2"
+					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
 				);
 				setFormData({
 					userName: respones.data.userName,
@@ -90,6 +91,27 @@ function ProfileAccountPage() {
 			console.error("Error updating password", error);
 		}
 	};
+	const validationForm = (data) => {
+		const errors = {};
+
+		if (!data.userName.trim()) {
+			errors.userName = "Name on Card required";
+		}
+		if (!data.email.trim()) {
+			errors.email = "Email required";
+		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
+			errors.email = "Email is invalid";
+		}
+		if (!data.password) {
+			errors.password = "Password is required";
+		} else if (data.password.length < 8) {
+			errors.password = "Must be at least 8 characters long";
+		}
+		if (data.newPassword && data.newPassword.length < 8) {
+			errors.newPassword = "New Password must be at least 8 characters long";
+		}
+		return errors;
+	};
 
 	const validateForm = (data) => {
 		const errors = {};
@@ -103,8 +125,10 @@ function ProfileAccountPage() {
 	};
 
 	return (
-		<div className="px-8">
-			<section className="py-10 xl:py-10 xl:px-16">
+		<div className="flex flex-col items-center bg-[#ccccca] py-10">
+			<div className="flex flex-col lg:flex-row gap-8 w-10/12 xl:w-4/5">
+			<ProfileNav className="w-1/3" />
+			<section className="xl:py-10 xl:px-16">
 				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
 					{/*-- personal info --*/}
 					<h2 className="text-left">Account</h2>
@@ -187,6 +211,7 @@ function ProfileAccountPage() {
 					</button>
 				</form>
 			</section>
+			</div>
 		</div>
 	);
 }
