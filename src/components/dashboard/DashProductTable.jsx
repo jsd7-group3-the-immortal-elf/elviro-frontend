@@ -25,10 +25,12 @@ export default function DashProductTable({ product, handleChange }) {
 				</div>
 			</th>
 			<th>{product.productName}</th>
-			<th>{product.rooms}</th>
+			<th>{product.rooms.join(", ")}</th>
 			<th>{product.category}</th>
 			<th>{product.price}</th>
-			<th>{product.stock}</th>
+			<th className={`${product.stock <= 20 ? "text-red-500" : ""}`}>
+				{product.stock}
+			</th>
 			{/* <th>{product.price * product.stock}</th> */}
 			<th>
 				<select

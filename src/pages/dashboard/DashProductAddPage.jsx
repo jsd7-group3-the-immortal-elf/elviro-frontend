@@ -119,7 +119,7 @@ export default function DashProductAddPage({ reload }) {
 
 				<main className="flex gap-6 h-full">
 					<section className="bg-white flex gap-8 p-6 rounded-xl w-2/3 h-[calc(100vh-176px)]">
-						<div className="flex flex-col gap-4 w-1/2">
+						<div className="flex flex-col gap-4 w-1/2 overflow-scroll">
 							<label className="w-full">
 								Product Name
 								<input
@@ -252,7 +252,7 @@ export default function DashProductAddPage({ reload }) {
 							</label>
 						</div>
 
-						<div className="flex flex-col gap-4 w-1/2">
+						<div className="flex flex-col gap-4 w-1/2 overflow-scroll">
 							<label className="w-full h-1/2 pb-6">
 								Description
 								<textarea

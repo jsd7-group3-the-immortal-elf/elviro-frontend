@@ -29,7 +29,7 @@ export default function DashProductPage({ reload, setReload }) {
 
 	useEffect(() => {
 		getProduct();
-		window.scrollTo(0, 0);
+		// window.scrollTo(0, 0);
 	}, [reload]);
 
 	function handleChange(e, productId) {
