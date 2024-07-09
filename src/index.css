@@ -70,6 +70,10 @@
 		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal text-xl lg:text-xl;
 	}
 
+	.product-detail {
+		@apply text-xl font-normal;
+	}
+
 	@keyframes openLogin {
 		from {
 			top: -200px;
