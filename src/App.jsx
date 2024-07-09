@@ -58,7 +58,7 @@ export default function App() {
 					// element: <ShopPage />,
 				},
 				{
-					path: "shop/product",
+					path: "shop/:id",
 					element: <ProductPage />,
 				},
 				{

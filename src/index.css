@@ -71,7 +71,11 @@
 	}
 
 	.product-detail {
-		@apply text-xl font-normal;
+		@apply text-sm md:text-xl font-bold text-left;
+	}
+
+	.number-button {
+		@apply hover:bg-brown hover:text-white hover:border border-gray-400  px-2 rounded-full  w-10 h-10 text-center text-xl font-bold;
 	}
 
 	@keyframes openLogin {
@@ -91,4 +95,16 @@
 
 html {
 	scroll-behavior: smooth;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
 }
