@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
 import DashImageInputMain from "../../components/dashboard/DashImageInputMain";
 
 export default function DashProductAddPage({ reload }) {
+	const navigate = useNavigate();
 	const [product, setProduct] = useState({});
 	const [dimension, setDimension] = useState({});
 	const [rooms, setRooms] = useState({
@@ -100,7 +101,7 @@ export default function DashProductAddPage({ reload }) {
 		} else {
 			await createProduct();
 		}
-		location.href = `${import.meta.env.VITE_FRONTEND_URL}/dashboard/product`;
+		navigate("/dashboard/product");
 	}
 
 	return (
@@ -112,13 +113,13 @@ export default function DashProductAddPage({ reload }) {
 						type="submit"
 						className="bg-green text-white px-4 py-2 rounded-lg hover:bg-darkgreen"
 					>
-						Save & Publish
+						{id ? "Save Change" : "Save & Publish"}
 					</button>
 				</header>
 
 				<main className="flex gap-6 h-full">
 					<section className="bg-white flex gap-8 p-6 rounded-xl w-2/3 h-[calc(100vh-176px)]">
-						<div className="flex flex-col gap-4 w-1/2">
+						<div className="flex flex-col gap-4 w-1/2 overflow-scroll">
 							<label className="w-full">
 								Product Name
 								<input
@@ -251,7 +252,7 @@ export default function DashProductAddPage({ reload }) {
 							</label>
 						</div>
 
-						<div className="flex flex-col gap-4 w-1/2">
+						<div className="flex flex-col gap-4 w-1/2 overflow-scroll">
 							<label className="w-full h-1/2 pb-6">
 								Description
 								<textarea
