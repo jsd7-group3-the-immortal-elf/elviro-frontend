@@ -16,7 +16,7 @@ function AboutPage() {
 						<div className="flex flex-col items-center md:items-start">
 							<h2 className="text-5xl md:text-8xl mb-3 text-left">Elviro</h2>
 							<p className="text-lg md:text-3xl italic font-normal">
-								"We care about your family"
+								&quot;We care about your family&quot;
 							</p>
 						</div>
 					</div>
@@ -35,8 +35,8 @@ function AboutPage() {
 						<p>
 							Not only is our furniture environmentally friendly, and safe for
 							everyone. But we aim to make it suited for all the stages of your
-							family. That’s the motto of Ms. Elvira Yuri, CEO and founder of
-							Elviro.
+							family. That&apos;s the motto of Ms. Elvira Yuri, CEO and founder
+							of Elviro.
 						</p>
 						<p>
 							At Elviro, you will find all the furniture for all tastes, which
