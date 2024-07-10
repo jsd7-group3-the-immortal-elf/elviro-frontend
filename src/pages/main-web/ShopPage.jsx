@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance";
 import Banner from "../../components/Banner";
+import Motto from "../../components/Motto";
+import ProductCard from "../../components/home/ProductCard";
 
 export default function ShopPage() {
+	const [productList, setProductList] = useState([]);
+
+	async function getProduct() {
+		try {
+			const response = await axiosInstance.get("/products");
+			const { data } = await response.data;
+			setProductList(data);
+		} catch (error) {
+			console.error("Failed to get data:", error);
+		}
+	}
+
+	useEffect(() => {
+		getProduct();
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<main>
-			<Banner />
+			<Banner h1="All Product" h3="All Product" />
 
 			{/* filter section */}
 			<section className="flex justify-between h-16 bg-[#B5C18E]">
@@ -210,279 +231,10 @@ export default function ShopPage() {
 			{/* product section */}
 			<section className="flex flex-col items-center gap-6 p-4 md:p-12">
 				<h2>Our Product</h2>
-				<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-6">
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
-					<a
-						href="single_product.html"
-						className="bg-[#b9c590]/80 rounded-lg overflow-hidden hover:shadow-[0_0_10px_1px_rgb(150,150,150)]"
-					>
-						<picture className="aspect-square">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt=""
-								className="aspect-square"
-							/>
-						</picture>
-						<article className="flex flex-col gap-2 p-4">
-							<h3>Name</h3>
-							<p>Description</p>
-							<p>Price</p>
-						</article>
-					</a>
+				<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-8">
+					{productList.map((product) => (
+						<ProductCard key={product._id} product={product} />
+					))}
 				</div>
 
 				<ul className="hidden lg:flex justify-center gap-4">
@@ -500,6 +252,8 @@ export default function ShopPage() {
 					</li>
 				</ul>
 			</section>
+
+			<Motto />
 		</main>
 	);
 }

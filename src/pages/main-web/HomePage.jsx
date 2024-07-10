@@ -1,6 +1,6 @@
 import BannerHome from "../../components/home/BannerHome";
 import ButtonShowmore from "../../components/home/ButtonShowmore";
-import ProductCard from "../../components/home/ProductCard";
+// import ProductCard from "../../components/home/ProductCard";
 import RoomCard from "../../components/home/RoomCard";
 
 function HomePage() {
@@ -8,7 +8,7 @@ function HomePage() {
 		<div>
 			<BannerHome />
 			<RoomCard />
-			<ProductCard />
+			{/* <ProductCard /> */}
 			<ButtonShowmore />
 		</div>
 	);

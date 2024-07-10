@@ -1,35 +1,23 @@
-// import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function Banner() {
-	// const location = useLocation();
-	// const itemPage = location.pathname.split("/").filter((x) => x);
-	// let storePage = "";
-	// console.log(location);
-	// console.log(itemPage);
-	// console.log(storePage);
+export default function Banner({ h1, h3 }) {
+	console.log(location);
 	return (
-		<div className=" breadcrumbs bg-cover bg-center bg-[url('/public/images/banner-image.png')] flex flex-col justify-center items-center w-full h-[300px]">
-			<h1 className=" my-8 ">All Room</h1>
-			<h3>
-				{/* {<Link to="/">Home</Link>} */}
-				<span> Home / test Product</span>
-				{/* -------------Code breadcrumbs----------- */}
-				{/* {itemPage.map((name, index) => {
-				storePage += `/ ${name}`;
-				const isLast = index === itemPage.length - 1;
-				return isLast ? (
-					<span key={storePage}> / {name}</span>
-				) : (
-					<span key={storePage}>
-						{" "}
-						<Link to={storePage}>{name}</Link>
-					</span>
-				);
-			})} 
-			 */}
+		<div className="flex flex-col justify-center items-center w-full h-[300px] bg-cover bg-center bg-[url('/images/banner-image.png')]">
+			<h1 className=" my-8 ">{h1}</h1>
+			<h3 className="flex gap-2">
+				<Link to={"/"} className="hover:text-[#939d73]">
+					Home
+				</Link>
+				&gt;
+				<p className="hover:text-[#939d73]">{h3}</p>
 			</h3>
 		</div>
 	);
 }
 
-export default Banner;
+Banner.propTypes = {
+	h1: PropTypes.string,
+	h3: PropTypes.string,
+};
