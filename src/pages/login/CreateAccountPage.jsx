@@ -16,6 +16,7 @@ function CreateAccountPage({
 		firstName: "",
 		lastName: "",
 		email: "",
+		username: "",
 		password: "",
 	});
 
@@ -65,6 +66,7 @@ function CreateAccountPage({
 			firstName: "",
 			lastName: "",
 			email: "",
+			username: "",
 			password: "",
 		});
 	};
@@ -75,6 +77,7 @@ function CreateAccountPage({
 			firstName: "",
 			lastName: "",
 			email: "",
+			username: "",
 			password: "",
 		});
 	};
@@ -113,7 +116,7 @@ function CreateAccountPage({
 						{/* Main form */}
 						<form
 							onSubmit={handleSubmit}
-							className="flex flex-col md:w-lg gap-5"
+							className="flex flex-col md:w-lg gap-5 md:gap-2"
 						>
 							<h1 className="text-center text-2xl md:text-4xl">
 								Create a new account
@@ -150,6 +153,17 @@ function CreateAccountPage({
 									type="email"
 									name="email"
 									value={formData.email}
+									onChange={handleChange}
+									required
+								/>
+							</label>
+							<label className="label-login">
+								Username
+								<input
+									className="input-login"
+									type="text"
+									name="username"
+									value={formData.username}
 									onChange={handleChange}
 									required
 								/>
