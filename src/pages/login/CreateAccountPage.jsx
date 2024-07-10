@@ -121,10 +121,12 @@ function CreateAccountPage({
 							<h1 className="text-center text-2xl md:text-4xl">
 								Create a new account
 							</h1>
-							<label className="label-login">
-								First Name
+							<label className="label-createAccount">
+								<section>
+									First Name <span className="text-red-500">*</span>
+								</section>
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="text"
 									name="firstName"
 									value={formData.firstName}
@@ -134,10 +136,13 @@ function CreateAccountPage({
 							</label>
 
 							{/* Other label */}
-							<label className="label-login">
-								Last Name
+							<label className="label-createAccount">
+								<section>
+									Last Name <span className="text-red-500">*</span>
+								</section>
+
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="text"
 									name="lastName"
 									value={formData.lastName}
@@ -146,10 +151,13 @@ function CreateAccountPage({
 								/>
 							</label>
 							{/* Email */}
-							<label className="label-login">
-								Email
+							<label className="label-createAccount">
+								<section>
+									Email <span className="text-red-500">*</span>
+								</section>
+
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="email"
 									name="email"
 									value={formData.email}
@@ -157,10 +165,10 @@ function CreateAccountPage({
 									required
 								/>
 							</label>
-							<label className="label-login">
+							<label className="label-createAccount">
 								Username
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="text"
 									name="username"
 									value={formData.username}
@@ -169,11 +177,11 @@ function CreateAccountPage({
 								/>
 							</label>
 							{/* Password */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								Password
 								<div id="password-relative" className="relative">
 									<input
-										className="input-login w-full pr-10"
+										className="input-createAccount w-full pr-10"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={formData.password}
@@ -190,13 +198,13 @@ function CreateAccountPage({
 								</div>
 							</label>
 
-							<button type="submit" className="btn-login mb-5 ">
+							<button type="submit" className="btn-login">
 								Create Account
 							</button>
-							<section className="flex flex-col md:block text-center text-md md:text-xl pb-5">
+							<section className="flex flex-col md:block text-center text-md md:text-md pb-5">
 								Already have an account?{" "}
 								<span
-									className="text-red-500 font-medium text-xl cursor-pointer hover:font-bold"
+									className="text-red-500 font-medium text-md cursor-pointer hover:font-bold"
 									onClick={changeToLogin}
 								>
 									Login
