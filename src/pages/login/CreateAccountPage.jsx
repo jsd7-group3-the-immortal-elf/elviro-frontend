@@ -5,6 +5,7 @@ import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import axiosInstance from "../../utils/axiosInstance";
 
 function CreateAccountPage({
 	openAccountPage,
@@ -33,6 +34,21 @@ function CreateAccountPage({
 	//สร้าง array ไว้รับค่าจาก formData
 	const [tableData, setTableData] = useState([]);
 
+	//สร้าง account
+	async function createUser(firstName, lastName, email, password) {
+		try {
+			await axiosInstance("/create-account", {
+				firstName,
+				lastName,
+				email,
+				password,
+			});
+			console.log(`Account created successfully.`);
+		} catch (error) {
+			console.log("Failed to create a user account", error);
+		}
+	}
+
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -49,6 +65,9 @@ function CreateAccountPage({
 		console.log("Form Submitted:", formData); //ไว้ดู check
 		setTableData((prevData) => [...prevData, formData]);
 		console.log(...tableData, formData);
+
+		createUser();
+		window.alert("Account created successfully");
 		setFormData({
 			firstName: "",
 			lastName: "",
