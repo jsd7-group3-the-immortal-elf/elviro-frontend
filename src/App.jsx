@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 // import ErrorPage from "./pages/ErrorPage";
 
 import HomePage from "./pages/main-web/HomePage";
-// import ShopPage from "./pages/main-web/ShopPage";
+import ShopPage from "./pages/main-web/ShopPage";
 import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
@@ -56,7 +56,7 @@ export default function App() {
 				},
 				{
 					path: "shop",
-					// element: <ShopPage />,
+					element: <ShopPage />,
 				},
 				{
 					path: "shop/:id",
