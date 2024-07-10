@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function Banner({ h1, h3 }) {
-	console.log(location);
 	return (
 		<div className="flex flex-col justify-center items-center w-full h-[300px] bg-cover bg-center bg-[url('/images/banner-image.png')]">
 			<h1 className=" my-8 ">{h1}</h1>
