@@ -136,7 +136,7 @@ export default function ProductPage() {
 						</span>{" "}
 					</h2>
 					<section className="flex flex-col md:flex-row gap-2 justify-center items-center">
-						<section className="flex justify-center items-center border border-neutral-400 rounded-3xl">
+						<section className="flex justify-center items-center border border-neutral-400 rounded-3xl overflow-hidden w-32 md:w-56">
 							<button onClick={decrement} className="number-button">
 								-
 							</button>
@@ -155,7 +155,7 @@ export default function ProductPage() {
 
 						<button
 							onClick={() => createNewCart(product._id, quantity)}
-							className="md:w-full border border-neutral-500 p-2 px-3 rounded-lg text-lg bg-brown text-white hover:bg-white hover:text-black"
+							className="md:w-full border border-neutral-500 p-2 px-3 rounded-lg text-md bg-brown text-white hover:bg-white hover:text-black"
 						>
 							Add to Cart
 						</button>
