@@ -71,11 +71,11 @@
 	}
 
 	.label-createAccount {
-		@apply mx-0 text-neutral-500 text-xl md:text-lg flex flex-col font-semibold;
+		@apply mx-0 text-neutral-500 text-xl flex flex-col font-semibold;
 	}
 
 	.input-createAccount {
-		@apply bg-white border-b-2 border-neutral-200 p-1 font-normal text-lg;
+		@apply bg-white border-b border-neutral-200 p-1 font-normal text-lg;
 	}
 
 	.product-detail {

@@ -166,7 +166,9 @@ function CreateAccountPage({
 								/>
 							</label>
 							<label className="label-createAccount">
-								Username
+								<section>
+									Username <span className="text-red-500">*</span>
+								</section>
 								<input
 									className="input-createAccount"
 									type="text"
@@ -178,8 +180,11 @@ function CreateAccountPage({
 							</label>
 							{/* Password */}
 							<label className="label-createAccount">
-								Password
-								<div id="password-relative" className="relative">
+								<section>
+									Password <span className="text-red-500">*</span>
+								</section>
+
+								<div id="password-relative" className="relative mb-4">
 									<input
 										className="input-createAccount w-full pr-10"
 										name="password"
@@ -201,7 +206,7 @@ function CreateAccountPage({
 							<button type="submit" className="btn-login">
 								Create Account
 							</button>
-							<section className="flex flex-col md:block text-center text-md md:text-md pb-5">
+							<section className="flex flex-col md:block text-md md:text-md pb-5 text-end">
 								Already have an account?{" "}
 								<span
 									className="text-red-500 font-medium text-md cursor-pointer hover:font-bold"

@@ -111,11 +111,11 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Password */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								New Password
 								<div className="relative">
 									<input
-										className="input-login w-full"
+										className="input-createAccount w-full"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={resetData.password}
@@ -131,11 +131,11 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 									</span>
 								</div>
 							</label>
-							<label className="label-login">
+							<label className="label-createAccount">
 								Confirm Password
 								<div className="relative">
 									<input
-										className="input-login w-full"
+										className="input-createAccount w-full"
 										name="confirmPassword"
 										type={showConfirmPassword ? "text" : "password"}
 										value={resetData.confirmPassword}

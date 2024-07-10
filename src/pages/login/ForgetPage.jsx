@@ -118,10 +118,10 @@ function ForgetPage({
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Email */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								Email
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="email"
 									name="email"
 									value={forgetData.email}
