@@ -1,15 +1,16 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
+import DashboardLayout from "./layouts/DashboardLayout";
+
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 // import ProfileNav from "./components/ProfileNav";
-import DashboardNav from "./components/DashBoardNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
 import HomePage from "./pages/main-web/HomePage";
-// import ShopPage from "./pages/main-web/ShopPage";
-// import ProductPage from "./pages/main-web/ProductPage";
+import ShopPage from "./pages/main-web/ShopPage";
+import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
 import AboutPage from "./pages/main-web/AboutPage";
@@ -55,7 +56,11 @@ export default function App() {
 				},
 				{
 					path: "shop",
-					// element: <ShopPage />,
+					element: <ShopPage />,
+				},
+				{
+					path: "product/:id",
+					element: <ProductPage />,
 				},
 				{
 					path: "cart",
@@ -116,13 +121,7 @@ export default function App() {
 
 		{
 			path: "/dashboard",
-			element: (
-				<>
-					<NavBar />
-					<DashboardNav reload={reload} setReload={setReload} />
-					<Outlet />
-				</>
-			),
+			element: <DashboardLayout reload={reload} setReload={setReload} />,
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
@@ -138,16 +137,8 @@ export default function App() {
 					element: <DashOrderViewPage />,
 				},
 				{
-					path: "customer",
-					// element: <DashCustomerPage />,
-				},
-				{
-					path: "customer/view-customer",
-					// element: <DashCustomerViewPage />,
-				},
-				{
 					path: "product",
-					element: <DashProductPage />,
+					element: <DashProductPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "product/add-product",
@@ -160,14 +151,6 @@ export default function App() {
 				{
 					path: "product/:id",
 					element: <DashProductViewPage />,
-				},
-				{
-					path: "admin",
-					// element: <DashAdminPage />,
-				},
-				{
-					path: "admin/admin-setting",
-					// element: <DashAdminSettingPage />,
 				},
 			],
 		},
