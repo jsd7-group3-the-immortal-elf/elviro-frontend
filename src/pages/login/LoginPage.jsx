@@ -67,6 +67,7 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
+		toggleShowAlert();
 	};
 
 	//เมื่อกดให้ลิงค์ไปหน้า CreateAccountPage
@@ -87,6 +88,9 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
+		if (showAlert === false) {
+			toggleShowAlert();
+		}
 	};
 
 	// ตอนกด XMark
@@ -96,6 +100,9 @@ function LoginPage({
 			password: "",
 		});
 		toggleOpenLogin();
+		if (showAlert === true) {
+			toggleShowAlert();
+		}
 	};
 
 	return (
