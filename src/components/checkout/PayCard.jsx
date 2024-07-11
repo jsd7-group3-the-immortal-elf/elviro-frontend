@@ -36,6 +36,7 @@ export default function PayCard() {
 					<h4>Security Code</h4>
 					<input
 						type="number"
+						placeholder="CVV"
 						className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 					/>
 				</div>

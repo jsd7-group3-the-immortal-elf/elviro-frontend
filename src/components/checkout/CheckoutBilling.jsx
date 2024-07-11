@@ -1,5 +1,5 @@
 // import {  Outlet } from "react-router-dom";
-export default function CheckoutBilling() {
+export default function CheckoutBilling({ fistName, lastName, phone, email }) {
 	return (
 		<div
 			id="user_profile"
@@ -21,16 +21,13 @@ export default function CheckoutBilling() {
 						</div>
 				</div> */}
 				{/* --------------------  ส่วนid  -------------------- */}
-				<div
-					id="details_profile"
-					className="flex flex-col items-center gap-4 w-full"
-				>
+				<div className="flex flex-col items-center gap-4 w-full">
 					<label className=" size-full" id="first_name">
 						{/* --------------------  ชื่อ  -------------------- */}
 						<h4>First Name</h4>
 						<input
 							type="text"
-							id="first_input"
+							value={fistName}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
@@ -39,7 +36,7 @@ export default function CheckoutBilling() {
 						<h4>Last Name</h4>
 						<input
 							type="text"
-							id="last_input"
+							value={lastName}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
@@ -48,6 +45,7 @@ export default function CheckoutBilling() {
 						<h4>Phone</h4>
 						<input
 							type="tel"
+							value={phone}
 							className="phone border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
@@ -56,6 +54,7 @@ export default function CheckoutBilling() {
 						<h4>Email Address</h4>
 						<input
 							type="email"
+							value={email}
 							className="phone border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
@@ -69,7 +68,7 @@ export default function CheckoutBilling() {
 				{/* <div
 					id="head_contact"
 					className="flex flex-col items-start mb-[1.5rem]"
-				>
+				>	
 					<div id="information" className="flex">
 						<input type="checkbox" id="information" />
 						<p className="">Same address as your account</p>

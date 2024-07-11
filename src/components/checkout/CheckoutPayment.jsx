@@ -1,6 +1,6 @@
 import { IoCardSharp } from "react-icons/io5";
 import { BsQrCodeScan } from "react-icons/bs";
-import PayCard from "../../components/checkout/PayCard";
+// import PayCard from "../../components/checkout/PayCard";
 export default function CheckoutPayment() {
 	return (
 		<div className="my-11 flex flex-col items-center w-full">
@@ -12,7 +12,7 @@ export default function CheckoutPayment() {
 				<IoCardSharp className=" text-6xl my-4 mx-9" />
 				<h4>Card</h4>
 			</button>
-			<PayCard className="w-full" />
+			{/* <PayCard className="w-full" /> */}
 			<p>
 				Your personal data will be used to support your experience throughout
 				this website, to manage access to your account, and for other purposes
