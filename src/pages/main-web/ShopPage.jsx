@@ -5,11 +5,13 @@ import Motto from "../../components/Motto";
 import ProductCard from "../../components/home/ProductCard";
 import { FaSliders } from "react-icons/fa6";
 import Filter from "../../components/shop/Filter";
+import Loading from "../../components/Loading";
 
 export default function ShopPage() {
 	const [productList, setProductList] = useState([]);
 	const [toggleFilter, setToggleFilter] = useState(false);
 	const [query, setQuery] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const page = 3;
 	const limit = 16;
@@ -21,10 +23,26 @@ export default function ShopPage() {
 
 	async function getProduct() {
 		try {
+			setLoading(true);
 			const response = await axiosInstance.get("/products");
 			const { data } = await response.data;
 			setProductList(data);
+			setLoading(false);
 		} catch (error) {
+			setLoading(false);
+			console.error("Failed to get data:", error);
+		}
+	}
+
+	async function queryProduct() {
+		try {
+			setLoading(true);
+			const response = await axiosInstance.get("/products");
+			const { data } = await response.data;
+			setProductList(data);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
 			console.error("Failed to get data:", error);
 		}
 	}
@@ -37,7 +55,8 @@ export default function ShopPage() {
 		getProduct();
 		window.scrollTo(0, 0);
 		setQuery(location.search);
-	}, []);
+		console.log(query);
+	}, [query]);
 
 	return (
 		<main>
@@ -90,32 +109,38 @@ export default function ShopPage() {
 
 			{toggleFilter ? <Filter handleFilter={handleFilter} /> : null}
 
-			{/* product section */}
-			<section className="flex flex-col items-center gap-6 p-4 md:p-12">
-				<h2>Our Product </h2>
-				<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-8">
-					{productList.map((product) => (
-						<ProductCard key={product._id} product={product} />
-					))}
-				</div>
+			{loading ? (
+				<Loading />
+			) : (
+				<>
+					{/* product section */}
+					<section className="flex flex-col items-center gap-6 p-4 md:p-12">
+						<h2>Our Product </h2>
+						<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-8">
+							{productList.map((product) => (
+								<ProductCard key={product._id} product={product} />
+							))}
+						</div>
 
-				<ul className="hidden lg:flex justify-center gap-4">
-					<li className="px-3 py-2 bg-[#B5C18E] rounded">
-						<a href="">1</a>
-					</li>
-					<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-						<a href="">2</a>
-					</li>
-					<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-						<a href="">3</a>
-					</li>
-					<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-						<a href="">{maxPage}</a>
-					</li>
-				</ul>
-			</section>
+						<ul className="hidden lg:flex justify-center gap-4">
+							<li className="px-3 py-2 bg-[#B5C18E] rounded">
+								<a href="">1</a>
+							</li>
+							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
+								<a href="">2</a>
+							</li>
+							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
+								<a href="">3</a>
+							</li>
+							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
+								<a href="">{maxPage}</a>
+							</li>
+						</ul>
+					</section>
 
-			<Motto />
+					<Motto />
+				</>
+			)}
 		</main>
 	);
 }
