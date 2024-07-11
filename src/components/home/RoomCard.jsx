@@ -14,7 +14,7 @@ function RoomCard() {
 					>
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
 							<img
-								src="public/images/Cart-hero-image 1.png"
+								src="images/Cart-hero-image 1.png"
 								alt="Bedroom"
 								className="hover:scale-110 hover:duration-500"
 							/>
@@ -26,7 +26,7 @@ function RoomCard() {
 					>
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
 							<img
-								src="public/images/Cart-hero-image 1.png"
+								src="images/Cart-hero-image 1.png"
 								alt="Living Room"
 								className="hover:scale-110 hover:duration-500"
 							/>
@@ -38,7 +38,7 @@ function RoomCard() {
 					>
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
 							<img
-								src="public/images/Cart-hero-image 1.png"
+								src="images/Cart-hero-image 1.png"
 								alt="Kitchen"
 								className="hover:scale-110 hover:duration-500"
 							/>
