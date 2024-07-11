@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { FaSliders } from "react-icons/fa6";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+
 import axiosInstance from "../../utils/axiosInstance";
+
 import Banner from "../../components/Banner";
 import Motto from "../../components/Motto";
 import ProductCard from "../../components/home/ProductCard";
-import { FaSliders } from "react-icons/fa6";
 import Filter from "../../components/shop/Filter";
 import Loading from "../../components/Loading";
-
-import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
 
 export default function ShopPage() {
 	const [productList, setProductList] = useState([]);
@@ -70,7 +71,6 @@ export default function ShopPage() {
 		<main>
 			<Banner h1="All Product" h3="All Product" />
 
-			{/* filter section */}
 			<section className="flex justify-between items-center px-8 h-16 bg-green">
 				<ul className="flex items-center gap-4 h-full">
 					<li
@@ -116,7 +116,6 @@ export default function ShopPage() {
 				<Loading />
 			) : (
 				<>
-					{/* product section */}
 					<section className="flex flex-col items-center gap-6 p-4 md:p-12">
 						<h2>Our Product </h2>
 						<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-8">
