@@ -24,6 +24,9 @@ function CreateAccountPage({
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
 
+	const [showEmailAlert, setShowEmailAlert] = useState(false);
+	const [showUserAlert, setShowUserAlert] = useState(false);
+
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -47,15 +50,26 @@ function CreateAccountPage({
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
-		console.log("Form Submitted:", formData); //ไว้ดู check
+		if (formData.email === "example@email.com") {
+			setShowEmailAlert(true);
+			return;
+		}
+		if (formData.username === "username") {
+			setShowUserAlert(true);
+			return;
+		}
+
 		setTableData((prevData) => [...prevData, formData]);
 		console.log(...tableData, formData);
 		setFormData({
 			firstName: "",
 			lastName: "",
 			email: "",
+			username: "",
 			password: "",
 		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
 	};
 
 	//link ไปหน้า login
@@ -69,6 +83,8 @@ function CreateAccountPage({
 			username: "",
 			password: "",
 		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
 	};
 
 	const toggleCloseAccount = () => {
@@ -80,6 +96,8 @@ function CreateAccountPage({
 			username: "",
 			password: "",
 		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
 	};
 
 	return (
@@ -202,7 +220,14 @@ function CreateAccountPage({
 									</span>
 								</div>
 							</label>
-
+							<section className="mx-4 text-red-500 font-semibold text-lg">
+								<span className={showEmailAlert ? "block" : "hidden"}>
+									This user email has been registered.
+								</span>
+								<span className={showUserAlert ? "block" : "hidden"}>
+									This username has been used. Please make a new one.
+								</span>
+							</section>
 							<button type="submit" className="btn-login">
 								Create Account
 							</button>

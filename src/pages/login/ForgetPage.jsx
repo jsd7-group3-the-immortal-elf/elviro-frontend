@@ -52,6 +52,9 @@ function ForgetPage({
 			}
 		}
 
+		if (showAlert === true) {
+			toggleShowAlert();
+		}
 		alert("Reset link has been sent to your email");
 		toggleOpenForget();
 		toggleOpenReset();
@@ -73,6 +76,9 @@ function ForgetPage({
 		setForgetData({
 			email: "",
 		});
+		if (showAlert === true) {
+			toggleShowAlert();
+		}
 	};
 
 	return (

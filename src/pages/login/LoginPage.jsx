@@ -61,7 +61,7 @@ function LoginPage({
 			}
 			return;
 		}
-		console.log("Form Submitted:", loginData); //ไว้ดู check
+		console.log("Data Submitted:", loginData); //ไว้ดู check
 		setOpenLoginPage(!openLoginPage);
 		setLoginData({
 			email: "",
@@ -71,9 +71,12 @@ function LoginPage({
 	};
 
 	//เมื่อกดให้ลิงค์ไปหน้า CreateAccountPage
-	const changeToLogin = () => {
+	const changeToCreateAccount = () => {
 		setOpenLoginPage(!openLoginPage);
 		setOpenAccountPage(!openAccountPage);
+		if (showAlert === true) {
+			toggleShowAlert();
+		}
 		setLoginData({
 			email: "",
 			password: "",
@@ -88,7 +91,7 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
-		if (showAlert === false) {
+		if (showAlert === true) {
 			toggleShowAlert();
 		}
 	};
@@ -197,7 +200,7 @@ function LoginPage({
 								New to Elviro?{" "}
 								<span
 									className="text-red-500 font-medium text-xl cursor-pointer hover:font-bold"
-									onClick={changeToLogin}
+									onClick={changeToCreateAccount}
 								>
 									Create a new account
 								</span>

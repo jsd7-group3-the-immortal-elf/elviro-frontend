@@ -54,7 +54,7 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 			}
 			return;
 		}
-		console.log("Form Submitted:", resetData); //ไว้ดู check
+		console.log("Data Submitted:", resetData); //ไว้ดู check
 		if (showAlertMatch === true) {
 			toggleAlertMatch();
 		}
@@ -70,6 +70,9 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 			password: "",
 			confirmPassword: "",
 		});
+		if (showAlertMatch === true) {
+			toggleAlertMatch();
+		}
 	};
 
 	return (
