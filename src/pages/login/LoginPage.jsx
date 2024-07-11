@@ -32,10 +32,6 @@ function LoginPage({
 		setShowPassword(!showPassword);
 	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
-	};
-
 	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
@@ -56,9 +52,7 @@ function LoginPage({
 			loginData.email !== "example@email.com" ||
 			loginData.password !== "password"
 		) {
-			if (showAlert === false) {
-				toggleShowAlert();
-			}
+			setShowAlert(true);
 			return;
 		}
 		console.log("Data Submitted:", loginData); //ไว้ดู check
@@ -67,16 +61,14 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
-		toggleShowAlert();
+		setShowAlert(false);
 	};
 
 	//เมื่อกดให้ลิงค์ไปหน้า CreateAccountPage
 	const changeToCreateAccount = () => {
 		setOpenLoginPage(!openLoginPage);
 		setOpenAccountPage(!openAccountPage);
-		if (showAlert === true) {
-			toggleShowAlert();
-		}
+		setShowAlert(false);
 		setLoginData({
 			email: "",
 			password: "",
@@ -91,9 +83,7 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
-		if (showAlert === true) {
-			toggleShowAlert();
-		}
+		setShowAlert(false);
 	};
 
 	// ตอนกด XMark
@@ -103,9 +93,7 @@ function LoginPage({
 			password: "",
 		});
 		toggleOpenLogin();
-		if (showAlert === true) {
-			toggleShowAlert();
-		}
+		setShowAlert(false);
 	};
 
 	return (

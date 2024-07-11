@@ -49,15 +49,12 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
 		if (resetData.password !== resetData.confirmPassword) {
-			if (showAlertMatch === false) {
-				toggleAlertMatch();
-			}
+			setShowAlertMatch(true);
 			return;
 		}
 		console.log("Data Submitted:", resetData); //ไว้ดู check
-		if (showAlertMatch === true) {
-			toggleAlertMatch();
-		}
+
+		setShowAlertMatch(false);
 		alert("Password Reset Successful!");
 		toggleOpenReset();
 		toggleOpenLogin();
@@ -70,9 +67,7 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 			password: "",
 			confirmPassword: "",
 		});
-		if (showAlertMatch === true) {
-			toggleAlertMatch();
-		}
+		setShowAlertMatch(false);
 	};
 
 	return (

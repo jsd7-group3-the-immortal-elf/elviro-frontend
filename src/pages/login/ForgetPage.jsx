@@ -32,10 +32,6 @@ function ForgetPage({
 		}));
 	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
-	};
-
 	//Check username passwore
 
 	//เอาค่าไปเก็บใน array
@@ -44,17 +40,13 @@ function ForgetPage({
 
 		if (forgetData.email !== "example@email.com") {
 			{
-				if (showAlert === false) {
-					toggleShowAlert();
-				}
+				setShowAlert(true);
 
 				return;
 			}
 		}
 
-		if (showAlert === true) {
-			toggleShowAlert();
-		}
+		setShowAlert(false);
 		alert("Reset link has been sent to your email");
 		toggleOpenForget();
 		toggleOpenReset();
@@ -76,9 +68,7 @@ function ForgetPage({
 		setForgetData({
 			email: "",
 		});
-		if (showAlert === true) {
-			toggleShowAlert();
-		}
+		setShowAlert(false);
 	};
 
 	return (
