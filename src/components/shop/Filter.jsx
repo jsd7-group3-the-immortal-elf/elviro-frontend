@@ -9,7 +9,7 @@ export default function Filter({ handleFilter }) {
 	const maxPrice = 20000;
 	const maxWidth = 300;
 	const maxDepth = 300;
-	const maxDepthExtent = 300;
+	const maxDepthExtend = 300;
 	const maxHeight = 300;
 
 	// const [room, setRoom] = useState({
@@ -27,7 +27,7 @@ export default function Filter({ handleFilter }) {
 	const [priceRange, setPriceRange] = useState([0, maxPrice]);
 	const [widthRange, setWidthRange] = useState([0, maxWidth]);
 	const [depthRange, setDepthRange] = useState([0, maxDepth]);
-	const [depthExtentRange, setDepthExtentRange] = useState([0, maxDepthExtent]);
+	const [depthExtendRange, setDepthExtendRange] = useState([0, maxDepthExtend]);
 	const [heightRange, setHeightRange] = useState([0, maxHeight]);
 
 	function mask(max) {
@@ -93,8 +93,8 @@ export default function Filter({ handleFilter }) {
 			case "depth":
 				setDepthRange(newValueArr);
 				break;
-			case "depthExtent":
-				setDepthExtentRange(newValueArr);
+			case "depthExtend":
+				setDepthExtendRange(newValueArr);
 				break;
 			case "height":
 				setHeightRange(newValueArr);
@@ -112,7 +112,7 @@ export default function Filter({ handleFilter }) {
 		setPriceRange([0, maxPrice]);
 		setWidthRange([0, maxWidth]);
 		setDepthRange([0, maxDepth]);
-		setDepthExtentRange([0, maxDepthExtent]);
+		setDepthExtendRange([0, maxDepthExtend]);
 		setHeightRange([0, maxHeight]);
 	}
 
@@ -131,7 +131,7 @@ export default function Filter({ handleFilter }) {
 				</div>
 
 				<ul className="w-full bg-white overflow-y-scroll">
-					<li className="border-b">
+					{/* <li className="border-b">
 						<button className="w-full h-16 border-b">Sort by</button>
 						<div className="flex flex-col bg-neutral-100">
 							<label className="flex items-center gap-4 ml-8 h-16 accent-lime-600 cursor-pointer">
@@ -178,7 +178,7 @@ export default function Filter({ handleFilter }) {
 								Newest
 							</label>
 						</div>
-					</li>
+					</li> */}
 
 					<li className="border-b">
 						<button className="w-full h-16 border-b">Room</button>
@@ -319,15 +319,15 @@ export default function Filter({ handleFilter }) {
 							</Box>
 							<hr />
 							<Box sx={{ width: 300 }}>
-								<Typography gutterBottom>Depth Extent (cm)</Typography>
+								<Typography gutterBottom>Depth Extend (cm)</Typography>
 								<Slider
-									getAriaLabel={() => "Depth Extent range"}
-									name="depthExtent"
-									value={depthExtentRange}
-									max={maxDepthExtent}
+									getAriaLabel={() => "Depth Extend range"}
+									name="depthExtend"
+									value={depthExtendRange}
+									max={maxDepthExtend}
 									onChange={handleChange}
 									valueLabelDisplay="auto"
-									marks={mask(maxDepthExtent)}
+									marks={mask(maxDepthExtend)}
 									sx={{
 										color: "#b5c18e",
 									}}
