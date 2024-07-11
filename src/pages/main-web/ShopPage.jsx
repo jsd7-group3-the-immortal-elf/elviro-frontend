@@ -7,25 +7,30 @@ import { FaSliders } from "react-icons/fa6";
 import Filter from "../../components/shop/Filter";
 import Loading from "../../components/Loading";
 
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+
 export default function ShopPage() {
 	const [productList, setProductList] = useState([]);
 	const [toggleFilter, setToggleFilter] = useState(false);
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const page = 3;
-	const limit = 16;
+	const [totalProduct, setTotalProduct] = useState();
+	const [totalPage, setTotalPage] = useState();
+	const [page, setPage] = useState(1);
+	const [limit, setLimit] = useState(16);
+
 	const skip = (page - 1) * limit;
-	const totalProduct = 40;
 	const totalProductEachPage =
 		limit * page > totalProduct ? totalProduct : limit * page;
-	const maxPage = Math.ceil(totalProduct / limit);
 
 	async function getProduct() {
 		try {
 			setLoading(true);
 			const response = await axiosInstance.get("/products");
 			const { data } = await response.data;
+
 			setProductList(data);
 			setLoading(false);
 		} catch (error) {
@@ -37,9 +42,12 @@ export default function ShopPage() {
 	async function queryProduct() {
 		try {
 			setLoading(true);
-			const response = await axiosInstance.get("/products");
+			const response = await axiosInstance.get(`/products${query}`);
 			const { data } = await response.data;
+
 			setProductList(data);
+			setTotalProduct(response.data.totalProduct);
+			setTotalPage(response.data.totalPage);
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
@@ -52,11 +60,11 @@ export default function ShopPage() {
 	}
 
 	useEffect(() => {
-		getProduct();
 		window.scrollTo(0, 0);
-		setQuery(location.search);
-		console.log(query);
-	}, [query]);
+		setQuery(`?limit=${limit}&page=${page}&${location.search}`);
+
+		query ? queryProduct() : getProduct();
+	}, [query, totalPage, page, limit]);
 
 	return (
 		<main>
@@ -87,23 +95,18 @@ export default function ShopPage() {
 				<ul className="hidden lg:flex items-center gap-4 h-full">
 					<li>Show</li>
 					<li>
-						<select name="sort" className="bg-white rounded w-fit py-1 pl-2">
+						<select
+							name="sort"
+							onChange={(e) => setLimit(e.target.value)}
+							className="bg-white rounded w-fit py-1 pl-2"
+						>
 							<option value={16}>16</option>
 							<option value={32}>32</option>
 							<option value={48}>48</option>
-							<option value="All">All</option>
+							<option value={totalProduct}>All</option>
 						</select>
 					</li>
 					<li>product per page</li>
-					{/* <li>Sort by</li>
-					<li>
-						<select name="sort" className="bg-white rounded w-32 py-1 pl-2">
-							<option value="Default">Default</option>
-							<option value="Price">Price</option>
-							<option value="Name">Name</option>
-							<option value="Default">Default</option>
-						</select>
-					</li> */}
 				</ul>
 			</section>
 
@@ -122,20 +125,31 @@ export default function ShopPage() {
 							))}
 						</div>
 
-						<ul className="hidden lg:flex justify-center gap-4">
-							<li className="px-3 py-2 bg-[#B5C18E] rounded">
-								<a href="">1</a>
-							</li>
-							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-								<a href="">2</a>
-							</li>
-							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-								<a href="">3</a>
-							</li>
-							<li className="px-3 py-2 bg-[#B5C18E]/40 rounded">
-								<a href="">{maxPage}</a>
-							</li>
-						</ul>
+						<Pagination
+							count={totalPage}
+							page={page}
+							hidePrevButton
+							hideNextButton
+							size="large"
+							onChange={(e, value) => {
+								setPage(value);
+							}}
+							renderItem={(item) => (
+								<PaginationItem
+									{...item}
+									sx={{
+										color: "#b5c18e",
+										"&.Mui-selected": {
+											backgroundColor: "#b5c18e",
+											color: "white",
+										},
+										"&:hover": {
+											backgroundColor: "rgba(181, 193, 142, 0.1)",
+										},
+									}}
+								/>
+							)}
+						/>
 					</section>
 
 					<Motto />
