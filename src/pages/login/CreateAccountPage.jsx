@@ -5,6 +5,7 @@ import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import axiosInstance from "../../utils/axiosInstance";
 
 function CreateAccountPage({
 	openAccountPage,
@@ -34,8 +35,31 @@ function CreateAccountPage({
 
 	//----------ไว้ validate email + password -----------//
 
-	//สร้าง array ไว้รับค่าจาก formData
-	const [tableData, setTableData] = useState([]);
+	const profile = {
+		firstName: formData.firstName,
+		lastName: formData.lastName,
+		email: formData.email,
+	};
+
+	const account = {
+		username: formData.username,
+		password: formData.password,
+	};
+
+	//Create a new account-----
+	async function createNewAccount(profile, account) {
+		try {
+			const response = await axiosInstance.post(`/users/create-account`, {
+				profile,
+				account,
+			});
+
+			const { message } = response.data;
+			alert(message);
+		} catch (error) {
+			console.log("Failed to create an account", error);
+		}
+	}
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
@@ -50,17 +74,13 @@ function CreateAccountPage({
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
-		if (formData.email === "example@email.com") {
-			setShowEmailAlert(true);
-			return;
-		}
-		if (formData.username === "username") {
-			setShowUserAlert(true);
-			return;
-		}
 
-		setTableData((prevData) => [...prevData, formData]);
-		console.log(...tableData, formData);
+		//สร้าง Account ใหม่
+		createNewAccount(profile, account);
+		alert(
+			`New account with username ${formData.username} created successfully.`
+		);
+
 		setFormData({
 			firstName: "",
 			lastName: "",
@@ -70,6 +90,8 @@ function CreateAccountPage({
 		});
 		setShowEmailAlert(false);
 		setShowUserAlert(false);
+		toggleOpenAccount();
+		toggleOpenLogin();
 	};
 
 	//link ไปหน้า login
@@ -136,7 +158,7 @@ function CreateAccountPage({
 							onSubmit={handleSubmit}
 							className="flex flex-col md:w-lg gap-5 md:gap-2"
 						>
-							<h1 className="text-center text-2xl md:text-4xl">
+							<h1 className="text-center text-2xl md:text-4xl md:mb-5">
 								Create a new account
 							</h1>
 							<label className="label-createAccount">

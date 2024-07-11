@@ -55,7 +55,7 @@ function LoginPage({
 			setShowAlert(true);
 			return;
 		}
-		console.log("Data Submitted:", loginData); //ไว้ดู check
+		// console.log("Data Submitted:", loginData); //ไว้ดู check
 		setOpenLoginPage(!openLoginPage);
 		setLoginData({
 			email: "",

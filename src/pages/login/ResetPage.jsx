@@ -27,11 +27,6 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 		setShowConfirmPassword(!showConfirmPassword);
 	};
 
-	//สลับแสดงเตือนว่า password ตรงไหม
-	const toggleAlertMatch = () => {
-		setShowAlertMatch(!showAlertMatch);
-	};
-
 	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
@@ -52,7 +47,7 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 			setShowAlertMatch(true);
 			return;
 		}
-		console.log("Data Submitted:", resetData); //ไว้ดู check
+		// console.log("Data Submitted:", resetData); //ไว้ดู check
 
 		setShowAlertMatch(false);
 		alert("Password Reset Successful!");
