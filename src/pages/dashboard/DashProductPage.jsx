@@ -29,7 +29,6 @@ export default function DashProductPage({ reload, setReload }) {
 
 	useEffect(() => {
 		getProduct();
-		// window.scrollTo(0, 0);
 	}, [reload]);
 
 	function handleChange(e, productId) {
@@ -84,7 +83,6 @@ export default function DashProductPage({ reload, setReload }) {
 								<DashProductTable
 									key={product._id}
 									product={product}
-									setProductList={setProductList}
 									handleChange={handleChange}
 								/>
 							))}

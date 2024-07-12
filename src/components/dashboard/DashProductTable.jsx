@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { useState } from "react";
 
 export default function DashProductTable({ product, handleChange }) {
-	// const [productStatus, setProductStatus] = useState(product.status);
-
 	return (
-		<tr key={product._id} className="">
+		<tr key={product._id}>
 			<th className="text-white w-5">
 				<input
 					type="checkbox"

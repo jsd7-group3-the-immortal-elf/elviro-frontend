@@ -1,39 +1,79 @@
 import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
-// import { useState } from "react";
+import PropTypes from "prop-types";
 
-export default function DashOrderTable() {
-	// const [productStatus, setProductStatus] = useState(product.status);
-	const order = {
-		_id: 1234,
-	};
+export default function DashOrderTable({ order, handleChange }) {
 	return (
-		<tr>
+		<tr key={order._id}>
 			<th className="text-white w-5">
 				<input
 					type="checkbox"
 					name="checkbox"
-					// onChange={(e) => handleChange(e, order._id)}
+					onChange={(e) => handleChange(e, order._id)}
 					className="accent-green w-4 h-4 m-3 "
 				/>
 			</th>
-			<th>OID-1234</th>
-			<th>10 min ago</th>
-			<th>John Doe</th>
-			<th>12000</th>
-			<th>2000</th>
+			<th>{order._id}</th>
+			<th>{order.createOn}</th>
+			<th>
+				{order.firstName} {order.lastName}
+			</th>
+			<th>{order.totalPrice}</th>
+			<th>{order.totalPrice - order.totalCost}</th>
 			<th>
 				<select
-					name="orederStatus"
-					// onChange={(e) => handleChange(e, order._id)}
+					name="status"
+					value={order.status}
+					onChange={(e) => handleChange(e, order._id)}
 				>
-					<option value="Pending">Pending</option>
-					<option value="Confirmed">Confirmed</option>
-					<option value="Processing">Processing</option>
-					<option value="Picked">Picked</option>
-					<option value="Shipped">Shipped</option>
-					<option value="Delivered">Delivered</option>
-					<option value="Cancelled">Cancelled</option>
+					<option
+						name="status"
+						value="Pending"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Pending
+					</option>
+					<option
+						name="status"
+						value="Confirmed"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Confirmed
+					</option>
+					<option
+						name="status"
+						value="Processing"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Processing
+					</option>
+					<option
+						name="status"
+						value="Picked"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Picked
+					</option>
+					<option
+						name="status"
+						value="Shipped"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Shipped
+					</option>
+					<option
+						name="status"
+						value="Delivered"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Delivered
+					</option>
+					<option
+						name="status"
+						value="Cancelled"
+						onChange={(e) => handleChange(e, order._id)}
+					>
+						Cancelled
+					</option>
 				</select>
 			</th>
 			<th>
@@ -44,21 +84,11 @@ export default function DashOrderTable() {
 					View
 				</Link>
 			</th>
-
-			{/* <th>
-				<p
-					className={`rounded-md  ${
-						product.status == "Published" ? "bg-lightgreen/50" : "bg-orange-100"
-					}`}
-				>
-					{product.status}
-				</p>
-			</th> */}
 		</tr>
 	);
 }
 
-// DashProductTable.propTypes = {
-// 	product: PropTypes.object,
-// 	handleChange: PropTypes.func,
-// };
+DashOrderTable.propTypes = {
+	order: PropTypes.object,
+	handleChange: PropTypes.func,
+};
