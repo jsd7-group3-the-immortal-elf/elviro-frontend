@@ -125,25 +125,24 @@ function ProfileAccountPage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center bg-[#ccccca] py-10">
-			<div className="flex flex-col lg:flex-row gap-8 w-10/12 xl:w-4/5">
-			<ProfileNav className="w-1/3" />
-			<section className="xl:py-10 xl:px-16">
-				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-					{/*-- personal info --*/}
+		<section className="bg-white rounded-3xl min-h-full w-full lg:w-3/5 xl:w-3/4 p-8 xl:py-10 xl:px-16">
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col h-full gap-6 justify-between"
+			>
+				<div className="flex flex-col gap-6">
 					<h2 className="text-left">Account</h2>
-
-					<hr className="my-2 border-[#B5C18E]" />
+					<hr className="my-2 border-green" />
 
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full">
-							User Name
+						<label className="flex flex-col w-full sm:w-1/2">
+							Username
 							<input
 								type="text"
 								name="userName"
 								value={formData.userName}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 								required
 							/>
 							{errors.userName && (
@@ -152,14 +151,14 @@ function ProfileAccountPage() {
 								</span>
 							)}
 						</label>
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							Email
 							<input
 								type="email"
 								name="email"
 								value={formData.email}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 								required
 							/>
 							{errors.email && (
@@ -169,15 +168,16 @@ function ProfileAccountPage() {
 							)}
 						</label>
 					</div>
+
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full relative">
+						<label className="flex flex-col w-full sm:w-1/2 relative">
 							Password
 							<input
 								type={passwordVisible ? "text" : "password"}
 								name="password"
 								value={formData.password}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg pr-16"
+								className="input mt-3"
 							/>
 							<button
 								type="button"
@@ -187,14 +187,14 @@ function ProfileAccountPage() {
 								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
 						</label>
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							Change password
 							<input
 								type="password"
 								name="newPassword"
 								value={formData.newPassword}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 							/>
 							{errors.newPassword && (
 								<span className="text-red-500 text-sm mt-1">
@@ -203,16 +203,16 @@ function ProfileAccountPage() {
 							)}
 						</label>
 					</div>
-					<button
-						type="submit"
-						className="py-4 px-6 rounded-xl bg-orange-200 hover:bg-orange-300 mx-auto"
-					>
-						Save Change
-					</button>
-				</form>
-			</section>
-			</div>
-		</div>
+				</div>
+
+				<button
+					type="submit"
+					className="py-4 px-6 rounded-xl bg-orange-200 hover:bg-orange-300 mx-auto"
+				>
+					Save Change
+				</button>
+			</form>
+		</section>
 	);
 }
 
