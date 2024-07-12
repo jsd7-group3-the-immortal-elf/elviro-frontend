@@ -27,11 +27,6 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 		setShowConfirmPassword(!showConfirmPassword);
 	};
 
-	//สลับแสดงเตือนว่า password ตรงไหม
-	const toggleAlertMatch = () => {
-		setShowAlertMatch(!showAlertMatch);
-	};
-
 	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
@@ -49,15 +44,12 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
 		if (resetData.password !== resetData.confirmPassword) {
-			if (showAlertMatch === false) {
-				toggleAlertMatch();
-			}
+			setShowAlertMatch(true);
 			return;
 		}
-		console.log("Form Submitted:", resetData); //ไว้ดู check
-		if (showAlertMatch === true) {
-			toggleAlertMatch();
-		}
+		// console.log("Data Submitted:", resetData); //ไว้ดู check
+
+		setShowAlertMatch(false);
 		alert("Password Reset Successful!");
 		toggleOpenReset();
 		toggleOpenLogin();
@@ -70,6 +62,7 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 			password: "",
 			confirmPassword: "",
 		});
+		setShowAlertMatch(false);
 	};
 
 	return (
@@ -111,11 +104,11 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Password */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								New Password
 								<div className="relative">
 									<input
-										className="input-login w-full"
+										className="input-createAccount w-full"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={resetData.password}
@@ -131,11 +124,11 @@ function ResetPage({ openResetPage, toggleOpenReset, toggleOpenLogin }) {
 									</span>
 								</div>
 							</label>
-							<label className="label-login">
+							<label className="label-createAccount">
 								Confirm Password
 								<div className="relative">
 									<input
-										className="input-login w-full"
+										className="input-createAccount w-full"
 										name="confirmPassword"
 										type={showConfirmPassword ? "text" : "password"}
 										value={resetData.confirmPassword}
