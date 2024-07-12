@@ -1,46 +1,50 @@
-// import { useState, useEffect } from "react";
-// import { Link, useParams } from "react-router-dom";
-// import axios from "axios";
-// import DashChangePage from "../../components/dashboard/DashChangePage";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
+import DashChangePage from "../../components/dashboard/DashChangePage";
 import customerPic from "/images/contact.png";
 
-export default function DashProductViewPage() {
-	// const [product, setProduct] = useState({});
+export default function DashOrderViewPage() {
+	const navigate = useNavigate();
+	const [order, setOrder] = useState({});
+	const { id } = useParams();
 
-	// const { id } = useParams();
+	async function getOrder(id) {
+		try {
+			const response = await axiosInstance.get(`/orders/${id}`);
+			const { data } = await response.data;
+			console.log(data);
+			setOrder(data);
+		} catch (error) {
+			console.error("Failed to get data:", error);
+		}
+	}
 
-	// async function getProduct(id) {
-	// 	try {
-	// 		const response = await axios.get(
-	// 			"https://store-crud.onrender.com/api/product/" + id
-	// 		);
-	// 		const data = await response.data;
-	// 		setProduct(data);
-	// 	} catch (error) {
-	// 		console.error("Failed to get data:", error);
-	// 	}
-	// }
+	async function editOrder(id, field) {
+		try {
+			await axiosInstance.patch(`/orders/${id}`, field);
+		} catch (error) {
+			console.error("Failed to edit data:", error);
+		}
+	}
 
-	// async function deleteProduct() {
-	// 	try {
-	// 		await axios.delete("https://store-crud.onrender.com/api/product/" + id);
-	// 		location.href = "http://localhost:5173/dashboard/product";
-	// 	} catch (error) {
-	// 		console.error("Failed to delete data:", error);
-	// 	}
-	// }
+	async function handleEdit() {
+		// const field = { isPublish: !order.isPublish };
+		await editOrder(id, field);
+		navigate("/dashboard/order");
+	}
 
-	// useEffect(() => {
-	// 	getProduct(id);
-	// }, [id]);
+	useEffect(() => {
+		getOrder(id);
+	}, [id]);
 
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6">
 			<section className="flex items-center justify-between">
 				<div>
-					<h4>Order Number : #12345</h4>
-					<p>Order Date : 23 Jun 2024</p>
-					<p>Tracking ID : 12jio121</p>
+					<h4>Order Number : {order._id}</h4>
+					<p>Order Date : {order.createOn}</p>
+					{/* <p>Tracking ID : 12jio121</p> */}
 				</div>
 				<div className="flex gap-4">
 					<button
@@ -63,11 +67,13 @@ export default function DashProductViewPage() {
 					<div className="flex ml-2 justify-between">
 						<div className="flex gap-4 items-center">
 							<img
-								src={customerPic}
+								src={order.customerImage}
 								alt=""
 								className="aspect-square w-1/12 rounded-lg"
 							/>
-							<p>John Doe</p>
+							<p>
+								{order.firstName} {order.lastName}
+							</p>
 						</div>
 						<select className="w-fit">
 							<option>Pending</option>
@@ -89,8 +95,8 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>081 234 5678</td>
-								<td>example@example.com</td>
+								<td>{order?.profile?.phone}</td>
+								<td>{order?.profile?.email}</td>
 								<td>aa</td>
 							</tr>
 						</tbody>
@@ -106,7 +112,7 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>111/111 nakhon ratchasima, nakhon ratchasima, 12345</td>
+								<td>{order?.address?.address}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -122,8 +128,8 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>13046</td>
-								<td>360</td>
+								<td>{order.totalPrice}</td>
+								<td>{order.totalPrice - order.totalCost}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -132,7 +138,7 @@ export default function DashProductViewPage() {
 
 			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-364px)] flex flex-col justify-between">
 				<div>
-					<h4 className="mb-3">Item : 3</h4>
+					<h4 className="mb-3">Item : {order.orderDetail.length}</h4>
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
@@ -152,45 +158,63 @@ export default function DashProductViewPage() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th className="text-white w-5">
-									<input
-										type="checkbox"
-										name=""
-										id=""
-										className="accent-green w-4 h-4 m-3 "
-									/>
-								</th>
-								<th>
-									<div className="h-10 w-10 flex justify-center items-center">
-										<img
-											src={customerPic}
-											alt="mock"
-											className="aspect-square rounded-md"
-										/>
-									</div>
-								</th>
-								<th>Sofa</th>
-								<th>12400</th>
-								<th>1</th>
-								<th>12400</th>
-								<th>
-									<select name="orederStatus">
-										<option value="Pending">Pending</option>
-										<option value="Confirmed">Confirmed</option>
-										<option value="Processing">Processing</option>
-										<option value="Picked">Picked</option>
-										<option value="Shipped">Shipped</option>
-										<option value="Delivered">Delivered</option>
-										<option value="Cancelled">Cancelled</option>
-									</select>
-								</th>
-							</tr>
+							{order.productInfo.map((product, i) => {
+								return (
+									<tr key={i}>
+										<th className="text-white w-5">
+											<input
+												type="checkbox"
+												name=""
+												id=""
+												className="accent-green w-4 h-4 m-3 "
+											/>
+										</th>
+										<th>
+											<div className="h-10 w-10 flex justify-center items-center">
+												<img
+													src={product.productImage}
+													alt="mock"
+													className="aspect-square rounded-md"
+												/>
+											</div>
+										</th>
+										<th>{product.productName}</th>
+										<th>{product.price}</th>
+										<th>{order?.orderDetail[i]?.quantity}</th>
+										<th>{order?.orderDetail[i]?.quantity * product.price}</th>
+										<th>
+											<select name="status" value={order.status}>
+												<option name="status" value="Pending">
+													Pending
+												</option>
+												<option name="status" value="Confirmed">
+													Confirmed
+												</option>
+												<option name="status" value="Processing">
+													Processing
+												</option>
+												<option name="status" value="Picked">
+													Picked
+												</option>
+												<option name="status" value="Shipped">
+													Shipped
+												</option>
+												<option name="status" value="Delivered">
+													Delivered
+												</option>
+												<option name="status" value="Cancelled">
+													Cancelled
+												</option>
+											</select>
+										</th>
+									</tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</div>
 
-				{/* <DashChangePage /> */}
+				<DashChangePage />
 			</section>
 		</div>
 	);

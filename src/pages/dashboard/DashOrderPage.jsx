@@ -1,8 +1,52 @@
+import { useEffect, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashOrderSummary from "../../components/dashboard/DashOrderSummary";
 import DashOrderTable from "../../components/dashboard/DashOrderTable";
 
-export default function DashOrderPage() {
+export default function DashOrderPage({ reload, setReload }) {
+	const [orderList, setOrderList] = useState([]);
+
+	async function getOrder() {
+		try {
+			const response = await axiosInstance.get("/orders");
+			const { data } = await response.data;
+			console.log(data);
+			setOrderList(data);
+		} catch (error) {
+			console.error("Failed to get data:", error);
+		}
+	}
+
+	async function editProduct(id, field) {
+		try {
+			await axiosInstance.patch(`/orders/${id}`, field);
+			setReload(!reload);
+		} catch (error) {
+			console.error("Failed to edit data:", error);
+		}
+	}
+
+	useEffect(() => {
+		getOrder();
+	}, [reload]);
+
+	function handleChange(e, orderId) {
+		const { name, value } = e.target;
+
+		setOrderList((prev) =>
+			prev.map((item) =>
+				item.id === orderId ? { ...item, [name]: value } : item
+			)
+		);
+
+		if (name == "isPublish") {
+			const bool = value == "Published" ? true : false;
+			const field = { [name]: bool };
+			editProduct(productId, field);
+		}
+	}
+
 	return (
 		<div className="bg-neutral-100 pl-80 p-6 flex flex-col gap-6 ">
 			<h4>Order Summary</h4>
@@ -81,17 +125,13 @@ export default function DashOrderPage() {
 							</tr>
 						</thead>
 						<tbody>
-							{/* {productList.map((product) => ( */}
-							<DashOrderTable
-							// key={product._id}
-							// product={product}
-							// setProductList={setProductList}
-							// handleChange={handleChange}
-							/>
-							{/* ))} */}
-							<DashOrderTable />
-							<DashOrderTable />
-							<DashOrderTable />
+							{orderList.map((order) => (
+								<DashOrderTable
+									key={order._id}
+									order={order}
+									handleChange={handleChange}
+								/>
+							))}
 						</tbody>
 					</table>
 				</div>

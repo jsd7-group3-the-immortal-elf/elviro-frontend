@@ -139,8 +139,8 @@ export default function App() {
 					element: <DashOrderPage />,
 				},
 				{
-					path: "order/view-order",
-					element: <DashOrderViewPage />,
+					path: "order/:id",
+					element: <DashOrderViewPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "product",
