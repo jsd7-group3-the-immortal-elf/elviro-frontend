@@ -138,7 +138,7 @@ export default function DashOrderViewPage() {
 
 			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-364px)] flex flex-col justify-between">
 				<div>
-					<h4 className="mb-3">Item : {order.orderDetail.length}</h4>
+					<h4 className="mb-3">Item : {order?.orderDetail?.length}</h4>
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
@@ -158,7 +158,7 @@ export default function DashOrderViewPage() {
 							</tr>
 						</thead>
 						<tbody>
-							{order.productInfo.map((product, i) => {
+							{order?.productInfo?.map((product, i) => {
 								return (
 									<tr key={i}>
 										<th className="text-white w-5">
