@@ -108,8 +108,9 @@ export default function ProductPage() {
 
 	return (
 		<main className="mx-5 lg:mx-24 flex flex-col gap-5 md:gap-10">
-			{/* <ProductDetail />
-			<ProductDescription /> */}
+			{/* <ProductDetail /> */}
+			{/* <ProductDescription /> */}
+			{/* <RelatedProduct/> */}
 
 			{/* -----ส่วน Product Detail ---------*/}
 			<section className="mt-6 md:mt-24 flex flex-col gap-5 md:flex-row md:gap-36 md:justify-center">
@@ -209,10 +210,9 @@ export default function ProductPage() {
 				</section>
 			</section>
 
-			<hr className="border border-lightgreen" />
-
 			{/* -----ส่วน Product Description ---------*/}
 			<section className="flex flex-col gap-7 ">
+				<hr className="border border-lightgreen" />
 				<h2 className="font-bold text-2xl  md:text-3xl">Description</h2>
 				<p className="text-md lg:text-xl">{product.description}</p>
 				<hr className="border border-lightgreen" />
