@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { FaShareAlt } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
+import ProductCard from "../../components/home/ProductCard";
 
 export default function ProductPage() {
 	const [product, setProduct] = useState({});
 	const [quantity, setQuantity] = useState(0);
-	// const[(quantity, setQuantity)] = useState("0");
+	const [query, setQuery] = useState("");
+	const [productList, setProductList] = useState([]); //เอาobject ของ product มาใส่ array
 
 	const { id } = useParams();
 
@@ -18,10 +20,33 @@ export default function ProductPage() {
 			console.log(response);
 			const { data } = await response.data; //ดึงของใน data ที่อยู่ data อีกที
 			setProduct(data); //เอา data ไปเก็บใน state
+
+			const responseQuery = await axiosInstance.get(
+				`/products?limit=4&category=${data.category}`
+			); //fetch data จาก axiosInstance
+			console.log(responseQuery);
+			const dataQuery = await responseQuery.data.data; //ดึงของใน data ที่อยู่ data อีกที
+			setProductList(dataQuery);
 		} catch (error) {
 			console.log("Failed to get data:", error);
 		}
 	}
+
+	async function getQueryProduct(id) {
+		try {
+			const response = await axiosInstance.get(
+				`/products/?limit=4&$category=${product.category}`
+			); //fetch data จาก axiosInstance
+			console.log(response);
+			const { data } = await response.data; //ดึงของใน data ที่อยู่ data อีกที
+			setProductList(data);
+		} catch (error) {
+			console.log("Failed to get data:", error);
+		}
+	}
+
+	console.log(productList);
+	console.log(product);
 
 	//mock user Id
 	const userId = "668b6edc85daeb3a4220771a";
@@ -41,7 +66,10 @@ export default function ProductPage() {
 	//ให้ fetch data ใหม่ ตอนที่ id มีการเปลี่ยนแปลง
 	useEffect(() => {
 		getProduct(id);
-	}, [id]);
+		getQueryProduct();
+	}, []);
+
+	//ดึง related product
 
 	//ให้มี comma คั่นเลข 1000
 	function numberWithCommas(number) {
@@ -186,6 +214,13 @@ export default function ProductPage() {
 				<h2 className="font-bold text-2xl  md:text-3xl">Description</h2>
 				<p className="text-md lg:text-xl">{product.description}</p>
 			</section>
+
+			{/* -----ส่วน Related Product ---------*/}
+			<div className="grid grid-cols-2 lg:grid-cols-4 pt-4 gap-4 md:gap-8">
+				{productList.map((product) => (
+					<ProductCard key={product._id} product={product} />
+				))}
+			</div>
 		</main>
 	);
 }
