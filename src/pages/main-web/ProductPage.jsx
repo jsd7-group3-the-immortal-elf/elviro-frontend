@@ -108,10 +108,6 @@ export default function ProductPage() {
 
 	return (
 		<main className="mx-5 lg:mx-24 flex flex-col gap-5 md:gap-10">
-			{/* <ProductDetail /> */}
-			{/* <ProductDescription /> */}
-			{/* <RelatedProduct/> */}
-
 			{/* -----ส่วน Product Detail ---------*/}
 			<section className="mt-6 md:mt-24 flex flex-col gap-5 md:flex-row md:gap-36 md:justify-center">
 				{/* รูป */}
