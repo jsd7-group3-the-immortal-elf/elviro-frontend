@@ -45,9 +45,6 @@ export default function ProductPage() {
 		}
 	}
 
-	console.log(productList);
-	console.log(product);
-
 	//mock user Id
 	const userId = "668b6edc85daeb3a4220771a";
 	//ตอนกด Add to Cart
@@ -67,7 +64,7 @@ export default function ProductPage() {
 	useEffect(() => {
 		getProduct(id);
 		getQueryProduct();
-	}, []);
+	}, [id]);
 
 	//ดึง related product
 
