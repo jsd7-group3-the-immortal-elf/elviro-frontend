@@ -4,12 +4,32 @@ import CheckoutPayment from "../../components/checkout/CheckoutPayment";
 import Motto from "../../components/Motto";
 import Banner from "../../components/Banner";
 import { useState } from "react";
+import { useEffect } from "react";
 
 function CheckoutPage() {
-	const [toggleBilling, setToggleBilling] = useState(true);
+	const [toggleBillingDesktop, setToggleBillingDesktop] = useState(true);
+	const [toggleBilling, setToggleBilling] = useState(false);
 	const buttonBilling = () => {
 		setToggleBilling(!toggleBilling);
 	};
+	const handleResize = () => {
+		if (window.innerWidth >= 1024) {
+			setToggleBillingDesktop(true);
+		} else {
+			setToggleBillingDesktop(false);
+		}
+	};
+	useEffect(() => {
+		// Add event listener for window resize
+		window.addEventListener("resize", handleResize);
+		handleResize(); // Check the window size initially
+
+		// Cleanup event listener on component unmount
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
 	const dataProfile = {
 		fistName: "Charlee",
 		lastName: "Meichom",
@@ -28,13 +48,9 @@ function CheckoutPage() {
 					Personal and Address
 				</button>
 				<div
-					className={
-						window.innerWidth >= 1024
-							? "flex  w-1/2 justify-end"
-							: toggleBilling
-							? "flex w-full"
-							: "hidden"
-					}
+					className={`
+						${toggleBillingDesktop ? "flex" : toggleBilling ? "flex" : "hidden"}
+					flex  w-1/2 justify-end md:w-full`}
 				>
 					<CheckoutBilling
 						// fistName={dataProfile.fistName}

@@ -32,10 +32,10 @@ import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function App() {
-	const [reload, setReload] = useState(false);
+	// const [reload, setReload] = useState(false);
 
 	const router = createBrowserRouter([
 		{
@@ -59,7 +59,7 @@ export default function App() {
 				},
 				{
 					path: "cart",
-					element: <CartPage />,
+					// element: <CartPage />,
 				},
 				{
 					path: "cart/checkout",
@@ -75,7 +75,7 @@ export default function App() {
 				},
 				{
 					path: "contact",
-					element: <ContactPage />,
+					// element: <ContactPage />,
 				},
 			],
 		},
@@ -151,15 +151,15 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
-					element: <DashProductAddPage reload={reload} />,
+					// element: <DashProductAddPage reload={reload} />,
 				},
 				{
 					path: "product/edit-product/:id",
-					element: <DashProductAddPage />,
+					// element: <DashProductAddPage />,
 				},
 				{
 					path: "product/view-product",
-					element: <DashProductViewPage />,
+					// element: <DashProductViewPage />,
 				},
 				{
 					path: "admin",

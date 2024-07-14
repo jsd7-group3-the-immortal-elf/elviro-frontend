@@ -12,7 +12,7 @@ function Banner() {
 			<h1 className=" my-8 ">All Room</h1>
 			<h3>
 				{/* {<Link to="/">Home</Link>} */}
-				<span> Home / test Product</span>
+				<span> Home </span>
 				{/* -------------Code breadcrumbs----------- */}
 				{/* {itemPage.map((name, index) => {
 				storePage += `/ ${name}`;
