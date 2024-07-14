@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function DashOrderSummary() {
+export default function DashOrderSummary({ orderList }) {
 	return (
 		<section className="bg-green rounded-lg w-full flex flex-col justify-between items-end p-2 text-white h-32">
 			<select name="" className="w-fit text-center text-sm bg-transparent">
@@ -35,14 +35,28 @@ export default function DashOrderSummary() {
 				</thead>
 				<tbody className="font-medium">
 					<tr>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
+						<td>{orderList.length}</td>
+						<td>
+							{orderList.filter((order) => order.status == "Pending").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Confirmed").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Processing").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Picked").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Shipped").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Delivered").length}
+						</td>
+						<td>
+							{orderList.filter((order) => order.status == "Cancelled").length}
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -51,5 +65,5 @@ export default function DashOrderSummary() {
 }
 
 DashOrderSummary.propTypes = {
-	productList: PropTypes.array,
+	orderList: PropTypes.array,
 };

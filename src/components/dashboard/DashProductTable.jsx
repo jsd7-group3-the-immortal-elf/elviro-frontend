@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import format from "../../utils/format";
 
 export default function DashProductTable({ product, handleChange }) {
 	return (
@@ -24,7 +25,7 @@ export default function DashProductTable({ product, handleChange }) {
 			<th>{product.productName}</th>
 			<th>{product.rooms.join(", ")}</th>
 			<th>{product.category}</th>
-			<th>{product.price}</th>
+			<th>{format.thCurrency(product.price)}</th>
 			<th className={`${product.stock <= 20 ? "text-red-500" : ""}`}>
 				{product.stock}
 			</th>

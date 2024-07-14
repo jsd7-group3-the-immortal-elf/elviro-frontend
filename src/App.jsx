@@ -130,7 +130,7 @@ export default function App() {
 				},
 				{
 					path: "order",
-					element: <DashOrderPage />,
+					element: <DashOrderPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "order/:id",

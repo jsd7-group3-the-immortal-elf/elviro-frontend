@@ -1,24 +1,25 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import format from "../../utils/format";
 
 export default function DashOrderTable({ order, handleChange }) {
 	return (
 		<tr key={order._id}>
-			<th className="text-white w-5">
+			{/* <th className="text-white w-5">
 				<input
 					type="checkbox"
 					name="checkbox"
 					onChange={(e) => handleChange(e, order._id)}
 					className="accent-green w-4 h-4 m-3 "
 				/>
-			</th>
-			<th>{order._id}</th>
+			</th> */}
+			<th className="py-2">{order._id}</th>
 			<th>{order.createOn}</th>
 			<th>
 				{order.firstName} {order.lastName}
 			</th>
-			<th>{order.totalPrice}</th>
-			<th>{order.totalPrice - order.totalCost}</th>
+			<th>{format.thCurrency(order.totalPrice)}</th>
+			<th>{format.thCurrency(order.totalPrice - order.totalCost)}</th>
 			<th>
 				<select
 					name="status"
