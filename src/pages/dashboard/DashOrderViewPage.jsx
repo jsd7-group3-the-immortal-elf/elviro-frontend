@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import format from "../../utils/format";
+import { thCurrency } from "../../utils/format";
 import axiosInstance from "../../utils/axiosInstance";
 import DashChangePage from "../../components/dashboard/DashChangePage";
 
@@ -106,10 +106,8 @@ export default function DashOrderViewPage(reload, setReload) {
 
 				<div className="flex flex-col bg-white rounded-lg w-1/3 justify-around gap-2 px-4 py-2">
 					<p>Payment Method : {order.payment}</p>
-					<p>Total Price : {format.thCurrency(order.totalPrice)}</p>
-					<p>
-						Profit : {format.thCurrency(order.totalPrice - order.totalCost)}
-					</p>
+					<p>Total Price : {thCurrency(order.totalPrice)}</p>
+					<p>Profit : {thCurrency(order.totalPrice - order.totalCost)}</p>
 				</div>
 			</section>
 
@@ -156,10 +154,10 @@ export default function DashOrderViewPage(reload, setReload) {
 											</div>
 										</th>
 										<th>{product.productName}</th>
-										<th>{format.thCurrency(product.price)}</th>
+										<th>{thCurrency(product.price)}</th>
 										<th>{order?.orderDetail[i]?.quantity}</th>
 										<th>
-											{format.thCurrency(
+											{thCurrency(
 												order?.orderDetail[i]?.quantity * product.price
 											)}
 										</th>

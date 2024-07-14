@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import format from "../../utils/format";
+import { thCurrency, thDateTime } from "../../utils/format";
 
 export default function DashOrderTable({ order, handleChange }) {
 	return (
@@ -14,12 +14,12 @@ export default function DashOrderTable({ order, handleChange }) {
 				/>
 			</th> */}
 			<th className="py-2">{order._id}</th>
-			<th>{order.createOn}</th>
+			<th>{thDateTime(order.createOn)}</th>
 			<th>
 				{order.firstName} {order.lastName}
 			</th>
-			<th>{format.thCurrency(order.totalPrice)}</th>
-			<th>{format.thCurrency(order.totalPrice - order.totalCost)}</th>
+			<th>{thCurrency(order.totalPrice)}</th>
+			<th>{thCurrency(order.totalPrice - order.totalCost)}</th>
 			<th>
 				<select
 					name="status"
