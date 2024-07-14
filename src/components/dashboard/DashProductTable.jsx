@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { useState } from "react";
+import format from "../../utils/format";
 
 export default function DashProductTable({ product, handleChange }) {
-	// const [productStatus, setProductStatus] = useState(product.status);
-
 	return (
-		<tr key={product._id} className="">
+		<tr key={product._id}>
 			<th className="text-white w-5">
 				<input
 					type="checkbox"
@@ -27,7 +25,7 @@ export default function DashProductTable({ product, handleChange }) {
 			<th>{product.productName}</th>
 			<th>{product.rooms.join(", ")}</th>
 			<th>{product.category}</th>
-			<th>{product.price}</th>
+			<th>{format.thCurrency(product.price)}</th>
 			<th className={`${product.stock <= 20 ? "text-red-500" : ""}`}>
 				{product.stock}
 			</th>

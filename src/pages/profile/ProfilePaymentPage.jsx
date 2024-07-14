@@ -81,29 +81,24 @@ function ProfilePaymentPage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center bg-[#ccccca] py-10">
-			<div className="flex flex-col lg:flex-row gap-8 w-10/12 xl:w-4/5">
-			<ProfileNav className="w-1/3" />
-			<section className="lg:w-2/3 xl:py-10 xl:px-16 md:w-full">
-				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-					{/*-- personal info --*/}
+		<section className="bg-white rounded-3xl w-full lg:w-3/5 xl:w-3/4 p-8 xl:py-10 xl:px-16">
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col h-full gap-6 justify-between"
+			>
+				<div className="flex flex-col gap-6">
 					<h2 className="text-left">Payment</h2>
-
-					<hr className="my-2 border-[#B5C18E]" />
-
-					<h3 className="text-left">Card Detail</h3>
-
 					<hr className="my-2 border-[#B5C18E]" />
 
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							Card number
 							<input
 								type="number"
 								name="cardNumber"
 								value={formData.cardNumber}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 							/>
 							{errors.cardNumber && (
 								<span className="text-red-500 text-sm mt-1">
@@ -111,14 +106,14 @@ function ProfilePaymentPage() {
 								</span>
 							)}
 						</label>
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							Name on card
 							<input
 								type="text"
 								name="nameOnCard"
 								value={formData.nameOnCard}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 							/>
 							{errors.nameOnCard && (
 								<span className="text-red-500 text-sm mt-1">
@@ -127,8 +122,9 @@ function ProfilePaymentPage() {
 							)}
 						</label>
 					</div>
+
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							Expiry Date
 							<input
 								type="month"
@@ -137,7 +133,7 @@ function ProfilePaymentPage() {
 								min="2018-01"
 								max="2030-12"
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 							/>
 							{errors.expiryDate && (
 								<span className="text-red-500 text-sm mt-1">
@@ -145,94 +141,31 @@ function ProfilePaymentPage() {
 								</span>
 							)}
 						</label>
-						<label className="flex flex-col w-full">
+						<label className="flex flex-col w-full sm:w-1/2">
 							CVV
 							<input
 								type="number"
 								name="cvvNumber"
 								value={formData.cvvNumber}
 								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
+								className="input mt-3"
 							/>
 							{errors.cvv && (
 								<span className="text-red-500 text-sm mt-1">{errors.cvv}</span>
 							)}
 						</label>
 					</div>
-
-					<div className="flex flex-col sm:w-1/2 sm:pr-4">card logo</div>
-				</form>
-				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-					{/*!-- address -->*/}
-					<h3 className="text-left mt-8">Bank Account</h3>
-
-					<hr className="my-2 border-[#B5C18E]" />
-
-					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full">
-							Bank
-							<select
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-								name="bank"
-								value={formData.bank}
-								onChange={handleInputChange}
-							>
-								<option value="">Select Bank</option>
-								<option value="banka">Bank A</option>
-								<option value="bankb">Bank B</option>
-								<option value="bankc">Bank C</option>
-							</select>
-							{errors.bank && (
-								<span className="text-red-500 text-sm mt-1">{errors.bank}</span>
-							)}
-						</label>
-						<label className="flex flex-col w-full">
-							Account Holder Name
-							<input
-								type="text"
-								name="accountHolderName"
-								value={formData.accountHolderName}
-								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-							/>
-							{errors.accountHolderName && (
-								<span className="text-red-500 text-sm mt-1">
-									{errors.accountHolderName}
-								</span>
-							)}
-						</label>
-					</div>
-
-					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full">
-							Account Number
-							<input
-								type="number"
-								name="accountNumber"
-								value={formData.accountNumber}
-								onChange={handleInputChange}
-								className="border border-neutral-300 px-4 py-3 mt-3 rounded-lg"
-							/>
-							{errors.accountNumber && (
-								<span className="text-red-500 text-sm mt-1">
-									{errors.accountNumber}
-								</span>
-							)}
-						</label>
-					</div>
-
-					<button
-						type="submit"
-						className={
-							"py-4 px-6 rounded-xl mx-auto bg-orange-200 hover:bg-orange-300"
-						}
-					>
-						Save Change
-					</button>
-				</form>
-			</section>
-			</div>
-		</div>
+				</div>
+				<button
+					type="submit"
+					className={
+						"py-4 px-6 rounded-xl mx-auto bg-orange-200 hover:bg-orange-300"
+					}
+				>
+					Save Change
+				</button>
+			</form>
+		</section>
 	);
 }
 export default ProfilePaymentPage;

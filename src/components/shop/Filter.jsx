@@ -188,7 +188,7 @@ export default function Filter({ handleFilter }) {
 									type="checkbox"
 									name="rooms"
 									value="Bedroom"
-									onChange={handleChange}
+									// onChange={handleChange}
 									className="w-4 h-4"
 								/>
 								Bedroom
@@ -199,7 +199,7 @@ export default function Filter({ handleFilter }) {
 									type="checkbox"
 									name="rooms"
 									value="Living Room"
-									onChange={handleChange}
+									// onChange={handleChange}
 									className="w-4 h-4"
 								/>
 								Living Room
@@ -210,7 +210,7 @@ export default function Filter({ handleFilter }) {
 									type="checkbox"
 									name="rooms"
 									value="Kitchen"
-									onChange={handleChange}
+									// onChange={handleChange}
 									className="w-4 h-4"
 								/>
 								Kitchen
