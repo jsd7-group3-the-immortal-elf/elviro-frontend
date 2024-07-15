@@ -90,8 +90,8 @@ export default function App() {
 			element: (
 				<>
 					<NavBar />
-					<main class="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
-						<h1 class="w-11/12 xl:w-4/5 justify-start">My Account</h1>
+					<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
+						<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
 						<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
 							<ProfileNav />
 							<Outlet />
@@ -148,7 +148,7 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
-					element: <DashProductAddPage reload={reload} />,
+					// element: <DashProductAddPage reload={reload} />,
 				},
 				{
 					path: "product/edit/:id",
