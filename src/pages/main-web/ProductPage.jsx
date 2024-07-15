@@ -1,95 +1,82 @@
 // import ProductDetail from "../../components/product/ProductDetail";
 // import ProductDescription from "../../components/product/ProductDescription";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaShareAlt } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import axiosInstance from "../../utils/axiosInstance";
+import Cookies from "js-cookie";
 import ProductCard from "../../components/home/ProductCard";
+import axiosInstance from "../../utils/axiosInstance";
+import { numberWithCommas } from "../../utils/format";
 
 export default function ProductPage() {
 	const [product, setProduct] = useState({});
 	const [quantity, setQuantity] = useState(0);
-	const [query, setQuery] = useState("");
-	const [productList, setProductList] = useState([]); //เอาobject ของ product มาใส่ array
-
+	const [productList, setProductList] = useState([]);
 	const { id } = useParams();
+	const token = Cookies.access_token;
+	console.log(token);
+	const userId = "668b6edc85daeb3a4220771a";
 
 	async function getProduct(id) {
 		try {
-			const response = await axiosInstance.get(`/products/${id}`); //fetch data จาก axiosInstance
-			console.log(response);
-			const { data } = await response.data; //ดึงของใน data ที่อยู่ data อีกที
-			setProduct(data); //เอา data ไปเก็บใน state
+			const response = await axiosInstance.get(`/products/${id}`);
+			const { data } = await response.data;
+
+			setProduct(data);
 
 			const responseQuery = await axiosInstance.get(
 				`/products?limit=4&category=${data.category}`
-			); //fetch data จาก axiosInstance
-			console.log(responseQuery);
-			const dataQuery = await responseQuery.data.data; //ดึงของใน data ที่อยู่ data อีกที
+			);
+			const dataQuery = await responseQuery.data.data;
+
 			setProductList(dataQuery);
 		} catch (error) {
 			console.log("Failed to get data:", error);
 		}
 	}
 
-	async function getQueryProduct(id) {
+	async function getQueryProduct() {
 		try {
 			const response = await axiosInstance.get(
 				`/products/?limit=4&$category=${product.category}`
-			); //fetch data จาก axiosInstance
-			console.log(response);
-			const { data } = await response.data; //ดึงของใน data ที่อยู่ data อีกที
+			);
+			const { data } = await response.data;
+
 			setProductList(data);
 		} catch (error) {
 			console.log("Failed to get data:", error);
 		}
 	}
 
-	//mock user Id
-	const userId = "668b6edc85daeb3a4220771a";
-	//ตอนกด Add to Cart
 	async function createNewCart(productId, quantity) {
 		try {
 			await axiosInstance.post(`/cart/${userId}`, {
 				productId,
 				quantity,
 			});
-			console.log(`Added ${quantity} of product ${productId} to cart.`);
 		} catch (error) {
 			console.log("Failed to create a new cart", error);
 		}
 	}
 
-	//ให้ fetch data ใหม่ ตอนที่ id มีการเปลี่ยนแปลง
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProduct(id);
 		getQueryProduct();
 	}, [id]);
 
-	//ดึง related product
-
-	//ให้มี comma คั่นเลข 1000
-	function numberWithCommas(number) {
-		if (number == null) {
-			return "";
-		}
-		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
-
 	function copyToClipboard() {
-		const url = location.href; //เอา url ปัจจุบันมา
+		const url = location.href;
 		navigator.clipboard.writeText(url);
 		alert("URL copied.");
 		return;
 	}
 
-	//กำหนดตัวแปล width, height, depth--> ?. เป็น optional chaining
 	const width = product.dimension?.width;
 	const height = product.dimension?.height;
 	const depth = product.dimension?.depth;
 	const depthExtend = product.dimension?.depthExtend;
 
-	//ปุ่มเพิ่มลด quantity
 	const increment = () => {
 		setQuantity(quantity + 1);
 	};
@@ -97,18 +84,15 @@ export default function ProductPage() {
 		setQuantity(quantity - 1);
 	};
 
-	//ตั้งค่าให้พิมพ์เลขได้ด้วย
 	const handleQuantityChange = (event) => {
-		const value = parseInt(event.target.value, 10); //แปลงค่าที่ใส่เป็น integer
-		setQuantity(value); //ห้ามใส่ติดลบ
+		const value = parseInt(event.target.value, 10);
+		setQuantity(value);
 	};
 
 	return (
 		<main className="mx-5 lg:mx-24 flex flex-col gap-5 md:gap-10">
-			{/* -----ส่วน Product Detail ---------*/}
+			{/* ----- Product Detail ---------*/}
 			<section className="mt-6 md:mt-24 flex flex-col gap-5 md:flex-row md:gap-36 md:justify-center">
-				{/* รูป */}
-
 				<picture className=" shadow-lg rounded-3xl w-full md:w-1/2">
 					<img
 						src={product.productImage}
@@ -117,7 +101,6 @@ export default function ProductPage() {
 					/>
 				</picture>
 
-				{/* ส่วนของ Detail */}
 				<section className="flex flex-col items-start gap-2 mb-5 md:gap-5 w-full md:w-1/2">
 					<h2 className="text-xl font-normal md:text-3xl">
 						{product.productName}
@@ -203,7 +186,6 @@ export default function ProductPage() {
 				</section>
 			</section>
 
-			{/* -----ส่วน Product Description ---------*/}
 			<section className="flex flex-col gap-7 ">
 				<hr className="border border-lightgreen" />
 				<h2 className="font-bold text-2xl  md:text-3xl">Description</h2>
@@ -211,7 +193,6 @@ export default function ProductPage() {
 				<hr className="border border-lightgreen" />
 			</section>
 
-			{/* -----ส่วน Related Product ---------*/}
 			<section className="flex flex-col gap-4 mb-5">
 				<h2 className="font-bold text-2xl md:text-3xl">Related Products</h2>
 				<p className="text-md lg:text-xl text-center font-semibold text-neutral-500">

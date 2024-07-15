@@ -1,10 +1,12 @@
 //ใช้ useState
 import { useState } from "react";
-import ImageWhite from "/images/elviro_logo_white.svg";
-import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import cookies from "cookie-universal";
+import axiosInstance from "../../utils/axiosInstance";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
 
 function LoginPage({
 	openLoginPage,
@@ -15,6 +17,7 @@ function LoginPage({
 	openForgetPage,
 	setOpenForgetPage,
 }) {
+	const Cookies = cookies();
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
 		email: "",
@@ -26,6 +29,19 @@ function LoginPage({
 	const [showPassword, setShowPassword] = useState(false);
 
 	const [showAlert, setShowAlert] = useState(false);
+
+	async function userLogin() {
+		try {
+			const response = await axiosInstance.post("/users/login", loginData);
+
+			alert(`${response.data.message}`);
+
+			console.log(Cookies.get("access_token"));
+			// console.log(response.data);
+		} catch (error) {
+			console.log("Failed to create an account", error);
+		}
+	}
 
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
@@ -47,14 +63,14 @@ function LoginPage({
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
-
-		if (
-			loginData.email !== "example@email.com" ||
-			loginData.password !== "password"
-		) {
-			setShowAlert(true);
-			return;
-		}
+		userLogin();
+		// if (
+		// 	loginData.email !== "example@email.com" ||
+		// 	loginData.password !== "password"
+		// ) {
+		// 	setShowAlert(true);
+		// 	return;
+		// }
 		// console.log("Data Submitted:", loginData); //ไว้ดู check
 		setOpenLoginPage(!openLoginPage);
 		setLoginData({
@@ -138,10 +154,10 @@ function LoginPage({
 						>
 							{/* Email */}
 							<label className="label-createAccount">
-								Email
+								Email or Username
 								<input
 									className="input-createAccount"
-									type="email"
+									type="text"
 									name="email"
 									value={loginData.email}
 									onChange={handleChange}

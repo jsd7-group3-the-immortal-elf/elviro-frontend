@@ -43,6 +43,7 @@ export default function DashOrderPage({ reload, setReload }) {
 	}
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getOrder();
 	}, [reload]);
 

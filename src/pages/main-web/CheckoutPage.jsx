@@ -18,7 +18,9 @@ function CheckoutPage() {
 			setToggleBillingDesktop(false);
 		}
 	};
+
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		// Add event listener for window resize
 		window.addEventListener("resize", handleResize);
 		handleResize(); // Check the window size initially

@@ -29,6 +29,7 @@ export default function DashProductPage({ reload, setReload }) {
 	}
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProduct();
 	}, [reload]);
 

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import ProfileNav from "../../components/ProfileNav";
+import { useEffect, useState } from "react";
 
 function ProfilePaymentPage() {
+	const [formData, setFormData] = useState(initialFormData);
+	const [errors, setErrors] = useState({});
 	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
@@ -21,9 +22,6 @@ function ProfilePaymentPage() {
 		accountHolderName: mockCardData.accountHolderName || "",
 		accountNumber: mockCardData.accountNumber || "",
 	};
-
-	const [formData, setFormData] = useState(initialFormData);
-	const [errors, setErrors] = useState({});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
@@ -79,6 +77,10 @@ function ProfilePaymentPage() {
 		}
 		return errors;
 	};
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	return (
 		<section className="bg-white rounded-3xl w-full lg:w-3/5 xl:w-3/4 p-8 xl:py-10 xl:px-16">
