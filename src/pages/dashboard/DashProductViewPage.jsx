@@ -43,7 +43,6 @@ export default function DashProductViewPage() {
 
 	useEffect(() => {
 		getProduct(id);
-		window.scrollTo(0, 0);
 	}, [id]);
 
 	return (

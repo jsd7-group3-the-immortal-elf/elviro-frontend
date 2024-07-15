@@ -32,10 +32,6 @@ function ForgetPage({
 		}));
 	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
-	};
-
 	//Check username passwore
 
 	//เอาค่าไปเก็บใน array
@@ -44,14 +40,13 @@ function ForgetPage({
 
 		if (forgetData.email !== "example@email.com") {
 			{
-				if (showAlert === false) {
-					toggleShowAlert();
-				}
+				setShowAlert(true);
 
 				return;
 			}
 		}
 
+		setShowAlert(false);
 		alert("Reset link has been sent to your email");
 		toggleOpenForget();
 		toggleOpenReset();
@@ -73,6 +68,7 @@ function ForgetPage({
 		setForgetData({
 			email: "",
 		});
+		setShowAlert(false);
 	};
 
 	return (
@@ -118,10 +114,10 @@ function ForgetPage({
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Email */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								Email
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="email"
 									name="email"
 									value={forgetData.email}

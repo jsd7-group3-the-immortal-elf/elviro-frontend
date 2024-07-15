@@ -32,10 +32,6 @@ function LoginPage({
 		setShowPassword(!showPassword);
 	};
 
-	const toggleShowAlert = () => {
-		setShowAlert(!showAlert);
-	};
-
 	//----------ไว้ validate email + password -----------//
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
@@ -56,23 +52,23 @@ function LoginPage({
 			loginData.email !== "example@email.com" ||
 			loginData.password !== "password"
 		) {
-			if (showAlert === false) {
-				toggleShowAlert();
-			}
+			setShowAlert(true);
 			return;
 		}
-		console.log("Form Submitted:", loginData); //ไว้ดู check
+		// console.log("Data Submitted:", loginData); //ไว้ดู check
 		setOpenLoginPage(!openLoginPage);
 		setLoginData({
 			email: "",
 			password: "",
 		});
+		setShowAlert(false);
 	};
 
 	//เมื่อกดให้ลิงค์ไปหน้า CreateAccountPage
-	const changeToLogin = () => {
+	const changeToCreateAccount = () => {
 		setOpenLoginPage(!openLoginPage);
 		setOpenAccountPage(!openAccountPage);
+		setShowAlert(false);
 		setLoginData({
 			email: "",
 			password: "",
@@ -87,6 +83,7 @@ function LoginPage({
 			email: "",
 			password: "",
 		});
+		setShowAlert(false);
 	};
 
 	// ตอนกด XMark
@@ -96,6 +93,7 @@ function LoginPage({
 			password: "",
 		});
 		toggleOpenLogin();
+		setShowAlert(false);
 	};
 
 	return (
@@ -139,10 +137,10 @@ function LoginPage({
 							className="flex flex-col w-full lg:w-3/5 gap-5"
 						>
 							{/* Email */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								Email
 								<input
-									className="input-login"
+									className="input-createAccount"
 									type="email"
 									name="email"
 									value={loginData.email}
@@ -151,11 +149,11 @@ function LoginPage({
 								/>
 							</label>
 							{/* Password */}
-							<label className="label-login">
+							<label className="label-createAccount">
 								Password
 								<div id="password-relative" className="relative">
 									<input
-										className="input-login w-full pr-10"
+										className="input-createAccount w-full pr-10"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={loginData.password}
@@ -190,7 +188,7 @@ function LoginPage({
 								New to Elviro?{" "}
 								<span
 									className="text-red-500 font-medium text-xl cursor-pointer hover:font-bold"
-									onClick={changeToLogin}
+									onClick={changeToCreateAccount}
 								>
 									Create a new account
 								</span>
