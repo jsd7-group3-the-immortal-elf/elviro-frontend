@@ -57,13 +57,15 @@ export default function DashOrderViewPage(reload, setReload) {
 				</div>
 				<div className="flex gap-4">
 					<button
-						// to={`/dashboard/product/edit-product/${product._id}`}
+						name="status"
+						value="Delivered"
 						className="bg-green rounded-lg text-white px-4 py-2 hover:bg-darkgreen"
 					>
 						Mark as Complete
 					</button>
 					<button
-						// onClick={() => deleteProduct(id)}
+						name="status"
+						value="Cancelled"
 						className="bg-red-400 rounded-lg text-white px-4 py-2 hover:bg-red-600"
 					>
 						Cancel Order
@@ -72,20 +74,11 @@ export default function DashOrderViewPage(reload, setReload) {
 			</section>
 
 			<section className="flex h-32 gap-6">
-				{/* <select className="w-fit">
-							<option>Pending</option>
-							<option>Confirmed</option>
-							<option>Processing</option>
-							<option>Picked</option>
-							<option>Shipped</option>
-							<option>Delivered</option>
-							<option>Cancelled</option>
-						</select> */}
 				<div className="flex flex-col bg-white rounded-lg w-1/3 justify-around px-4 py-2">
 					<div className="flex gap-4 items-center">
 						<img
 							src={order?.profile?.customerImage}
-							alt=""
+							alt={order?.profile?.firstName}
 							className="aspect-square w-1/12 rounded-lg"
 						/>
 						<p>
@@ -113,19 +106,37 @@ export default function DashOrderViewPage(reload, setReload) {
 
 			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-364px)] flex flex-col justify-between">
 				<div>
-					<h4 className="mb-3">Item : {order?.orderDetail?.length}</h4>
+					<div className="flex justify-between mb-3">
+						<h4>Item : {order?.orderDetail?.length}</h4>
+						<h4>
+							Status :{" "}
+							<select
+								name="status"
+								value={order.status}
+								onChange={handleChange}
+							>
+								<option value="Pending">Pending</option>
+								<option value="Confirmed">Confirmed</option>
+								<option value="Processing">Processing</option>
+								<option value="Picked">Picked</option>
+								<option value="Shipped">Shipped</option>
+								<option value="Delivered">Delivered</option>
+								<option value="Cancelled">Cancelled</option>
+							</select>
+						</h4>
+					</div>
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
-								<th className="text-white w-5">
+								{/* <th className="text-white w-5">
 									<input
 										type="checkbox"
 										name=""
 										className="accent-green w-4 h-4 m-3 "
 									/>
-								</th>
+								</th> */}
 								<th></th>
-								<th>Product Name</th>
+								<th className="py-2">Product Name</th>
 								<th>Unit Price</th>
 								<th>Quantity</th>
 								<th>Order Total</th>
@@ -136,14 +147,14 @@ export default function DashOrderViewPage(reload, setReload) {
 							{order?.productInfo?.map((product, i) => {
 								return (
 									<tr key={i}>
-										<th className="text-white w-5">
+										{/* <th className="text-white w-5">
 											<input
 												type="checkbox"
 												name=""
 												id=""
 												className="accent-green w-4 h-4 m-3 "
 											/>
-										</th>
+										</th> */}
 										<th>
 											<div className="h-10 w-10 flex justify-center items-center">
 												<img
@@ -153,7 +164,7 @@ export default function DashOrderViewPage(reload, setReload) {
 												/>
 											</div>
 										</th>
-										<th>{product.productName}</th>
+										<th className="py-2">{product.productName}</th>
 										<th>{thCurrency(product.price)}</th>
 										<th>{order?.orderDetail[i]?.quantity}</th>
 										<th>
