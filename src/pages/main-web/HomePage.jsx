@@ -26,12 +26,9 @@ export default function HomePage() {
 
 	async function getQueryProduct() {
 		try {
-			//ดึง all product โดยกำหนด limit แค่ 8
-			const response = await axiosInstance.get(`/products?limit=8`); //set default กำหนดแค่ limit = 8
-			console.log(response);
-
-			//ดึงค่า product จากข้างในออกมา
+			const response = await axiosInstance.get(`/products?limit=8`);
 			const { data } = await response.data;
+
 			setProductList(data);
 		} catch (error) {
 			console.log("Failed to get data:", error);
@@ -42,19 +39,12 @@ export default function HomePage() {
 		getQueryProduct();
 	}, []);
 
-	//ให้มี comma คั่นเลข 1000
-	function numberWithCommas(number) {
-		if (number == null) {
-			return "";
-		}
-		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
 	return (
-		<div>
+		<main>
 			<BannerHome />
 			<section className="flex flex-col items-center gap-6 p-6 md:p-12">
 				<h2>Browse By Room</h2>
-				<p className="text-center text-mdmd:text-xl">
+				<p className="text-center text-md md:text-xl">
 					See what we have to offer for your growing family. They might just
 					right fit for you.
 				</p>
@@ -65,7 +55,7 @@ export default function HomePage() {
 				</div>
 			</section>
 
-			<hr class="hidden md:flex border-lightgreen mx-16" />
+			<hr className="hidden md:flex border-lightgreen mx-16" />
 
 			<section className="flex flex-col items-center gap-6 p-4 md:p-12">
 				<h2>Our Product</h2>
@@ -75,8 +65,8 @@ export default function HomePage() {
 					))}
 				</div>
 			</section>
+
 			<ButtonShowmore />
-		</div>
+		</main>
 	);
 }
-// export default HomePage;
