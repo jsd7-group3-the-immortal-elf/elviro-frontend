@@ -102,7 +102,10 @@ export default function DashProductViewPage() {
 				</div>
 
 				<section className="flex flex-col h-32 bg-white rounded-lg w-full justify-between items-end p-2">
-					<select
+					<p className="btn rounded-full text-sm hover:bg-neutral-200">
+						All time
+					</p>
+					{/* <select
 						name=""
 						id=""
 						className="w-fit text-center text-sm bg-transparent"
@@ -112,7 +115,7 @@ export default function DashProductViewPage() {
 						<option value="">This Year</option>
 						<option value="">Last Month</option>
 						<option value="">This Month</option>
-					</select>
+					</select> */}
 					<table className="w-full text-center">
 						<thead className="text-sm">
 							<tr>
