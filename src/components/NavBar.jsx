@@ -22,7 +22,7 @@ function NavBar() {
 	const [openLoginPage, setOpenLoginPage] = useState(false);
 	const [openResetPage, setOpenResetPage] = useState(false);
 
-	const isLogin = true;
+	const isLogin = false;
 
 	const toggleMobileNav = () => {
 		setMobileNavVisible(!mobileNavVisible);

@@ -92,27 +92,27 @@ function ProfileAccountPage() {
 			console.error("Error updating password", error);
 		}
 	};
-	const validationForm = (data) => {
-		const errors = {};
+	// const validationForm = (data) => {
+	// 	const errors = {};
 
-		if (!data.userName.trim()) {
-			errors.userName = "Name on Card required";
-		}
-		if (!data.email.trim()) {
-			errors.email = "Email required";
-		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
-			errors.email = "Email is invalid";
-		}
-		if (!data.password) {
-			errors.password = "Password is required";
-		} else if (data.password.length < 8) {
-			errors.password = "Must be at least 8 characters long";
-		}
-		if (data.newPassword && data.newPassword.length < 8) {
-			errors.newPassword = "New Password must be at least 8 characters long";
-		}
-		return errors;
-	};
+	// 	if (!data.userName.trim()) {
+	// 		errors.userName = "Name on Card required";
+	// 	}
+	// 	if (!data.email.trim()) {
+	// 		errors.email = "Email required";
+	// 	} else if (!/\S+@\S+\.\S+/.test(data.email)) {
+	// 		errors.email = "Email is invalid";
+	// 	}
+	// 	if (!data.password) {
+	// 		errors.password = "Password is required";
+	// 	} else if (data.password.length < 8) {
+	// 		errors.password = "Must be at least 8 characters long";
+	// 	}
+	// 	if (data.newPassword && data.newPassword.length < 8) {
+	// 		errors.newPassword = "New Password must be at least 8 characters long";
+	// 	}
+	// 	return errors;
+	// };
 
 	const validateForm = (data) => {
 		const errors = {};
