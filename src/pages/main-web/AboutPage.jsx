@@ -1,17 +1,15 @@
-// import NavBar from "../NavBar";
-// import Banner from "../Banner";
-import Image from "/images/elviro_logo.svg";
+import Banner from "../../components/Banner";
 
 function AboutPage() {
 	return (
 		<>
 			<main>
-				{/* <Banner /> */}
+				<Banner h1="About Us" h3="About Us" />
 
-				<section id="content" className="flex flex-col mt-16 px-6 items-center">
+				<section id="content" className="flex flex-col my-16 px-6 items-center">
 					<div className="flex flex-col md:flex-row items-center justify-center gap-5 mb-8">
 						<div className="min-w-[140px] w-[140px] md:w-[160px] ">
-							<img src={Image} alt="Elviro Logo" />
+							<img src="/images/elviro_logo.svg" alt="Elviro Logo" />
 						</div>
 						<div className="flex flex-col items-center md:items-start">
 							<h2 className="text-5xl md:text-8xl mb-3 text-left">Elviro</h2>
