@@ -37,6 +37,7 @@ export default function HomePage() {
 
 	useEffect(() => {
 		getQueryProduct();
+		window.scrollTo(0, 0);
 	}, []);
 
 	return (

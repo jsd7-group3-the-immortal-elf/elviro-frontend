@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import ProfileNav from "../../components/ProfileNav";
 
 function ProfileAccountPage() {
 	const [formData, setFormData] = useState({
@@ -11,25 +10,27 @@ function ProfileAccountPage() {
 		newPassword: "",
 	});
 
-	const [passwordVisible, setPasswordVisble] = useState(false);
+	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [errors, setErrors] = useState({});
 
+	const fetchData = async () => {
+		try {
+			const response = await axios.get(
+				"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
+			);
+			setFormData({
+				userName: response.data.userName,
+				email: response.data.email,
+				password: response.data.password,
+				newPassword: "",
+			});
+		} catch (error) {
+			console.error("Error fetching Data: ", error);
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const respones = await axios.get(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
-				);
-				setFormData({
-					userName: respones.data.userName,
-					email: respones.data.email,
-					password: respones.data.password,
-					newPassword: "",
-				});
-			} catch (error) {
-				console.error("Error fetching Data: ", error);
-			}
-		};
+		window.scrollTo(0, 0);
 		fetchData();
 	}, []);
 
@@ -42,7 +43,7 @@ function ProfileAccountPage() {
 	};
 
 	const togglePasswordVisible = () => {
-		setPasswordVisble(!passwordVisible);
+		setPasswordVisible(!passwordVisible);
 	};
 
 	const handleSubmit = async (e) => {

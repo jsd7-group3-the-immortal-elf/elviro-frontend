@@ -60,6 +60,7 @@ export default function ProductPage() {
 	}
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProduct(id);
 		getQueryProduct();
 	}, [id]);

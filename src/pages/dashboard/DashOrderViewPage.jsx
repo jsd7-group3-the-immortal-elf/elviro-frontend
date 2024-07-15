@@ -44,6 +44,7 @@ export default function DashOrderViewPage(reload, setReload) {
 	// }
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getOrder(id);
 	}, [id, reload]);
 

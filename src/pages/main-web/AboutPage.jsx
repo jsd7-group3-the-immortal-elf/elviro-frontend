@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import Banner from "../../components/Banner";
 
 function AboutPage() {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<>
 			<main>
