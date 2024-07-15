@@ -3,8 +3,7 @@ import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
 import Motto from "../../components/Motto";
 import Banner from "../../components/Banner";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function CheckoutPage() {
 	const [toggleBillingDesktop, setToggleBillingDesktop] = useState(true);
@@ -23,7 +22,6 @@ function CheckoutPage() {
 		// Add event listener for window resize
 		window.addEventListener("resize", handleResize);
 		handleResize(); // Check the window size initially
-
 		// Cleanup event listener on component unmount
 		return () => {
 			window.removeEventListener("resize", handleResize);
