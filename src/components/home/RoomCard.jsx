@@ -1,52 +1,22 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function RoomCard() {
-	const roomCard = [{}];
+export default function RoomCard({ image, room }) {
 	return (
-		<div>
-			<section className="flex flex-col items-center gap-6 p-6 md:p-12">
-				<h2>Browse By Room</h2>
-				<p>
-					See what we have to offer for your growing family. They might just
-					right fit for you.
-				</p>
-				<div className="flex gap-8 w-full p-3 pb-8 overflow-x-scroll md:overflow-auto">
-					<Link
-						to="/shop"
-						className="flex flex-col items-center gap-4 min-w-52"
-					>
-						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt="Bedroom"
-								className="hover:scale-110 hover:duration-500"
-							/>
-						</picture>
-						<h3>Bedroom</h3>
-					</Link>
-					<Link to="shop" className="flex flex-col items-center gap-4 min-w-52">
-						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt="Living Room"
-								className="hover:scale-110 hover:duration-500"
-							/>
-						</picture>
-						<h3>Living Room</h3>
-					</Link>
-					<Link to="shop" className="flex flex-col items-center gap-4 min-w-52">
-						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
-							<img
-								src="images/Cart-hero-image 1.png"
-								alt="Kitchen"
-								className="hover:scale-110 hover:duration-500"
-							/>
-						</picture>
-						<h3>Kitchen</h3>
-					</Link>
-				</div>
-			</section>
-		</div>
+		<Link
+			to="/shop"
+			key={room}
+			className="flex flex-col items-center gap-4 min-w-52"
+		>
+			<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
+				<img
+					src={image}
+					alt={room}
+					className="hover:scale-110 hover:duration-500"
+				/>
+			</picture>
+			<h3>{room}</h3>
+		</Link>
 	);
 }
-export default RoomCard;
+// export default RoomCard;
