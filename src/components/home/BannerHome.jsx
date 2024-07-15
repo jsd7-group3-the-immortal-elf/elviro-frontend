@@ -16,7 +16,8 @@ function BannerHome() {
 						Discover Our New Collection
 					</h1>
 					<p className="hidden md:flex text-xl">
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+						Let's explore our brand new furniture collctions for your whole
+						family.
 					</p>
 					<Link
 						to="/shop"
