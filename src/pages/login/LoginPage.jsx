@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import cookies from "cookie-universal";
 import axiosInstance from "../../utils/axiosInstance";
 import ImageWhite from "/images/elviro_logo_white.svg";
 import ImageBlack from "/images/elviro_logo_black.svg";
@@ -16,8 +15,9 @@ function LoginPage({
 	setOpenAccountPage,
 	openForgetPage,
 	setOpenForgetPage,
+	reload,
+	setReload,
 }) {
-	const Cookies = cookies();
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
 		email: "",
@@ -36,8 +36,7 @@ function LoginPage({
 
 			alert(`${response.data.message}`);
 
-			console.log(Cookies.get("access_token"));
-			// console.log(response.data);
+			setReload(!reload);
 		} catch (error) {
 			console.log("Failed to create an account", error);
 		}

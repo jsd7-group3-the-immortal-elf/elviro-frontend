@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
 	// FaMagnifyingGlass,
@@ -8,12 +8,14 @@ import {
 	FaXmark,
 } from "react-icons/fa6";
 
+import { useCookies } from "react-cookie";
+
 import CreateAccountPage from "../pages/login/CreateAccountPage";
 import ForgetPage from "../pages/login/ForgetPage";
 import LoginPage from "../pages/login/LoginPage";
 import ResetPage from "../pages/login/ResetPage";
 
-function NavBar() {
+function NavBar({ reload, setReload }) {
 	const [mobileNavVisible, setMobileNavVisible] = useState(false);
 	const [profileNavVisible, setProfileNavVisible] = useState(false);
 
@@ -22,7 +24,19 @@ function NavBar() {
 	const [openLoginPage, setOpenLoginPage] = useState(false);
 	const [openResetPage, setOpenResetPage] = useState(false);
 
-	const isLogin = false;
+	const [isLogin, setIsLogin] = useState(true);
+	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+
+	useEffect(() => {
+		const token = cookies["access_token"];
+		setIsLogin(false);
+		if (token) setIsLogin(true);
+	}, [reload, isLogin]);
+
+	function handleLogout() {
+		removeCookie["access_token"];
+		location.reload();
+	}
 
 	const toggleMobileNav = () => {
 		setMobileNavVisible(!mobileNavVisible);
@@ -175,13 +189,9 @@ function NavBar() {
 									</Link>
 								</li>
 								<li className="border-b">
-									<Link
-										to="/"
-										onClick={toggleProfileNav}
-										className="block w-full p-3"
-									>
+									<button onClick={handleLogout} className="block w-full p-3">
 										Log Out
-									</Link>
+									</button>
 								</li>
 							</ul>
 						</nav>
@@ -231,6 +241,8 @@ function NavBar() {
 					setOpenAccountPage={setOpenAccountPage}
 					openForgetPage={openForgetPage}
 					setOpenForgetPage={setOpenForgetPage}
+					reload={reload}
+					setReload={setReload}
 				/>
 				<ForgetPage
 					openForgetPage={openForgetPage}
