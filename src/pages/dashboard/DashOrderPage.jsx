@@ -7,7 +7,8 @@ import DashOrderTable from "../../components/dashboard/DashOrderTable";
 
 export default function DashOrderPage({ reload, setReload }) {
 	const [orderList, setOrderList] = useState([]);
-	// const [search, setSearch] = useState("");
+	const [search, setSearch] = useState("");
+	const [query, setQuery] = useState("");
 
 	async function getOrder() {
 		try {
@@ -30,11 +31,12 @@ export default function DashOrderPage({ reload, setReload }) {
 		}
 	}
 
-	async function queryOrder(id, field) {
+	async function queryOrder(queryStr) {
 		try {
-			await axiosInstance.patch(`/orders/${id}`, field);
+			const response = await axiosInstance.get(`/orders${queryStr}`);
+			const { data } = await response.data;
 
-			setReload(!reload);
+			setOrderList(data);
 		} catch (error) {
 			console.error("Failed to edit data:", error);
 		}
@@ -59,13 +61,25 @@ export default function DashOrderPage({ reload, setReload }) {
 		}
 	}
 
-	function handleReset() {
-		location.search = "";
+	function handleSearch(e) {
+		const { name, value } = e.target;
+		setSearch(value);
+
+		const filter = `?${name}=${value}`;
+		if (value.length == 24) queryOrder(filter);
+		setQuery("All");
 	}
 
-	function handleSearch(e, orderId) {
+	function handleQuery(e) {
 		const { name, value } = e.target;
-		queryOrder(query);
+		setQuery(value);
+		setSearch("");
+
+		if (value == "All") {
+			return getOrder();
+		}
+		const filter = `?${name}=${value}`;
+		queryOrder(filter);
 	}
 
 	return (
@@ -78,60 +92,108 @@ export default function DashOrderPage({ reload, setReload }) {
 				<div className="flex flex-col gap-4">
 					<h4>Order Tables</h4>
 
-					<form className="flex justify-between items-center border-b">
+					<div className="flex justify-between items-center border-b">
 						<input
 							type="text"
 							placeholder="Search Order Id"
 							className="border px-4 py-2 rounded-lg"
 							name="search"
-							// value={search}
-							// onChange={handleSearch}
+							value={search}
+							onChange={handleSearch}
 						/>
 						<ul className="flex">
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="reset" onClick={handleReset}>
+							<li>
+								<button
+									name="status"
+									value="All"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "All" ? "border-green" : "border-white"}`}
+								>
 									All
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Pending">
+							<li>
+								<button
+									name="status"
+									value="Pending"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Pending" ? "border-green" : "border-white"}`}
+								>
 									Pending
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Confirmed">
+							<li>
+								<button
+									name="status"
+									value="Confirmed"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Confirmed" ? "border-green" : "border-white"}`}
+								>
 									Confirmed
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Processing">
+							<li>
+								<button
+									name="status"
+									value="Processing"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Processing" ? "border-green" : "border-white"}`}
+								>
 									Processing
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Picked">
+							<li>
+								<button
+									name="status"
+									value="Picked"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Picked" ? "border-green" : "border-white"}`}
+								>
 									Picked
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Shipped">
+							<li>
+								<button
+									name="status"
+									value="Shipped"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Shipped" ? "border-green" : "border-white"}`}
+								>
 									Shipped
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Delivered">
+							<li>
+								<button
+									name="status"
+									value="Delivered"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Delivered" ? "border-green" : "border-white"}`}
+								>
 									Delivered
 								</button>
 							</li>
-							<li className="border-b-2 border-white hover:border-green px-4 pb-2 pt-5">
-								<button type="submit" name="status" value="Cancelled">
+							<li>
+								<button
+									name="status"
+									value="Cancelled"
+									onClick={handleQuery}
+									className={`border-b-2 hover:border-green px-4 pb-2 pt-5
+										${query == "Cancelled" ? "border-green" : "border-white"}`}
+								>
 									Cancelled
 								</button>
 							</li>
 						</ul>
-					</form>
+					</div>
 
-					<table className="w-full rounded-lg">
+					<table className="w-full rounded-lg table-auto">
 						<thead className="border-b">
 							<tr>
 								{/* <th className="text-white w-5">
@@ -151,15 +213,23 @@ export default function DashOrderPage({ reload, setReload }) {
 								<th className=" w-1/12"></th>
 							</tr>
 						</thead>
-						<tbody>
-							{orderList.map((order) => (
-								<DashOrderTable
-									key={order._id}
-									order={order}
-									handleChange={handleChange}
-								/>
-							))}
-						</tbody>
+						{orderList.length == 0 ? (
+							<tbody>
+								<tr className="text-center">
+									<td colSpan={7}>Not found order</td>
+								</tr>
+							</tbody>
+						) : (
+							<tbody>
+								{orderList.map((order) => (
+									<DashOrderTable
+										key={order._id}
+										order={order}
+										handleChange={handleChange}
+									/>
+								))}
+							</tbody>
+						)}
 					</table>
 				</div>
 
