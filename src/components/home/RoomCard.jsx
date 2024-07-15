@@ -6,7 +6,10 @@ function RoomCard() {
 		<div>
 			<section className="flex flex-col items-center gap-6 p-6 md:p-12">
 				<h2>Browse By Room</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+				<p>
+					See what we have to offer for your growing family. They might just
+					right fit for you.
+				</p>
 				<div className="flex gap-8 w-full p-3 pb-8 overflow-x-scroll md:overflow-auto">
 					<Link
 						to="/shop"
@@ -21,9 +24,7 @@ function RoomCard() {
 						</picture>
 						<h3>Bedroom</h3>
 					</Link>
-					<Link to="shop"
-						className="flex flex-col items-center gap-4 min-w-52"
-					>
+					<Link to="shop" className="flex flex-col items-center gap-4 min-w-52">
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
 							<img
 								src="images/Cart-hero-image 1.png"
@@ -33,9 +34,7 @@ function RoomCard() {
 						</picture>
 						<h3>Living Room</h3>
 					</Link>
-					<Link to="shop"
-						className="flex flex-col items-center gap-4 min-w-52"
-					>
+					<Link to="shop" className="flex flex-col items-center gap-4 min-w-52">
 						<picture className="rounded-3xl hover:shadow-[0_0_10px_1px_rgb(150,150,150)]">
 							<img
 								src="images/Cart-hero-image 1.png"
