@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
 function ProfilePaymentPage() {
-	const [formData, setFormData] = useState(initialFormData);
-	const [errors, setErrors] = useState({});
 	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
@@ -22,6 +20,9 @@ function ProfilePaymentPage() {
 		accountHolderName: mockCardData.accountHolderName || "",
 		accountNumber: mockCardData.accountNumber || "",
 	};
+
+	const [formData, setFormData] = useState(initialFormData);
+	const [errors, setErrors] = useState({});
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;

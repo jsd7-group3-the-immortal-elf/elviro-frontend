@@ -43,7 +43,7 @@ export default function App() {
 			path: "/",
 			element: (
 				<>
-					<NavBar />
+					<NavBar reload={reload} setReload={setReload} />
 					<Outlet />
 					<Footer />
 				</>

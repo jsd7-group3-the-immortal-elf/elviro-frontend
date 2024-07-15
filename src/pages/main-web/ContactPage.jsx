@@ -39,7 +39,7 @@ function ContactPage() {
 						<div className="flex flex-col">
 							<i className="fa-regular fa-clock"></i>
 							<div className="flex flex-col gap-2">
-								<h3>Working Time</h3>
+								<h3>Business Hours</h3>
 								<p>Monday-Friday: 9:00 - 22:00</p>
 								<p>Saturday-Sunday: 9:00 - 21:00</p>
 							</div>
@@ -51,9 +51,9 @@ function ContactPage() {
 					<div className="flex flex-col gap-6 text-center">
 						<h2>Get In Touch With Us</h2>
 						<p>
-							For More Information About Our Product & Services. Please Feel
-							Free To Drop Us An Email. Our Staff Always Be There To Help You
-							Out. Do Not Hesitate!
+							For more information about our products & services, please feel
+							free to drop us a message. Our staff will always be there to
+							assist you. No need to hesitate!
 						</p>
 					</div>
 
