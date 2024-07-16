@@ -1,21 +1,23 @@
-// import ProductDetail from "../../components/product/ProductDetail";
-// import ProductDescription from "../../components/product/ProductDescription";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaShareAlt } from "react-icons/fa";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
+// import { decodeToken } from "../../utils/token";
 import ProductCard from "../../components/home/ProductCard";
 import axiosInstance from "../../utils/axiosInstance";
 import { numberWithCommas } from "../../utils/format";
+import { jwtDecode } from "jwt-decode";
 
 export default function ProductPage() {
 	const [product, setProduct] = useState({});
 	const [quantity, setQuantity] = useState(0);
 	const [productList, setProductList] = useState([]);
+	// const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+	const [userId, setUserId] = useState("");
 	const { id } = useParams();
-	const token = Cookies.access_token;
-	console.log(token);
-	const userId = "668b6edc85daeb3a4220771a";
+
+	console.log(cookies["access_token"]);
 
 	async function getProduct(id) {
 		try {
@@ -61,6 +63,9 @@ export default function ProductPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		const token = cookies["access_token"];
+		console.log(token);
+		// setUserId(jwtDecode(token).id); //ค่าจาก token
 		getProduct(id);
 		getQueryProduct();
 	}, [id]);
