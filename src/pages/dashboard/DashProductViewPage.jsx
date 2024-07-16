@@ -142,45 +142,48 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>{orderList.length}</td>
+								<td>{orderList ? orderList.length : 0}</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Pending")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Pending")
+												.length
+										: 0}
 								</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Confirmed")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Confirmed")
+												.length
+										: 0}
 								</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Processing")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Processing")
+												.length
+										: 0}
 								</td>
 								<td>
-									{orderList.filter((order) => order.status == "Picked").length}
+									{orderList
+										? orderList.filter((order) => order.status == "Picked")
+												.length
+										: 0}
 								</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Shipped")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Shipped")
+												.length
+										: 0}
 								</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Delivered")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Delivered")
+												.length
+										: 0}
 								</td>
 								<td>
-									{
-										orderList.filter((order) => order.status == "Cancelled")
-											.length
-									}
+									{orderList
+										? orderList.filter((order) => order.status == "Cancelled")
+												.length
+										: 0}
 								</td>
 							</tr>
 						</tbody>
@@ -211,37 +214,39 @@ export default function DashProductViewPage() {
 							</tr>
 						</thead>
 						<tbody>
-							{orderList.map((order, index) => (
-								<tr key={index}>
-									{/* <th className="text-white w-5">
-									<input
-										type="checkbox"
-										name=""
-										id=""
-										className="accent-green w-4 h-4 m-3 "
-									/>
-								</th> */}
-									<th className="py-2">{thDateTime(order.createOn)}</th>
-									<th>
-										{
-											order.orderDetail.find(
-												(item) => item.productId == product._id
-											).quantity
-										}
-									</th>
-									<th>{thCurrency(product.price)}</th>
-									<th>{thCurrency(order.totalPrice)}</th>
-									<th>{order.status}</th>
-									<th>
-										<Link
-											to={`/dashboard/order/${order._id}`}
-											className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
-										>
-											View
-										</Link>
-									</th>
-								</tr>
-							))}
+							{orderList
+								? orderList.map((order, index) => (
+										<tr key={index}>
+											{/* <th className="text-white w-5">
+												<input
+													type="checkbox"
+													name=""
+													id=""
+													className="accent-green w-4 h-4 m-3 "
+												/>
+											</th> */}
+											<th className="py-2">{thDateTime(order.createOn)}</th>
+											<th>
+												{
+													order.orderDetail.find(
+														(item) => item.productId == product._id
+													).quantity
+												}
+											</th>
+											<th>{thCurrency(product.price)}</th>
+											<th>{thCurrency(order.totalPrice)}</th>
+											<th>{order.status}</th>
+											<th>
+												<Link
+													to={`/dashboard/order/${order._id}`}
+													className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
+												>
+													View
+												</Link>
+											</th>
+										</tr>
+								  ))
+								: null}
 						</tbody>
 					</table>
 				</div>
