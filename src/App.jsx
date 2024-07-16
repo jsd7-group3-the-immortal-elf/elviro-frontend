@@ -1,4 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 
@@ -34,10 +36,17 @@ import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-import { useState } from "react";
-
 export default function App() {
 	const [reload, setReload] = useState(false);
+	const [tokenUserId, setTokenUserId] = useState("");
+	const [tokenAdmin, setTokenAdmin] = useState("");
+
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+		const decoded = jwtDecode(token);
+		setTokenUserId(decoded.id);
+		setTokenUserId(setTokenAdmin.isAdmin);
+	}, []);
 
 	const router = createBrowserRouter([
 		{
