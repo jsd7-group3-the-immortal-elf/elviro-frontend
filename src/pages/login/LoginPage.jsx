@@ -17,6 +17,7 @@ function LoginPage({
 	setOpenForgetPage,
 	reload,
 	setReload,
+	setCookie,
 }) {
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
@@ -36,6 +37,7 @@ function LoginPage({
 
 			alert(`${response.data.message}`);
 
+			setCookie("access_token", response.data.access_token);
 			setReload(!reload);
 		} catch (error) {
 			console.log("Failed to create an account", error);
@@ -226,6 +228,7 @@ LoginPage.propTypes = {
 	setOpenForgetPage: PropTypes.func,
 	reload: PropTypes.bool,
 	setReload: PropTypes.func,
+	setCookie: PropTypes.func,
 };
 
 export default LoginPage;
