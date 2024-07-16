@@ -1,23 +1,18 @@
+// import ProductDetail from "../../components/product/ProductDetail";
+// import ProductDescription from "../../components/product/ProductDescription";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaShareAlt } from "react-icons/fa";
-import { useCookies } from "react-cookie";
-// import { decodeToken } from "../../utils/token";
 import ProductCard from "../../components/home/ProductCard";
 import axiosInstance from "../../utils/axiosInstance";
 import { numberWithCommas } from "../../utils/format";
-import { jwtDecode } from "jwt-decode";
+import PropTypes from "prop-types";
 
-export default function ProductPage() {
+export default function ProductPage({ tokenUserId }) {
 	const [product, setProduct] = useState({});
 	const [quantity, setQuantity] = useState(0);
 	const [productList, setProductList] = useState([]);
-	// const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
-	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
-	const [userId, setUserId] = useState("");
 	const { id } = useParams();
-
-	console.log(cookies["access_token"]);
 
 	async function getProduct(id) {
 		try {
@@ -50,13 +45,13 @@ export default function ProductPage() {
 		}
 	}
 
-	async function createNewCart(productId, quantity) {
+	async function createNewCart(productId, quantity, userId) {
 		try {
-			await axiosInstance.post(`/cart/${id}`, {
+			await axiosInstance.post(`/cart/${userId}`, {
 				productId,
 				quantity,
 			});
-			alert("Create cart successful");
+			alert("Create cart success.");
 		} catch (error) {
 			console.log("Failed to create a new cart", error);
 		}
@@ -64,9 +59,11 @@ export default function ProductPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		const token = cookies["access_token"];
-		console.log(token);
-		// setUserId(jwtDecode(token).id); //ค่าจาก token
+
+		//เอา token ออกมา
+		const token = localStorage.getItem("access_token");
+		const userId = decodeToken(token);
+		console.log(userId);
 		getProduct(id);
 		getQueryProduct();
 	}, [id]);
@@ -167,7 +164,7 @@ export default function ProductPage() {
 						</section>
 
 						<button
-							onClick={() => createNewCart(product._id, quantity)}
+							onClick={() => createNewCart(product._id, quantity, tokenUserId)}
 							className="md:w-full border border-neutral-500 p-2 px-3 rounded-lg text-md bg-brown text-white hover:bg-white hover:text-black"
 						>
 							Add to Cart
@@ -213,3 +210,7 @@ export default function ProductPage() {
 		</main>
 	);
 }
+
+ProductPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
