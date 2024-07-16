@@ -9,12 +9,10 @@ const axiosInstance = axios.create({
 		"Content-Type": "application/json",
 	},
 });
-// axios.defaults.withCredentials = true;
 
 axiosInstance.interceptors.request.use(
 	(config) => {
 		const token = Cookies.get("access_token");
-		// console.log("axiosInstance", token);
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
 		}
