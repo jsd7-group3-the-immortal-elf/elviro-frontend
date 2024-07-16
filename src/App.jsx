@@ -1,5 +1,11 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+	createBrowserRouter,
+	Navigate,
+	Outlet,
+	RouterProvider,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -39,23 +45,44 @@ import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 export default function App() {
 	const [reload, setReload] = useState(false);
 	const [tokenUserId, setTokenUserId] = useState("");
-	const [tokenAdmin, setTokenAdmin] = useState("");
+	const [tokenAdmin, setTokenAdmin] = useState(false);
+
+	const token = localStorage.getItem("access_token");
+	// if (token) {
+	// 	const decoded = jwtDecode(token);
+	// 	setTokenUserId(decoded.id);
+	// 	setTokenUserId(setTokenAdmin.isAdmin);
+	// }
+
+	// console.log(tokenUserId);
+	// console.log(tokenAdmin);
 
 	useEffect(() => {
-		const token = localStorage.getItem("access_token");
 		if (token) {
-			const decoded = jwtDecode(token);
-			setTokenUserId(decoded.id);
-			setTokenUserId(setTokenAdmin.isAdmin);
+			setTokenUserId(jwtDecode(localStorage.getItem("access_token")).id);
+			setTokenAdmin(jwtDecode(localStorage.getItem("access_token")).isAdmin);
 		}
-	}, []);
+	}, [tokenAdmin, tokenUserId, token]);
+
+	const AuthUserRoute = ({ children }) => {
+		return tokenUserId ? <>{children}</> : <Navigate to="/" />;
+	};
+
+	const AuthAdminRoute = ({ children }) => {
+		return tokenAdmin ? <>{children}</> : <Navigate to="/" />;
+	};
 
 	const router = createBrowserRouter([
 		{
 			path: "/",
 			element: (
 				<>
-					<NavBar reload={reload} setReload={setReload} />
+					<NavBar
+						reload={reload}
+						setReload={setReload}
+						tokenUserId={tokenUserId}
+						tokenAdmin={tokenAdmin}
+					/>
 					<Outlet />
 					<Footer />
 				</>
@@ -72,11 +99,11 @@ export default function App() {
 				},
 				{
 					path: "product/:id",
-					element: <ProductPage />,
+					element: <ProductPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart",
-					element: <CartPage />,
+					element: <CartPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart/:userId",
@@ -84,7 +111,7 @@ export default function App() {
 				},
 				{
 					path: "cart/checkout",
-					element: <CheckoutPage />,
+					element: <CheckoutPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart/checkout/purchased",
@@ -105,15 +132,22 @@ export default function App() {
 			path: "/profile",
 			element: (
 				<>
-					<NavBar />
-					<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
-						<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
-						<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
-							<ProfileNav />
-							<Outlet />
-						</section>
-					</main>
-					<Footer />
+					<AuthUserRoute>
+						<NavBar
+							reload={reload}
+							setReload={setReload}
+							tokenUserId={tokenUserId}
+							tokenAdmin={tokenAdmin}
+						/>
+						<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
+							<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
+							<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
+								<ProfileNav />
+								<Outlet />
+							</section>
+						</main>
+						<Footer />
+					</AuthUserRoute>
 				</>
 			),
 			// errorElement: <ErrorPage/>,
@@ -123,12 +157,12 @@ export default function App() {
 					element: <ProfilePage />,
 				},
 				{
-					path: "account/:id",
-					element: <ProfileAccountPage />,
+					path: "account",
+					element: <ProfileAccountPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "payment",
-					element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "order-history",
@@ -143,7 +177,16 @@ export default function App() {
 
 		{
 			path: "/dashboard",
-			element: <DashboardLayout reload={reload} setReload={setReload} />,
+			element: (
+				<AuthAdminRoute>
+					<DashboardLayout
+						reload={reload}
+						setReload={setReload}
+						tokenUserId={tokenUserId}
+						tokenAdmin={tokenAdmin}
+					/>
+				</AuthAdminRoute>
+			),
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
@@ -180,3 +223,7 @@ export default function App() {
 
 	return <RouterProvider router={router} />;
 }
+
+App.propTypes = {
+	children: PropTypes.element,
+};

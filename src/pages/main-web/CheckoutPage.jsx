@@ -1,12 +1,13 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
 import Motto from "../../components/Motto";
 import Banner from "../../components/Banner";
-import { useState } from "react";
 import mockup_sofa from "/images/mockup_sofa.png";
 
-function CheckoutPage() {
+function CheckoutPage({ tokenUserId }) {
 	const [showInfo, setShowInfo] = useState(false);
 
 	function toggle() {
@@ -105,6 +106,10 @@ function CheckoutPage() {
 		</>
 	);
 }
+
+CheckoutPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
 
 export default CheckoutPage;
 

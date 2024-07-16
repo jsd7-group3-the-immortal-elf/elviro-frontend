@@ -1,4 +1,5 @@
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import CartBanner from "../../components/cart/CartBanner";
 import CartList from "../../components/cart/CartList";
 import CartTotal from "../../components/cart/CartTotal";
@@ -31,6 +32,11 @@ function CartPage() {
 		</div>
 	);
 }
+
+CartPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
+
 export default CartPage;
 
 	// const priceList = [
