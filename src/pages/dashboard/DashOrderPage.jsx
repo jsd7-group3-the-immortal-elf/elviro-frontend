@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
-import DashChangePage from "../../components/dashboard/DashChangePage";
+// import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashOrderSummary from "../../components/dashboard/DashOrderSummary";
 import DashOrderTable from "../../components/dashboard/DashOrderTable";
 
@@ -234,7 +234,7 @@ export default function DashOrderPage({ reload, setReload }) {
 					</table>
 				</div>
 
-				<DashChangePage />
+				{/* <DashChangePage /> */}
 			</section>
 		</div>
 	);
