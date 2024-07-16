@@ -33,11 +33,22 @@ import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
 	const [reload, setReload] = useState(false);
+	//แกะ token ตรงนี้
+
+	const [decodeTokenId, SetDecodeTokenId] = useState("");
+	const [decodeTokenAdmin, SetDecodeTokenAdmin] = useState(false);
+
+	use;
+
+	SetDecodeTokenId(jwtDecode(token).id);
+	SetDecodeTokenAdmin(jwtDecode(token).isAdmin);
 
 	const router = createBrowserRouter([
 		{
