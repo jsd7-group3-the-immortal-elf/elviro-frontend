@@ -6,6 +6,7 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
+import { validateEmail, validatePassword } from "../../utils/validation.js";
 
 function CreateAccountPage({
 	openAccountPage,
