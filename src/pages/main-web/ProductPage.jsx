@@ -14,6 +14,8 @@ export default function ProductPage({ tokenUserId }) {
 	const [productList, setProductList] = useState([]);
 	const { id } = useParams();
 
+	console.log(tokenUserId);
+
 	async function getProduct(id) {
 		try {
 			const response = await axiosInstance.get(`/products/${id}`);
@@ -59,11 +61,6 @@ export default function ProductPage({ tokenUserId }) {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-
-		//เอา token ออกมา
-		const token = localStorage.getItem("access_token");
-		const userId = decodeToken(token);
-		console.log(userId);
 		getProduct(id);
 		getQueryProduct();
 	}, [id]);

@@ -72,7 +72,7 @@ export default function App() {
 				},
 				{
 					path: "product/:id",
-					element: <ProductPage />,
+					element: <ProductPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart",
