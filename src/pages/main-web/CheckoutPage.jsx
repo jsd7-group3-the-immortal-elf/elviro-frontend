@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
@@ -42,7 +42,6 @@ function CheckoutPage({ tokenUserId }) {
 			console.log("Not found user:", error);
 		}
 	}
-
 	useEffect(() => {
 		getProductInUser();
 		getUser();
@@ -51,10 +50,18 @@ function CheckoutPage({ tokenUserId }) {
 	function handleSubmit() {
 		navigate("/cart/checkout/purchased");
 	}
-
+	//คำนวนราคารวม บวก tax
+	const priceProduct = cartData.map((product) => {
+		return product.productDetail[0].price * product.cart.quantity;
+	});
+	console.log(priceProduct);
+	const totalPrice = priceProduct.reduce((numberOne, numberTwo) => {
+		return numberOne + numberTwo;
+	}, 0);
+	const totalPriceTax = (totalPrice + totalPrice * 0.07).toFixed(2);
 	return (
 		<>
-			<Banner />
+			<Banner h3="Checkout" />
 			<section className="flex flex-col items-center justify-start my-24 w-2/3 mx-auto lg:flex-row lg:items-start lg:gap-20 ">
 				<button
 					className="lg:hidden mb-7 h-12 w-11/12 back text-xl text-black border border-neutral-500 rounded-xl hover:shadow-xl active:shadow-xl active:bg-gray-100"
@@ -78,7 +85,11 @@ function CheckoutPage({ tokenUserId }) {
 					/>
 				</div>
 				<div className="flex flex-col items-center w-full lg:w-1/2 ">
-					<CheckoutProduct cartData={cartData} />
+					<CheckoutProduct
+						cartData={cartData}
+						totalPrice={totalPrice}
+						totalPriceTax={totalPriceTax}
+					/>
 					<CheckoutPayment handleSubmit={handleSubmit} />
 				</div>
 			</section>
