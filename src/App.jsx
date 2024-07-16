@@ -41,14 +41,16 @@ import { useState, useEffect } from "react";
 export default function App() {
 	const [reload, setReload] = useState(false);
 	//แกะ token ตรงนี้
-
 	const [decodeTokenId, SetDecodeTokenId] = useState("");
 	const [decodeTokenAdmin, SetDecodeTokenAdmin] = useState(false);
 
-	use;
+	const token = Cookies.get("access_token");
 
-	SetDecodeTokenId(jwtDecode(token).id);
-	SetDecodeTokenAdmin(jwtDecode(token).isAdmin);
+	useEffect(() => {
+		const decoded = jwtDecode(token);
+		SetDecodeTokenId(decoded.id);
+		SetDecodeTokenAdmin(decoded.isAdmin);
+	}, [token]);
 
 	const router = createBrowserRouter([
 		{
@@ -72,7 +74,7 @@ export default function App() {
 				},
 				{
 					path: "product/:id",
-					element: <ProductPage />,
+					element: <ProductPage decodeTokenId={decodeTokenId} />,
 				},
 				{
 					path: "cart",
