@@ -17,7 +17,7 @@ import PurchasedPage from "./pages/main-web/PurchasedPage";
 import AboutPage from "./pages/main-web/AboutPage";
 import ContactPage from "./pages/main-web/ContactPage";
 
-// import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
 import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
@@ -44,7 +44,7 @@ export default function App() {
 			path: "/",
 			element: (
 				<>
-					<NavBar />
+					<NavBar reload={reload} setReload={setReload} />
 					<Outlet />
 					<Footer />
 				</>
@@ -105,7 +105,7 @@ export default function App() {
 			children: [
 				{
 					path: "",
-					// element: <ProfilePage />,
+					element: <ProfilePage />,
 				},
 				{
 					path: "account",
@@ -149,7 +149,7 @@ export default function App() {
 				},
 				{
 					path: "product/add-product",
-					// element: <DashProductAddPage reload={reload} />,
+					element: <DashProductAddPage reload={reload} />,
 				},
 				{
 					path: "product/edit/:id",

@@ -1,10 +1,11 @@
 //ใช้ useState
 import { useState } from "react";
-import ImageWhite from "/images/elviro_logo_white.svg";
-import ImageBlack from "/images/elviro_logo_black.svg";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import axiosInstance from "../../utils/axiosInstance";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
 
 function LoginPage({
 	openLoginPage,
@@ -14,6 +15,9 @@ function LoginPage({
 	setOpenAccountPage,
 	openForgetPage,
 	setOpenForgetPage,
+	reload,
+	setReload,
+	setCookie,
 }) {
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
@@ -26,6 +30,19 @@ function LoginPage({
 	const [showPassword, setShowPassword] = useState(false);
 
 	const [showAlert, setShowAlert] = useState(false);
+
+	async function userLogin() {
+		try {
+			const response = await axiosInstance.post("/users/login", loginData);
+
+			alert(`${response.data.message}`);
+
+			setCookie("access_token", response.data.access_token);
+			setReload(!reload);
+		} catch (error) {
+			console.log("Failed to create an account", error);
+		}
+	}
 
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
@@ -47,14 +64,14 @@ function LoginPage({
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
-
-		if (
-			loginData.email !== "example@email.com" ||
-			loginData.password !== "password"
-		) {
-			setShowAlert(true);
-			return;
-		}
+		userLogin();
+		// if (
+		// 	loginData.email !== "example@email.com" ||
+		// 	loginData.password !== "password"
+		// ) {
+		// 	setShowAlert(true);
+		// 	return;
+		// }
 		// console.log("Data Submitted:", loginData); //ไว้ดู check
 		setOpenLoginPage(!openLoginPage);
 		setLoginData({
@@ -138,10 +155,10 @@ function LoginPage({
 						>
 							{/* Email */}
 							<label className="label-createAccount">
-								Email
+								Email or Username
 								<input
 									className="input-createAccount"
-									type="email"
+									type="text"
 									name="email"
 									value={loginData.email}
 									onChange={handleChange}
@@ -209,6 +226,9 @@ LoginPage.propTypes = {
 	setOpenAccountPage: PropTypes.func,
 	openForgetPage: PropTypes.bool,
 	setOpenForgetPage: PropTypes.func,
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
+	setCookie: PropTypes.func,
 };
 
 export default LoginPage;

@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 export default function DashOrderSummary({ orderList }) {
 	return (
 		<section className="bg-green rounded-lg w-full flex flex-col justify-between items-end p-2 text-white h-32">
-			<select name="" className="w-fit text-center text-sm bg-transparent">
+			<p className="btn rounded-full text-sm hover:bg-darkgreen">All time</p>
+			{/* <select name="" className="w-fit text-center text-sm bg-transparent">
 				<option value="" className="bg-white text-neutral-800">
 					All time
 				</option>
@@ -19,7 +20,7 @@ export default function DashOrderSummary({ orderList }) {
 				<option value="" className="bg-white text-neutral-800">
 					This Month
 				</option>
-			</select>
+			</select> */}
 			<table className="w-full text-center">
 				<thead className="text-sm">
 					<tr>

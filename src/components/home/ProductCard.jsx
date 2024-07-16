@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import format from "../../utils/format";
+import { thCurrency } from "../../utils/format";
 
 export default function ProductCard({ product }) {
 	return (
@@ -18,8 +18,8 @@ export default function ProductCard({ product }) {
 			</div>
 			<article className="flex flex-col gap-2 p-4">
 				<h3>{product.productName}</h3>
-				<p>{format.thCurrency(product.price)}</p>
-				<p>{format.thCurrency(product.price)}</p>
+				<p>{thCurrency(product.price)}</p>
+				<p>{thCurrency(product.price)}</p>
 			</article>
 		</Link>
 	);
