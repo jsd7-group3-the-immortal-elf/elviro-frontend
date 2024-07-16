@@ -3,19 +3,18 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaShareAlt } from "react-icons/fa";
-import Cookies from "js-cookie";
 import ProductCard from "../../components/home/ProductCard";
 import axiosInstance from "../../utils/axiosInstance";
 import { numberWithCommas } from "../../utils/format";
+import PropTypes from "prop-types";
 
-export default function ProductPage() {
+export default function ProductPage({ tokenUserId }) {
 	const [product, setProduct] = useState({});
 	const [quantity, setQuantity] = useState(0);
 	const [productList, setProductList] = useState([]);
 	const { id } = useParams();
-	const token = Cookies.access_token;
-	console.log(token);
-	const userId = "668b6edc85daeb3a4220771a";
+
+	console.log(tokenUserId);
 
 	async function getProduct(id) {
 		try {
@@ -48,12 +47,13 @@ export default function ProductPage() {
 		}
 	}
 
-	async function createNewCart(productId, quantity) {
+	async function createNewCart(productId, quantity, userId) {
 		try {
 			await axiosInstance.post(`/cart/${userId}`, {
 				productId,
 				quantity,
 			});
+			alert("Create cart success.");
 		} catch (error) {
 			console.log("Failed to create a new cart", error);
 		}
@@ -161,7 +161,7 @@ export default function ProductPage() {
 						</section>
 
 						<button
-							onClick={() => createNewCart(product._id, quantity)}
+							onClick={() => createNewCart(product._id, quantity, tokenUserId)}
 							className="md:w-full border border-neutral-500 p-2 px-3 rounded-lg text-md bg-brown text-white hover:bg-white hover:text-black"
 						>
 							Add to Cart
@@ -207,3 +207,7 @@ export default function ProductPage() {
 		</main>
 	);
 }
+
+ProductPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
