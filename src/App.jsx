@@ -16,7 +16,7 @@ import CheckoutPage from "./pages/main-web/CheckoutPage";
 import AboutPage from "./pages/main-web/AboutPage";
 import ContactPage from "./pages/main-web/ContactPage";
 
-// import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
 import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
