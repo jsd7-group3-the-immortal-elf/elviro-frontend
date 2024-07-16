@@ -107,7 +107,7 @@ export default function App() {
 					element: <ProfilePage />,
 				},
 				{
-					path: "account",
+					path: "account/:id",
 					element: <ProfileAccountPage />,
 				},
 				{
