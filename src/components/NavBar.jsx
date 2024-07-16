@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
 	// FaMagnifyingGlass,
 	FaUser,
@@ -7,9 +8,6 @@ import {
 	FaBars,
 	FaXmark,
 } from "react-icons/fa6";
-import { useCookies } from "react-cookie";
-
-import PropTypes from "prop-types";
 
 import CreateAccountPage from "../pages/login/CreateAccountPage";
 import ForgetPage from "../pages/login/ForgetPage";
@@ -26,16 +24,16 @@ function NavBar({ reload, setReload }) {
 	const [openResetPage, setOpenResetPage] = useState(false);
 
 	const [isLogin, setIsLogin] = useState(true);
-	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
 	useEffect(() => {
-		const token = cookies["access_token"];
+		const token = localStorage.getItem("access_token");
+
 		setIsLogin(false);
 		if (token) setIsLogin(true);
 	}, [reload, isLogin]);
 
 	function handleLogout() {
-		removeCookie(["access_token"]);
+		localStorage.clear();
 		location.reload();
 	}
 
@@ -253,7 +251,6 @@ function NavBar({ reload, setReload }) {
 					setOpenForgetPage={setOpenForgetPage}
 					reload={reload}
 					setReload={setReload}
-					setCookie={setCookie}
 				/>
 				<ForgetPage
 					openForgetPage={openForgetPage}
