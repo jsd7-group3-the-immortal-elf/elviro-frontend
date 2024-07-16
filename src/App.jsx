@@ -42,9 +42,11 @@ export default function App() {
 
 	useEffect(() => {
 		const token = localStorage.getItem("access_token");
-		const decoded = jwtDecode(token);
-		setTokenUserId(decoded.id);
-		setTokenUserId(setTokenAdmin.isAdmin);
+		if (token) {
+			const decoded = jwtDecode(token);
+			setTokenUserId(decoded.id);
+			setTokenUserId(setTokenAdmin.isAdmin);
+		}
 	}, []);
 
 	const router = createBrowserRouter([
