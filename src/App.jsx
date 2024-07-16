@@ -37,7 +37,7 @@ import { useState } from "react";
 
 export default function App() {
 	const [reload, setReload] = useState(false);
-
+	
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -64,6 +64,10 @@ export default function App() {
 				},
 				{
 					path: "cart",
+					element: <CartPage />,
+				},
+				{
+					path: "cart/:userId",
 					element: <CartPage />,
 				},
 				{

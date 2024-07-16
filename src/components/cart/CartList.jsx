@@ -1,29 +1,150 @@
-import { FaTrash } from "react-icons/fa";
+import { useState,  useEffect } from "react";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
-function CartList() {
-	const priceList = [
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "PÄRUP sofa",
-			productQuanlity: "3",
-			productPrice: "8999",
-		},
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "VIMLE sofa",
-			productQuanlity: "1",
-			productPrice: "15999",
-		},
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "GLOSTAD sofa",
-			productQuanlity: "2",
-			productPrice: "2999",
-		},
-	];
+function CartList({userId}) {
+
+	const [cartItems, setCarItems] = useState([]);
+	const [totalPrice, setTotalPrice] = useState(0);
+	// const [cart, setCart] = useState({})
+
+	async function getCartList(userId) {
+		try {
+			const res = await axiosInstance.get(`/cart/${userId}`)
+			console.log('cart respone ',res.data)
+			// const {data} = res.data;
+			return res.data.data;
+		} catch (error) {
+			console.log("Failed to get data:", error);
+			return [];
+		}
+	}
+
+	async function getProductDetails(productId) {
+		try {
+			const res = await axiosInstance.get(`/products/${productId}`);
+			// const {data} = res.data
+			// setCart(data)
+			// {... product:[], ...}
+			// cart.cartDetail
+			// cart.productDetail
+			// cart.productDetail.map(product => { ... })
+			// cart.totalPrice
+			// cart.totalPrice-7%
+			// quan > cart.productDetail.find(item => item.productId == product._id).quantity
+			console.log('product detail respone',res)
+			return res.data.data;
+		} catch (error) {
+			console.log(`failes to get product details for ${productId}:`,error);
+			return null;
+		}
+	}
+
+	async function updateCartItemQuantity(productId, newQuantity) {
+		try {
+			const res = await axiosInstance.patch(`/cart/${userId}`, {productId: productId, quantity: newQuantity});
+			console.log("cart update", res.data);
+			fetchCartAndProducts();
+		} catch (error) {
+			console.log('Failed to update item quantity', error);
+		}
+	}
+
+	async function fetchCartAndProducts() {
+		const cartList = await getCartList(userId);
+		const itemWithDetails = await Promise.all(cartList.map(async (item) => {
+			const productDetails = await getProductDetails(item.productId);
+			return { ...item, productDetails };
+		}));
+		setCarItems(itemWithDetails);
+	
+
+	const total = itemWithDetails.reduce((sum, item) => {
+		return sum + (item.productDetails?.price || 0) * item.quantity;
+	  }, 0);
+	  setTotalPrice(total);
+	}
+
+	useEffect(() => {
+		if (userId) {
+			fetchCartAndProducts();
+		}
+	}, [userId]);
+
+	const handleQuantityChange = (cartItemId, change) => {
+		const updateCartItems = cartItems.map(item => {
+			if (item._id === cartItemId) {
+				const newQuanntity = Math.max(1, item.quantity + change);
+				updateCartItemQuantity(cartItemId , newQuanntity);
+				return { ...item, quantity: newQuanntity };
+			}
+			return item;
+		});
+		setCarItems(updateCartItems);
+	};
+
 
 	return (
-		<>
+		<div>
+		  <table style={{width: '100%', borderCollapse: 'collapse'}}>
+			<thead>
+			  <tr>
+				<th style={tableHeaderStyle}>Image</th>
+				<th style={tableHeaderStyle}>Product Name</th>
+				<th style={tableHeaderStyle}>Price</th>
+				<th style={tableHeaderStyle}>Quantity</th>
+				<th style={tableHeaderStyle}>Total</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  {cartItems.map((cartItem) => (
+				<tr key={cartItem._id}>
+				  <td style={tableCellStyle}>
+					{cartItem.productDetails && (
+					  <img 
+						src={cartItem.productDetails.productImage} 
+						alt={cartItem.productDetails.productName} 
+						style={{width: '50px', height: '50px'}}
+					  />
+					)}
+				  </td>
+				  <td style={tableCellStyle}>{cartItem.productDetails?.productName || 'N/A'}</td>
+				  <td style={tableCellStyle}>฿{cartItem.productDetails?.price.toFixed(2) || 'N/A'}</td>
+				  <td style={tableCellStyle}>
+					<button onClick={() => handleQuantityChange(cartItem._id, -1)}><FaMinus /></button> {cartItem.quantity} <button onClick={() => handleQuantityChange(cartItem._id, 1)}><FaPlus /></button></td>
+				  <td style={tableCellStyle}>
+				  ฿{((cartItem.productDetails?.price || 0) * cartItem.quantity).toFixed(2)}
+				  </td>
+				</tr>
+			  ))}
+			</tbody>
+			<tfoot>
+			  <tr>
+				<td colSpan="4" style={{...tableCellStyle, textAlign: 'right', fontWeight: 'bold'}}>Total Price:</td>
+				<td style={{...tableCellStyle, fontWeight: 'bold'}}>฿{totalPrice.toFixed(2)}</td>
+			  </tr>
+			</tfoot>
+		  </table>
+		</div>
+	  );
+	}
+
+	const tableHeaderStyle = {
+		backgroundColor: '#f2f2f2',
+		padding: '10px',
+		borderBottom: '1px solid #ddd',
+		textAlign: 'left'
+	  };
+	  
+	  const tableCellStyle = {
+		padding: '10px',
+		borderBottom: '1px solid #ddd'
+	  };
+
+
+export default CartList;
+
+{/* <>
 			<section className="px-8" id="cart_item">
 				<div className="hidden md:block">
 					<table className="table-auto w-full text-center">
@@ -105,7 +226,25 @@ function CartList() {
 					</div>
 				</div>
 			</section>
-		</>
-	);
-}
-export default CartList;
+		</> */}
+
+	// const priceList = [
+	// 	{
+	// 		productPicture: "/images/mockup-sofa.png",
+	// 		productName: "PÄRUP sofa",
+	// 		productQuanlity: "3",
+	// 		productPrice: "8999",
+	// 	},
+	// 	{
+	// 		productPicture: "/images/mockup-sofa.png",
+	// 		productName: "VIMLE sofa",
+	// 		productQuanlity: "1",
+	// 		productPrice: "15999",
+	// 	},
+	// 	{
+	// 		productPicture: "/images/mockup-sofa.png",
+	// 		productName: "GLOSTAD sofa",
+	// 		productQuanlity: "2",
+	// 		productPrice: "2999",
+	// 	},
+	// ];
