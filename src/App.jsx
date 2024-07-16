@@ -21,10 +21,11 @@ import ShopPage from "./pages/main-web/ShopPage";
 import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
+import PurchasedPage from "./pages/main-web/PurchasedPage";
 import AboutPage from "./pages/main-web/AboutPage";
 import ContactPage from "./pages/main-web/ContactPage";
 
-// import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
 import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
@@ -111,7 +112,7 @@ export default function App() {
 				},
 				{
 					path: "cart/checkout/purchased",
-					// element: <PurchasedPage />,
+					element: <PurchasedPage />,
 				},
 				{
 					path: "about",
@@ -145,10 +146,10 @@ export default function App() {
 			children: [
 				{
 					path: "",
-					// element: <ProfilePage />,
+					element: <ProfilePage />,
 				},
 				{
-					path: "account",
+					path: "account/:id",
 					element: <ProfileAccountPage />,
 				},
 				{
