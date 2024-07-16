@@ -224,6 +224,8 @@ LoginPage.propTypes = {
 	setOpenAccountPage: PropTypes.func,
 	openForgetPage: PropTypes.bool,
 	setOpenForgetPage: PropTypes.func,
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
 };
 
 export default LoginPage;
