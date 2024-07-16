@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams} from 'react-router-dom'
 import PropTypes from "prop-types";
 import CartBanner from "../../components/cart/CartBanner";
 import CartList from "../../components/cart/CartList";
