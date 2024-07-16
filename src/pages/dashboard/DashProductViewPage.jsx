@@ -214,10 +214,16 @@ export default function DashProductViewPage() {
 							</tr>
 						</thead>
 						<tbody>
-							{orderList
-								? orderList.map((order, index) => (
-										<tr key={index}>
-											{/* <th className="text-white w-5">
+							{!orderList ? (
+								<tr className="text-center">
+									<td colSpan={6} className="p-8">
+										Don&apos;t have any order
+									</td>
+								</tr>
+							) : (
+								orderList?.map((order, index) => (
+									<tr key={index}>
+										{/* <th className="text-white w-5">
 												<input
 													type="checkbox"
 													name=""
@@ -225,28 +231,28 @@ export default function DashProductViewPage() {
 													className="accent-green w-4 h-4 m-3 "
 												/>
 											</th> */}
-											<th className="py-2">{thDateTime(order.createOn)}</th>
-											<th>
-												{
-													order.orderDetail.find(
-														(item) => item.productId == product._id
-													).quantity
-												}
-											</th>
-											<th>{thCurrency(product.price)}</th>
-											<th>{thCurrency(order.totalPrice)}</th>
-											<th>{order.status}</th>
-											<th>
-												<Link
-													to={`/dashboard/order/${order._id}`}
-													className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
-												>
-													View
-												</Link>
-											</th>
-										</tr>
-								  ))
-								: null}
+										<th className="py-2">{thDateTime(order.createOn)}</th>
+										<th>
+											{
+												order.orderDetail.find(
+													(item) => item.productId == product._id
+												).quantity
+											}
+										</th>
+										<th>{thCurrency(product.price)}</th>
+										<th>{thCurrency(order.totalPrice)}</th>
+										<th>{order.status}</th>
+										<th>
+											<Link
+												to={`/dashboard/order/${order._id}`}
+												className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
+											>
+												View
+											</Link>
+										</th>
+									</tr>
+								))
+							)}
 						</tbody>
 					</table>
 				</div>

@@ -154,10 +154,17 @@ export default function DashOrderViewPage({ reload, setReload }) {
 							</tr>
 						</thead>
 						<tbody>
-							{order?.productInfo?.map((product, i) => {
-								return (
-									<tr key={i}>
-										{/* <th className="text-white w-5">
+							{!order.productInfo ? (
+								<tr className="text-center">
+									<td colSpan={7} className="p-8">
+										Don&apos;t have any product
+									</td>
+								</tr>
+							) : (
+								order?.productInfo?.map((product, i) => {
+									return (
+										<tr key={i}>
+											{/* <th className="text-white w-5">
 											<input
 												type="checkbox"
 												name=""
@@ -165,29 +172,29 @@ export default function DashOrderViewPage({ reload, setReload }) {
 												className="accent-green w-4 h-4 m-3 "
 											/>
 										</th> */}
-										<th>
-											<div className="h-10 w-10 flex justify-center items-center">
-												<img
-													src={product.productImage}
-													alt={product.productName}
-													className="aspect-square rounded-md"
-												/>
-											</div>
-										</th>
-										<th className="py-2">{product.productName}</th>
-										<th>{thCurrency(product.price)}</th>
-										<th>{order?.orderDetail[i]?.quantity}</th>
-										<th>
-											{thCurrency(
-												order?.orderDetail[i]?.quantity * product.price
-											)}
-										</th>
-										<th>
-											{thCurrency(
-												(product.price - product.cost) *
-													order?.orderDetail[i]?.quantity
-											)}
-											{/* <select
+											<th>
+												<div className="h-10 w-10 flex justify-center items-center">
+													<img
+														src={product.productImage}
+														alt={product.productName}
+														className="aspect-square rounded-md"
+													/>
+												</div>
+											</th>
+											<th className="py-2">{product.productName}</th>
+											<th>{thCurrency(product.price)}</th>
+											<th>{order?.orderDetail[i]?.quantity}</th>
+											<th>
+												{thCurrency(
+													order?.orderDetail[i]?.quantity * product.price
+												)}
+											</th>
+											<th>
+												{thCurrency(
+													(product.price - product.cost) *
+														order?.orderDetail[i]?.quantity
+												)}
+												{/* <select
 												key={i}
 												name="status"
 												value={order.orderDetail.status}
@@ -201,18 +208,19 @@ export default function DashOrderViewPage({ reload, setReload }) {
 												<option value="Delivered">Delivered</option>
 												<option value="Cancelled">Cancelled</option>
 											</select> */}
-										</th>
-										<th>
-											<Link
-												to={`/dashboard/product/${product._id}`}
-												className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
-											>
-												View
-											</Link>
-										</th>
-									</tr>
-								);
-							})}
+											</th>
+											<th>
+												<Link
+													to={`/dashboard/product/${product._id}`}
+													className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
+												>
+													View
+												</Link>
+											</th>
+										</tr>
+									);
+								})
+							)}
 						</tbody>
 					</table>
 				</div>
