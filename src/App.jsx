@@ -92,15 +92,15 @@ export default function App() {
 				},
 				{
 					path: "product/:id",
-					element: <ProductPage />,
+					element: <ProductPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart",
-					element: <CartPage />,
+					element: <CartPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart/checkout",
-					element: <CheckoutPage />,
+					element: <CheckoutPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "cart/checkout/purchased",
@@ -146,7 +146,7 @@ export default function App() {
 				},
 				{
 					path: "payment",
-					element: <ProfilePaymentPage />,
+					element: <ProfilePaymentPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "order-history",
