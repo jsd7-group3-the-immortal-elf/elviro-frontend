@@ -58,17 +58,9 @@ export default function App() {
 	// console.log(tokenAdmin);
 
 	useEffect(() => {
-		const token = localStorage.getItem("access_token");
-		if (token) {
-			console.log(token);
-			const decoded = jwtDecode(token);
-			console.log(decoded);
-			setTokenUserId(decoded.id);
-			setTokenUserId(setTokenAdmin.isAdmin);
-			console.log(tokenUserId);
-			console.log(tokenAdmin);
-		}
-	}, []);
+		setTokenUserId(jwtDecode(localStorage.getItem("access_token")).id);
+		setTokenAdmin(jwtDecode(localStorage.getItem("access_token")).isAdmin);
+	}, [tokenAdmin, tokenUserId]);
 
 	const AuthUserRoute = ({ children }) => {
 		return tokenUserId ? <>{children}</> : <Navigate to="/" />;
@@ -129,8 +121,8 @@ export default function App() {
 			path: "/profile",
 			element: (
 				<>
-					<NavBar />
 					<AuthUserRoute>
+						<NavBar />
 						<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
 							<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
 							<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
@@ -149,8 +141,8 @@ export default function App() {
 					element: <ProfilePage />,
 				},
 				{
-					path: "account/:id",
-					element: <ProfileAccountPage />,
+					path: "account",
+					element: <ProfileAccountPage tokenUserId={tokenUserId} />,
 				},
 				{
 					path: "payment",
