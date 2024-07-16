@@ -19,7 +19,7 @@ export default function DashOrderViewPage({ reload, setReload }) {
 			console.log(data);
 			setOrder(data);
 		} catch (error) {
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 
@@ -29,7 +29,7 @@ export default function DashOrderViewPage({ reload, setReload }) {
 
 			setReload(!reload);
 		} catch (error) {
-			console.error("Failed to edit data:", error);
+			console.log("Failed to edit data:", error);
 		}
 	}
 

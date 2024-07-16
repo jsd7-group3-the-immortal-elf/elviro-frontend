@@ -1,5 +1,5 @@
 // import {  Outlet } from "react-router-dom";
-export default function CheckoutBilling({ fistName, lastName, phone, email }) {
+export default function CheckoutBilling({ firstName, lastName, phone, email }) {
 	return (
 		<div
 			id="user_profile"
@@ -27,7 +27,7 @@ export default function CheckoutBilling({ fistName, lastName, phone, email }) {
 						<h4>First Name</h4>
 						<input
 							type="text"
-							value={fistName}
+							value={firstName}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>

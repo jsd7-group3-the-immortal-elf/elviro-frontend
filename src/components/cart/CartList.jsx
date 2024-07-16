@@ -1,29 +1,198 @@
-import { FaTrash } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
 
-function CartList() {
-	const priceList = [
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "PÄRUP sofa",
-			productQuanlity: "3",
-			productPrice: "8999",
-		},
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "VIMLE sofa",
-			productQuanlity: "1",
-			productPrice: "15999",
-		},
-		{
-			productPicture: "/images/mockup-sofa.png",
-			productName: "GLOSTAD sofa",
-			productQuanlity: "2",
-			productPrice: "2999",
-		},
-	];
+function CartList({ tokenUserId }) {
+	const [cartItems, setCarItems] = useState([]);
+	const [totalPrice, setTotalPrice] = useState(0);
+	// const [cart, setCart] = useState({})
+
+	async function getCartList() {
+		try {
+			console.log(tokenUserId)
+			const res = await axiosInstance.get(`/cart/${tokenUserId}`);
+			const { data } = res.data;
+			console.log(data);
+			setCarItems(data);
+		} catch (error) {
+			console.log("Failed to get data:", error);
+		}
+	}
+
+	// async function fetchCartAndProducts() {
+	// 	const cartList = await getCartList(userId);
+	// 	setCarItems(cartList);
+
+	// 	const total = cartList.reduce((sum, item) => {
+	// 		return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
+	// 	}, 0);
+	// 	setTotalPrice(total);
+	// }
+
+	useEffect(() => {
+		getCartList();
+	}, []);
+
+	// const handleQuantityChange = (cartItemId, change) => {
+	// 	const updateCartItems = cartItems.map((item) => {
+	// 		if (item.cart._id === cartItemId) {
+	// 			const newQuantity = Math.max(1, item.cart.quantity + change);
+	// 			// Assume a function to update the cart item quantity on the server
+	// 			updateCartItemQuantity(cartItemId, newQuantity);
+	// 			return { ...item, cart: { ...item.cart, quantity: newQuantity } };
+	// 		}
+	// 		return item;
+	// 	});
+	// 	setCarItems(updateCartItems);
+	// };
 
 	return (
-		<>
+		<div>
+			<table style={{ width: "100%", borderCollapse: "collapse" }}>
+				<thead>
+					<tr>
+						<th style={tableHeaderStyle}>Image</th>
+						<th style={tableHeaderStyle}>Product Name</th>
+						<th style={tableHeaderStyle}>Price</th>
+						<th style={tableHeaderStyle}>Quantity</th>
+						<th style={tableHeaderStyle}>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{cartItems.map((cartItem) => (
+						<tr key={cartItem.cart._id}>
+							<td style={tableCellStyle}>
+								{cartItem.productDetail[0] && (
+									<img
+										src={cartItem.productDetail[0].image}
+										alt={cartItem.productDetail[0].name}
+										style={{ width: "50px", height: "50px" }}
+									/>
+								)}
+							</td>
+							<td style={tableCellStyle}>
+								{cartItem.productDetail[0]?.name || "N/A"}
+							</td>
+							<td style={tableCellStyle}>
+								฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
+							</td>
+							<td style={tableCellStyle}>
+								<button
+									// onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
+								>
+									<FaMinus />
+								</button>{" "}
+								{cartItem.cart.quantity}{" "}
+								<button
+									// onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
+								>
+									<FaPlus />
+								</button>
+							</td>
+							<td style={tableCellStyle}>
+								฿
+								{(
+									(cartItem.productDetail[0]?.price || 0) *
+									cartItem.cart.quantity
+								).toFixed(2)}
+							</td>
+						</tr>
+					))}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td
+							colSpan="4"
+							style={{
+								...tableCellStyle,
+								textAlign: "right",
+								fontWeight: "bold",
+							}}
+						>
+							Total Price:
+						</td>
+						<td style={{ ...tableCellStyle, fontWeight: "bold" }}>
+							฿{totalPrice.toFixed(2)}
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	);
+}
+
+const tableHeaderStyle = {
+	backgroundColor: "#f2f2f2",
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
+	textAlign: "left",
+};
+
+const tableCellStyle = {
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
+};
+
+export default CartList;
+
+// const handleQuantityChange = (cartItemId, change) => {
+// 	const updateCartItems = cartItems.map(item => {
+// 		if (item._id === cartItemId) {
+// 			const newQuanntity = Math.max(1, item.quantity + change);
+// 			updateCartItemQuantity(cartItemId , newQuanntity);
+// 			return { ...item, quantity: newQuanntity };
+// 		}
+// 		return item;
+// 	});
+// 	setCarItems(updateCartItems);
+// };
+
+// async function getProductDetails(productId) {
+// 	try {
+// 		const res = await axiosInstance.get(`/products/${productId}`);
+// 		// const {data} = res.data
+// 		// setCart(data)
+// 		// {... product:[], ...}
+// 		// cart.cartDetail
+// 		// cart.productDetail
+// 		// cart.productDetail.map(product => { ... })
+// 		// cart.totalPrice
+// 		// cart.totalPrice-7%
+// 		// quan > cart.productDetail.find(item => item.productId == product._id).quantity
+// 		console.log('product detail respone',res)
+// 		return res.data.data;
+// 	} catch (error) {
+// 		console.log(`failes to get product details for ${productId}:`,error);
+// 		return null;
+// 	}
+// }
+
+// async function updateCartItemQuantity(productId, newQuantity) {
+// 	try {
+// 		const res = await axiosInstance.patch(`/cart/${userId}`, {productId: productId, quantity: newQuantity});
+// 		console.log("cart update", res.data);
+// 		fetchCartAndProducts();
+// 	} catch (error) {
+// 		console.log('Failed to update item quantity', error);
+// 	}
+// }
+
+// async function fetchCartAndProducts() {
+// 	const cartList = await getCartList(userId);
+// 	const itemWithDetails = await Promise.all(cartList.map(async (item) => {
+// 		const productDetails = await getProductDetails(item.productId);
+// 		return { ...item, productDetails };
+// 	}));
+// 	setCarItems(itemWithDetails);
+
+// const total = itemWithDetails.reduce((sum, item) => {
+// 	return sum + (item.productDetails?.price || 0) * item.quantity;
+//   }, 0);
+//   setTotalPrice(total);
+// }
+
+{
+	/* <>
 			<section className="px-8" id="cart_item">
 				<div className="hidden md:block">
 					<table className="table-auto w-full text-center">
@@ -105,7 +274,26 @@ function CartList() {
 					</div>
 				</div>
 			</section>
-		</>
-	);
+		</> */
 }
-export default CartList;
+
+// const priceList = [
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "PÄRUP sofa",
+// 		productQuanlity: "3",
+// 		productPrice: "8999",
+// 	},
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "VIMLE sofa",
+// 		productQuanlity: "1",
+// 		productPrice: "15999",
+// 	},
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "GLOSTAD sofa",
+// 		productQuanlity: "2",
+// 		productPrice: "2999",
+// 	},
+// ];

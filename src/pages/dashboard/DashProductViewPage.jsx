@@ -24,7 +24,7 @@ export default function DashProductViewPage() {
 				}, 0)
 			);
 		} catch (error) {
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 
@@ -33,7 +33,7 @@ export default function DashProductViewPage() {
 			await axiosInstance.delete(`/products/${id}`);
 			navigate("/dashboard/product");
 		} catch (error) {
-			console.error("Failed to delete data:", error);
+			console.log("Failed to delete data:", error);
 		}
 	}
 
@@ -41,7 +41,7 @@ export default function DashProductViewPage() {
 		try {
 			await axiosInstance.patch(`/products/${id}`, field);
 		} catch (error) {
-			console.error("Failed to edit data:", error);
+			console.log("Failed to edit data:", error);
 		}
 	}
 

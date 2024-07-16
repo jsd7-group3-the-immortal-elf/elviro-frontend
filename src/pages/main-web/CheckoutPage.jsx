@@ -1,14 +1,21 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
 import Motto from "../../components/Motto";
 import Banner from "../../components/Banner";
-import mockup_sofa from "/images/mockup_sofa.png";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+// import mockup_sofa from "/images/mockup_sofa.png";
 
 function CheckoutPage({ tokenUserId }) {
 	const [showInfo, setShowInfo] = useState(false);
+	const [cartData, setCartData] = useState([]);
+	const [userData, setUserData] = useState([]);
+	const [addressData, setAddressData] = useState({});
+	const navigate = useNavigate();
+	// const userId = "6696a3abfe99d24b14e13cc5";
 
 	function toggle() {
 		setShowInfo(!showInfo);
@@ -38,40 +45,66 @@ function CheckoutPage({ tokenUserId }) {
 	// 	};
 	// }, []);
 	// ข้อมูล Product
-	const priceList = [
-		{
-			productPicture: mockup_sofa,
-			productName: "PÄRUP sofa",
-			productQuality: "3",
-			productPrice: "8999",
-		},
-		{
-			productPicture: mockup_sofa,
-			productName: "VIMLE sofa",
-			productQuality: "1",
-			productPrice: "15999",
-		},
-		{
-			productPicture: mockup_sofa,
-			productName: "GLOSTAD sofa",
-			productQuality: "2",
-			productPrice: "2999",
-		},
-	];
-	const dataProfile = {
-		fistName: "Charlee",
-		lastName: "Meichom",
-		phone: "0812345678",
-		email: "charlee@mail.com",
-	};
 
-	// เช็คว่า user id อะไร
-	// นำข้อมูล user Assdress ข้อแต่ละ user เข้ามา แกะ token เอา Id มา
-	// นำProduct ที่ user เลือก ในหน้า cart เข้ามา
+	async function getProductInUser() {
+		try {
+			const response = await axiosInstance.get(
+				`/cart/${tokenUserId}?isChecked=true`
+			);
+			const { data } = await response.data;
+			setCartData(data);
+		} catch (error) {
+			console.log("Not found user:", error);
+		}
+	}
+
+	async function getUser() {
+		try {
+			const response = await axiosInstance.get(`/users/${tokenUserId}`);
+			const { data } = await response.data;
+			setUserData(data);
+			setAddressData(data.address.find((adr) => adr.default == true));
+		} catch (error) {
+			console.log("Not found user:", error);
+		}
+	}
+
+	useEffect(() => {
+		getProductInUser();
+		getUser();
+	}, []);
+	// console.log(`cartData :  ${cartData}`);
 	//
-	//validat เช็คข้อมูลมาใส่ข้อมูลเข้ามาหมดไหม
+	// const cartData = [
+	// 	{
+	// 		productPicture: mockup_sofa,
+	// 		productName: "PÄRUP sofa",
+	// 		productQuality: "3",
+	// 		productPrice: "8999",
+	// 	},
+	// 	{
+	// 		productPicture: mockup_sofa,
+	// 		productName: "VIMLE sofa",
+	// 		productQuality: "1",
+	// 		productPrice: "15999",
+	// 	},
+	// 	{
+	// 		productPicture: mockup_sofa,
+	// 		productName: "GLOSTAD sofa",
+	// 		productQuality: "2",
+	// 		productPrice: "2999",
+	// 	},
+	// ];
+	// const dataProfile = {
+	// 	fistName: "Charlee",
+	// 	lastName: "Meichom",
+	// 	phone: "0812345678",
+	// 	email: "charlee@mail.com",
+	// };
 
-	//ข้อมูล user
+	function handleSubmit() {
+		navigate("/cart/checkout/purchased");
+	}
 
 	return (
 		<>
@@ -79,27 +112,23 @@ function CheckoutPage({ tokenUserId }) {
 			<section className="flex flex-col items-center justify-start my-24 w-2/3 mx-auto lg:flex-row lg:items-start lg:gap-20 ">
 				<button
 					className="lg:hidden mb-7 h-12 w-11/12 back text-xl text-black border border-neutral-500 rounded-xl hover:shadow-xl active:shadow-xl active:bg-gray-100"
-					// onClick={buttonBilling}
 					onClick={toggle}
 				>
 					Personal and Address
 				</button>
 				<div
-					// className={`
-					// 	// {toggleBillingDesktop ? "flex" : toggleBilling ? "flex" : "hidden"}
-					// flex  w-1/2 justify-end md:w-full`}
 					className={`${showInfo ? "" : "hidden"} lg:flex w-1/2 justify-end `}
 				>
 					<CheckoutBilling
-						fistName={dataProfile.fistName}
-						lastName={dataProfile.lastName}
-						phone={dataProfile.phone}
-						email={dataProfile.email}
+						firstName={addressData?.firstNameAdr}
+						lastName={addressData?.lastNameAdr}
+						phone={addressData?.phoneAdr}
+						email={userData?.profile?.email}
 					/>
 				</div>
 				<div className="flex flex-col items-center w-full lg:w-1/2 ">
-					<CheckoutProduct inputArrayProduct={priceList} />
-					<CheckoutPayment />
+					<CheckoutProduct cartData={cartData} />
+					<CheckoutPayment handleSubmit={handleSubmit} />
 				</div>
 			</section>
 			<Motto />

@@ -106,6 +106,10 @@ export default function App() {
 					element: <CartPage tokenUserId={tokenUserId} />,
 				},
 				{
+					path: "cart/:userId",
+					element: <CartPage />,
+				},
+				{
 					path: "cart/checkout",
 					element: <CheckoutPage tokenUserId={tokenUserId} />,
 				},

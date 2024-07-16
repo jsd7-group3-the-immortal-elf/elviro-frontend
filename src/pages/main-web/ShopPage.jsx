@@ -36,7 +36,7 @@ export default function ShopPage() {
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 
@@ -52,7 +52,7 @@ export default function ShopPage() {
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 

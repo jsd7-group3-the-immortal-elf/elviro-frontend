@@ -21,7 +21,7 @@ export default function DashImageInputMain({ image, setImage, setProduct }) {
 				setLoading(false);
 			} catch (error) {
 				setLoading(false);
-				console.error("Error uploading img:", error);
+				console.log("Error uploading img:", error);
 			}
 		}
 	}

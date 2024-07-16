@@ -14,7 +14,7 @@ export default function DashProductPage({ reload, setReload }) {
 			const { data } = await response.data;
 			setProductList(data);
 		} catch (error) {
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 
@@ -24,7 +24,7 @@ export default function DashProductPage({ reload, setReload }) {
 
 			setReload(!reload);
 		} catch (error) {
-			console.error("Failed to edit data:", error);
+			console.log("Failed to edit data:", error);
 		}
 	}
 

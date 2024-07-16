@@ -21,7 +21,7 @@ export default function DashProductAddPage({ reload }) {
 		try {
 			await axiosInstance.post("/products", product);
 		} catch (error) {
-			console.error("Failed to create data:", error);
+			console.log("Failed to create data:", error);
 		}
 	}
 
@@ -37,7 +37,7 @@ export default function DashProductAddPage({ reload }) {
 				rooms[data.rooms[i]] = true;
 			}
 		} catch (error) {
-			console.error("Failed to get data:", error);
+			console.log("Failed to get data:", error);
 		}
 	}
 
@@ -45,7 +45,7 @@ export default function DashProductAddPage({ reload }) {
 		try {
 			await axiosInstance.patch(`/products/${id}`, product);
 		} catch (error) {
-			console.error("Failed to edit data:", error);
+			console.log("Failed to edit data:", error);
 		}
 	}
 
