@@ -16,35 +16,9 @@ function CheckoutPage({ tokenUserId }) {
 	const [addressData, setAddressData] = useState({});
 	const navigate = useNavigate();
 	// const userId = "6696a3abfe99d24b14e13cc5";
-
 	function toggle() {
 		setShowInfo(!showInfo);
 	}
-	// เปิดปิดแบบเก่า
-	// const [toggleBillingDesktop, setToggleBillingDesktop] = useState(true);
-	// const [toggleBilling, setToggleBilling] = useState(false);
-	// const buttonBilling = () => {
-	// 	setToggleBilling(!toggleBilling);
-	// };
-	//หน้าต่างใหญ่จะเปิดและปิด
-	// const handleResize = () => {
-	// 	if (window.innerWidth >= 1024) {
-	// 		setToggleBillingDesktop(true);
-	// 	} else {
-	// 		setToggleBillingDesktop(false);
-	// 	}
-	// };
-	//เช็คว่าหน้าต่างขนาดเท่าไหร่
-	// useEffect(() => {
-	// 	// Add event listener for window resize
-	// 	window.addEventListener("resize", handleResize);
-	// 	handleResize(); // Check the window size initially
-	// 	// Cleanup event listener on component unmount
-	// 	return () => {
-	// 		window.removeEventListener("resize", handleResize);
-	// 	};
-	// }, []);
-	// ข้อมูล Product
 
 	async function getProductInUser() {
 		try {
@@ -73,34 +47,6 @@ function CheckoutPage({ tokenUserId }) {
 		getProductInUser();
 		getUser();
 	}, []);
-	// console.log(`cartData :  ${cartData}`);
-	//
-	// const cartData = [
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "PÄRUP sofa",
-	// 		productQuality: "3",
-	// 		productPrice: "8999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "VIMLE sofa",
-	// 		productQuality: "1",
-	// 		productPrice: "15999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "GLOSTAD sofa",
-	// 		productQuality: "2",
-	// 		productPrice: "2999",
-	// 	},
-	// ];
-	// const dataProfile = {
-	// 	fistName: "Charlee",
-	// 	lastName: "Meichom",
-	// 	phone: "0812345678",
-	// 	email: "charlee@mail.com",
-	// };
 
 	function handleSubmit() {
 		navigate("/cart/checkout/purchased");
@@ -123,6 +69,11 @@ function CheckoutPage({ tokenUserId }) {
 						firstName={addressData?.firstNameAdr}
 						lastName={addressData?.lastNameAdr}
 						phone={addressData?.phoneAdr}
+						address={addressData?.address}
+						province={addressData?.province}
+						district={addressData?.district}
+						subDistrict={addressData?.subDistrict}
+						postalCode={addressData?.postalCode}
 						email={userData?.profile?.email}
 					/>
 				</div>
