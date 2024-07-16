@@ -308,7 +308,6 @@ export default function DashProductAddPage({ reload }) {
 									name="depthExtend"
 									value={dimension.depthExtend}
 									onChange={handleChange}
-									required
 									className="dash-input w-full"
 								/>
 							</label>
