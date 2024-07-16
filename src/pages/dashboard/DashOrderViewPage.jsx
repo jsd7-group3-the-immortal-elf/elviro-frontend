@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { thCurrency } from "../../utils/format";
+import { thCurrency, thDateTime } from "../../utils/format";
 import axiosInstance from "../../utils/axiosInstance";
-import DashChangePage from "../../components/dashboard/DashChangePage";
+// import DashChangePage from "../../components/dashboard/DashChangePage";
 
-export default function DashOrderViewPage(reload, setReload) {
+export default function DashOrderViewPage({ reload, setReload }) {
 	// const navigate = useNavigate();
 	const [order, setOrder] = useState({});
 	const { id } = useParams();
@@ -33,9 +33,15 @@ export default function DashOrderViewPage(reload, setReload) {
 		}
 	}
 
-	async function handleChange(e) {
+	// async function handleChange(e) {
+	// 	const { name, value } = e.target;
+	// 	const field = { orderDetail: [{ [name]: value }] };
+	// 	await editOrder(id, field);
+	// }
+
+	async function handleStatus(e) {
 		const { name, value } = e.target;
-		const field = { orderDetail: { [name]: value } };
+		const field = { [name]: value, orderDetail: { [name]: value } };
 		await editOrder(id, field);
 	}
 
@@ -53,13 +59,14 @@ export default function DashOrderViewPage(reload, setReload) {
 			<section className="flex items-center justify-between">
 				<div>
 					<h4>Order Number : {order._id}</h4>
-					<p>Order Date : {order.createOn}</p>
+					<p>Order Date : {thDateTime(order.createOn)}</p>
 					{/* <p>Tracking ID : 12jio121</p> */}
 				</div>
 				<div className="flex gap-4">
 					<button
 						name="status"
 						value="Delivered"
+						onClick={handleStatus}
 						className="bg-green rounded-lg text-white px-4 py-2 hover:bg-darkgreen"
 					>
 						Mark as Complete
@@ -67,6 +74,7 @@ export default function DashOrderViewPage(reload, setReload) {
 					<button
 						name="status"
 						value="Cancelled"
+						onClick={handleStatus}
 						className="bg-red-400 rounded-lg text-white px-4 py-2 hover:bg-red-600"
 					>
 						Cancel Order
@@ -105,7 +113,7 @@ export default function DashOrderViewPage(reload, setReload) {
 				</div>
 			</section>
 
-			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-364px)] flex flex-col justify-between">
+			<section className="bg-white rounded-lg p-4 min-h-[calc(100vh-340px)] flex flex-col justify-between">
 				<div>
 					<div className="flex justify-between mb-3">
 						<h4>Item : {order?.orderDetail?.length}</h4>
@@ -114,7 +122,7 @@ export default function DashOrderViewPage(reload, setReload) {
 							<select
 								name="status"
 								value={order.status}
-								onChange={handleChange}
+								onChange={handleStatus}
 							>
 								<option value="Pending">Pending</option>
 								<option value="Confirmed">Confirmed</option>
@@ -141,7 +149,8 @@ export default function DashOrderViewPage(reload, setReload) {
 								<th>Unit Price</th>
 								<th>Quantity</th>
 								<th>Order Total</th>
-								<th>Status</th>
+								<th>Profit</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -174,7 +183,12 @@ export default function DashOrderViewPage(reload, setReload) {
 											)}
 										</th>
 										<th>
-											<select
+											{thCurrency(
+												(product.price - product.cost) *
+													order?.orderDetail[i]?.quantity
+											)}
+											{/* <select
+												key={i}
 												name="status"
 												value={order.orderDetail.status}
 												onChange={handleChange}
@@ -186,7 +200,15 @@ export default function DashOrderViewPage(reload, setReload) {
 												<option value="Shipped">Shipped</option>
 												<option value="Delivered">Delivered</option>
 												<option value="Cancelled">Cancelled</option>
-											</select>
+											</select> */}
+										</th>
+										<th>
+											<Link
+												to={`/dashboard/product/${product._id}`}
+												className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
+											>
+												View
+											</Link>
 										</th>
 									</tr>
 								);
@@ -195,7 +217,7 @@ export default function DashOrderViewPage(reload, setReload) {
 					</table>
 				</div>
 
-				<DashChangePage />
+				{/* <DashChangePage /> */}
 			</section>
 		</div>
 	);
