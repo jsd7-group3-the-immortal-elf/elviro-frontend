@@ -107,3 +107,13 @@ function CheckoutPage() {
 }
 
 export default CheckoutPage;
+
+//`/cart/${userId}?isChecked=true`
+// cart:[
+// 	{
+// 	productID,
+// 	quantity,
+// 	inChecked,
+// 	productDetail:{แล้วแสดงข้อมูล อ้างอิงจาก productID }
+// 	}
+// 	]
