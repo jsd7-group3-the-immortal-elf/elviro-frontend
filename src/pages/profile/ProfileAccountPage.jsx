@@ -31,7 +31,7 @@ function ProfileAccountPage() {
 				email: data.profile.email,
 				phone: data.profile.phone,
 				username: data.account.username,
-				password: data.account.password,
+				password: "",
 				newPassword: "",
 			});
 		} catch (error) {
@@ -156,7 +156,7 @@ function ProfileAccountPage() {
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full sm:w-1/2 relative">
+						{/* <label className="flex flex-col w-full sm:w-1/2 relative">
 							Password
 							<input
 								type={passwordVisible ? "text" : "password"}
@@ -172,7 +172,7 @@ function ProfileAccountPage() {
 							>
 								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
-						</label>
+						</label> */}
 						<label className="flex flex-col w-full sm:w-1/2">
 							Change password
 							<input
