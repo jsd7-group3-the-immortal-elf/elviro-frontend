@@ -150,8 +150,17 @@ function NavBar({ reload, setReload }) {
 
 					{/* Sub Profile */}
 					{profileNavVisible && (
-						<nav className="fixed top-16 left-0 z-39 overflow-y-scroll w-full h-[calc(100vh-64px)] md:h-fit">
+						<nav className="fixed top-16 right-0 z-39 overflow-y-scroll w-full sm:w-60 h-[calc(100vh-64px)] md:h-fit">
 							<ul className="w-full bg-white text-center">
+								<li className="border-b">
+									<Link
+										to="/dashboard/order"
+										onClick={toggleProfileNav}
+										className="block w-full p-3"
+									>
+										Dashboard
+									</Link>
+								</li>
 								<li className="border-b">
 									<Link
 										to="/profile"
