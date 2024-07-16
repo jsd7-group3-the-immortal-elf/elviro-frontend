@@ -36,7 +36,7 @@ function ProfileAccountPage({ tokenUserId }) {
 				newPassword: "",
 			});
 		} catch (error) {
-			console.error("Error fetching Data: ", error);
+			console.log("Error fetching Data: ", error);
 		}
 	};
 
@@ -86,7 +86,7 @@ function ProfileAccountPage({ tokenUserId }) {
 					handleChangePassword();
 				}
 			} catch (error) {
-				console.error("Error updating Profile: ", error);
+				console.log("Error updating Profile: ", error);
 				alert("Profile update failed!");
 			}
 		} else {
@@ -106,7 +106,7 @@ function ProfileAccountPage({ tokenUserId }) {
 				newPassword: "",
 			}));
 		} catch (error) {
-			console.error("Error updating password", error);
+			console.log("Error updating password", error);
 			alert("Password update failed!");
 		}
 	};

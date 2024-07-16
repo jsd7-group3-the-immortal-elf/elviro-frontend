@@ -54,7 +54,7 @@ function CheckoutPage({ tokenUserId }) {
 			const { data } = await response.data;
 			setCartData(data);
 		} catch (error) {
-			console.error("Not found user:", error);
+			console.log("Not found user:", error);
 		}
 	}
 
@@ -65,7 +65,7 @@ function CheckoutPage({ tokenUserId }) {
 			setUserData(data);
 			setAddressData(data.address.find((adr) => adr.default == true));
 		} catch (error) {
-			console.error("Not found user:", error);
+			console.log("Not found user:", error);
 		}
 	}
 
