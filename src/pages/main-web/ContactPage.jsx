@@ -5,7 +5,7 @@ function ContactPage() {
 				<picture className="w-2/3">
 					<img
 						className="rounded-full"
-						src="/images/contact.png"
+						src="images/contact.png"
 						alt="Banner"
 					/>
 				</picture>

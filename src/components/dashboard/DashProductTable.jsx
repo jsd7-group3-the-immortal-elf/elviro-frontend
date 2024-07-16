@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { useState } from "react";
+import format from "../../utils/format";
 
 export default function DashProductTable({ product, handleChange }) {
-	// const [productStatus, setProductStatus] = useState(product.status);
-
 	return (
-		<tr key={product._id} className="">
+		<tr key={product._id}>
 			<th className="text-white w-5">
 				<input
 					type="checkbox"
@@ -18,43 +16,49 @@ export default function DashProductTable({ product, handleChange }) {
 			<th>
 				<div className="h-10 w-10 flex justify-center items-center">
 					<img
-						src={product.image}
-						alt={product.name}
+						src={product.productImage}
+						alt={product.productName}
 						className="aspect-square rounded-md"
 					/>
 				</div>
 			</th>
-			<th>
-				<Link
-					to={`/dashboard/product/view-product/${product._id}`}
-					className="hover:underline"
-				>
-					{product.name}
-				</Link>
-			</th>
-			<th>{product.room}</th>
+			<th>{product.productName}</th>
+			<th>{product.rooms.join(", ")}</th>
 			<th>{product.category}</th>
-			<th>{product.price}</th>
-			<th>{product.quantity}</th>
-			<th>{product.price * product.quantity}</th>
+			<th>{format.thCurrency(product.price)}</th>
+			<th className={`${product.stock <= 20 ? "text-red-500" : ""}`}>
+				{product.stock}
+			</th>
+			{/* <th>{product.price * product.stock}</th> */}
 			<th>
 				<select
-					name="status"
-					id=""
+					name="isPublish"
+					value={product.isPublish ? "Published" : "Unpublished"}
 					onChange={(e) => handleChange(e, product._id)}
 				>
-					<option value="Published">Published</option>
-					<option value="Unpublished">Unpublished</option>
+					<option
+						name="isPublish"
+						value="Published"
+						onChange={(e) => handleChange(e, product._id)}
+					>
+						Published
+					</option>
+					<option
+						name="isPublish"
+						value="Unpublished"
+						onChange={(e) => handleChange(e, product._id)}
+					>
+						Unpublished
+					</option>
 				</select>
 			</th>
 			<th>
-				<p
-					className={`rounded-md  ${
-						product.status == "Published" ? "bg-lightgreen/50" : "bg-orange-100"
-					}`}
+				<Link
+					to={`/dashboard/product/${product._id}`}
+					className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
 				>
-					{product.status}
-				</p>
+					View
+				</Link>
 			</th>
 		</tr>
 	);

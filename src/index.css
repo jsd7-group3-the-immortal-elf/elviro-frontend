@@ -28,7 +28,7 @@
 
 	*,
 	:hover {
-		@apply transition duration-200;
+		@apply transition-all duration-200;
 	}
 
 	th {
@@ -47,7 +47,7 @@
 	}
 
 	.input {
-		@apply px-4 py-2 border border-neutral-300 rounded-lg;
+		@apply px-4 py-2 border border-neutral-300 rounded-lg text-ellipsis;
 	}
 
 	.dash-input {
@@ -57,9 +57,54 @@
 	.btn {
 		@apply px-4 py-2 rounded-lg;
 	}
+
+	.btn-login {
+		@apply bg-orange-200 p-5 rounded-full font-semibold text-xl  md:text-2xl   hover:bg-orange-300  hover:shadow-xl;
+	}
+
+	.label-createAccount {
+		@apply mx-0 text-neutral-500 text-xl flex flex-col font-semibold;
+	}
+
+	.input-createAccount {
+		@apply bg-white border-b border-neutral-200 p-1 font-normal text-lg;
+	}
+
+	.product-detail {
+		@apply text-sm md:text-xl font-bold text-left;
+	}
+
+	.number-button {
+		@apply hover:bg-brown hover:text-white  px-2 w-10 h-12 text-center text-xl font-bold;
+	}
+
+	@keyframes openLogin {
+		from {
+			top: -200px;
+		}
+		to {
+			top: 0px;
+		}
+	}
 }
 
 /* hidden scrollbar */
 *::-webkit-scrollbar {
 	display: none;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
 }

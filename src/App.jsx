@@ -1,20 +1,21 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
+import DashboardLayout from "./layouts/DashboardLayout";
+
 import NavBar from "./components/NavBar";
-// import Footer from "./components/Footer";
-// import ProfileNav from "./components/ProfileNav";
-// import DashboardNav from "./components/DashBoardNav";
+import Footer from "./components/Footer";
+import ProfileNav from "./components/ProfileNav";
 
 // import ErrorPage from "./pages/ErrorPage";
 
-// import HomePage from "./pages/main-web/HomePage";
-// import ShopPage from "./pages/main-web/ShopPage";
-// import ProductPage from "./pages/main-web/ProductPage";
-// import CartPage from "./pages/main-web/CartPage";
+import HomePage from "./pages/main-web/HomePage";
+import ShopPage from "./pages/main-web/ShopPage";
+import ProductPage from "./pages/main-web/ProductPage";
+import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
 import PurchasedPage from "./pages/main-web/PurchasedPage";
-// import AboutPage from "./pages/main-web/AboutPage";
-// import ContactPage from "./pages/main-web/ContactPage";
+import AboutPage from "./pages/main-web/AboutPage";
+import ContactPage from "./pages/main-web/ContactPage";
 
 // import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
@@ -27,16 +28,16 @@ import DashOrderPage from "./pages/dashboard/DashOrderPage";
 import DashOrderViewPage from "./pages/dashboard/DashOrderViewPage";
 // import DashCustomerPage from "./pages/dashboard/DashCustomerPage";
 // import DashCustomerViewPage from "./pages/dashboard/DashCustomerViewPage";
-// import DashProductPage from "./pages/dashboard/DashProductPage";
-// import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
-// import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
+import DashProductPage from "./pages/dashboard/DashProductPage";
+import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
+import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-// import { useState } from "react";
+import { useState } from "react";
 
 export default function App() {
-	// const [reload, setReload] = useState(false);
+	const [reload, setReload] = useState(false);
 
 	const router = createBrowserRouter([
 		{
@@ -45,22 +46,26 @@ export default function App() {
 				<>
 					<NavBar />
 					<Outlet />
-					{/* <Footer /> */}
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
 					path: "",
-					// element: <HomePage />,
+					element: <HomePage />,
 				},
 				{
 					path: "shop",
-					// element: <ShopPage />,
+					element: <ShopPage />,
+				},
+				{
+					path: "product/:id",
+					element: <ProductPage />,
 				},
 				{
 					path: "cart",
-					// element: <CartPage />,
+					element: <CartPage />,
 				},
 				{
 					path: "cart/checkout",
@@ -72,11 +77,11 @@ export default function App() {
 				},
 				{
 					path: "about",
-					// element: <AboutPage />,
+					element: <AboutPage />,
 				},
 				{
 					path: "contact",
-					// element: <ContactPage />,
+					element: <ContactPage />,
 				},
 			],
 		},
@@ -86,8 +91,14 @@ export default function App() {
 			element: (
 				<>
 					<NavBar />
-					<Outlet />
-					{/* <Footer/> */}
+					<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
+						<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
+						<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
+							<ProfileNav />
+							<Outlet />
+						</section>
+					</main>
+					<Footer />
 				</>
 			),
 			// errorElement: <ErrorPage/>,
@@ -117,13 +128,7 @@ export default function App() {
 
 		{
 			path: "/dashboard",
-			element: (
-				<>
-					{/* <NavBar /> */}
-					{/* <DashboardNav /> */}
-					<Outlet />
-				</>
-			),
+			element: <DashboardLayout reload={reload} setReload={setReload} />,
 			// errorElement: <ErrorPage/>,
 			children: [
 				{
@@ -132,43 +137,27 @@ export default function App() {
 				},
 				{
 					path: "order",
-					element: <DashOrderPage />,
+					element: <DashOrderPage reload={reload} setReload={setReload} />,
 				},
 				{
-					path: "order/view-order",
-					element: <DashOrderViewPage />,
-				},
-				{
-					path: "customer",
-					// element: <DashCustomerPage />,
-				},
-				{
-					path: "customer/view-customer",
-					// element: <DashCustomerViewPage />,
+					path: "order/:id",
+					element: <DashOrderViewPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "product",
-					// element: <DashProductPage />,
+					element: <DashProductPage reload={reload} setReload={setReload} />,
 				},
 				{
 					path: "product/add-product",
 					// element: <DashProductAddPage reload={reload} />,
 				},
 				{
-					path: "product/edit-product/:id",
-					// element: <DashProductAddPage />,
+					path: "product/edit/:id",
+					element: <DashProductAddPage />,
 				},
 				{
-					path: "product/view-product",
-					// element: <DashProductViewPage />,
-				},
-				{
-					path: "admin",
-					// element: <DashAdminPage />,
-				},
-				{
-					path: "admin/admin-setting",
-					// element: <DashAdminSettingPage />,
+					path: "product/:id",
+					element: <DashProductViewPage />,
 				},
 			],
 		},

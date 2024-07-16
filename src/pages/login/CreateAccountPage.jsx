@@ -1,25 +1,32 @@
 //ใช้ useState
 import { useState } from "react";
-import ImageWhite from "/images/elviro_logo_white.png";
-import ImageBlack from "/images/elviro_logo_black.png";
-import { FaTimes, FaEyeSlash, FaEye } from "react-icons/fa";
+import ImageWhite from "/images/elviro_logo_white.svg";
+import ImageBlack from "/images/elviro_logo_black.svg";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import PropTypes from "prop-types";
+import axiosInstance from "../../utils/axiosInstance";
 
-function CreateAccountPage() {
+function CreateAccountPage({
+	openAccountPage,
+	toggleOpenAccount,
+	toggleOpenLogin,
+}) {
 	//ไว้รับค่า object จาก formData
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
 		email: "",
+		username: "",
 		password: "",
 	});
-
-	//state ของเปิด form
-	const [openForm, setOpenForm] = useState(true);
 
 	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
+
+	const [showEmailAlert, setShowEmailAlert] = useState(false);
+	const [showUserAlert, setShowUserAlert] = useState(false);
 
 	//Toggle ค่า true false
 	const togglePasswordVisibility = () => {
@@ -28,8 +35,31 @@ function CreateAccountPage() {
 
 	//----------ไว้ validate email + password -----------//
 
-	//สร้าง array ไว้รับค่าจาก formData
-	const [tableData, setTableData] = useState([]);
+	const profile = {
+		firstName: formData.firstName,
+		lastName: formData.lastName,
+		email: formData.email,
+	};
+
+	const account = {
+		username: formData.username,
+		password: formData.password,
+	};
+
+	//Create a new account-----
+	async function createNewAccount(profile, account) {
+		try {
+			const response = await axiosInstance.post(`/users/create-account`, {
+				profile,
+				account,
+			});
+
+			const { message } = response.data;
+			alert(message);
+		} catch (error) {
+			console.log("Failed to create an account", error);
+		}
+	}
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
@@ -41,26 +71,68 @@ function CreateAccountPage() {
 		}));
 	};
 
-	//toggle เปิดปิด form
-	const toggleOpenForm = () => {
-		setOpenForm(!openForm);
-	};
-
 	//เอาค่าไปเก็บใน array
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
-		console.log("Form Submitted:", formData); //ไว้ดู check
-		setTableData((prevData) => [...prevData, formData]);
-		console.log(...tableData, formData);
+
+		//สร้าง Account ใหม่
+		createNewAccount(profile, account);
+		alert(
+			`New account with username ${formData.username} created successfully.`
+		);
+
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			username: "",
+			password: "",
+		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
+		toggleOpenAccount();
+		toggleOpenLogin();
+	};
+
+	//link ไปหน้า login
+	const changeToLogin = () => {
+		toggleOpenAccount();
+		toggleOpenLogin();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			username: "",
+			password: "",
+		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
+	};
+
+	const toggleCloseAccount = () => {
+		toggleOpenAccount();
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			username: "",
+			password: "",
+		});
+		setShowEmailAlert(false);
+		setShowUserAlert(false);
 	};
 
 	return (
-		<div className={openForm ? "block" : "hidden"}>
+		<div
+			className={`z-50 top-0 w-screen  ${
+				openAccountPage ? "fixed " : "hidden"
+			}`}
+		>
 			<div className="flex bg-black/50 lg:h-screen  justify-center md:items-center">
-				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl sm:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
+				<section className="relative h-4/5 mt-20 md:mb-14 rounded-t-3xl md:rounded-3xl bg-white w-full md:w-4/5 flex flex-col lg:flex-row items-center lg:w-4/5 md:h-4/5">
 					<FaXmark
 						className="text-3xl cursor-pointer absolute right-6 top-6 hover:text-4xl"
-						onClick={toggleOpenForm}
+						onClick={toggleCloseAccount}
 					/>
 					<div className="rounded-l-3xl flex my-9 justify-center items-center gap-4 lg:my-0  lg:bg-green lg:w-1/2 lg:h-full md:flex-col">
 						<img
@@ -84,13 +156,17 @@ function CreateAccountPage() {
 						{/* Main form */}
 						<form
 							onSubmit={handleSubmit}
-							className="flex flex-col md:w-lg gap-5"
+							className="flex flex-col md:w-lg gap-5 md:gap-2"
 						>
-							<h1 className="text-2xl md:text-4xl">Create a new account</h1>
-							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
-								First Name
+							<h1 className="text-center text-2xl md:text-4xl md:mb-5">
+								Create a new account
+							</h1>
+							<label className="label-createAccount">
+								<section>
+									First Name <span className="text-red-500">*</span>
+								</section>
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal "
+									className="input-createAccount"
 									type="text"
 									name="firstName"
 									value={formData.firstName}
@@ -100,10 +176,13 @@ function CreateAccountPage() {
 							</label>
 
 							{/* Other label */}
-							<label className="text-neutral-500 text-md flex flex-col font-semibold">
-								Last Name
+							<label className="label-createAccount">
+								<section>
+									Last Name <span className="text-red-500">*</span>
+								</section>
+
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									className="input-createAccount"
 									type="text"
 									name="lastName"
 									value={formData.lastName}
@@ -112,10 +191,13 @@ function CreateAccountPage() {
 								/>
 							</label>
 							{/* Email */}
-							<label className="text-neutral-500 text-md  flex flex-col font-semibold">
-								Email
+							<label className="label-createAccount">
+								<section>
+									Email <span className="text-red-500">*</span>
+								</section>
+
 								<input
-									className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal"
+									className="input-createAccount"
 									type="email"
 									name="email"
 									value={formData.email}
@@ -123,13 +205,28 @@ function CreateAccountPage() {
 									required
 								/>
 							</label>
+							<label className="label-createAccount">
+								<section>
+									Username <span className="text-red-500">*</span>
+								</section>
+								<input
+									className="input-createAccount"
+									type="text"
+									name="username"
+									value={formData.username}
+									onChange={handleChange}
+									required
+								/>
+							</label>
 							{/* Password */}
-							<label className="text-neutral-500 text-md  flex flex-col pb-5 font-semibold">
-								Password
-								<div id="password-relative" className="relative">
+							<label className="label-createAccount">
+								<section>
+									Password <span className="text-red-500">*</span>
+								</section>
+
+								<div id="password-relative" className="relative mb-4">
 									<input
-										className="bg-white border-b-2 border-text-neutral-500 p-1 font-normal w-full pr-10"
-										// type={showPassword ? "text" : "password"}
+										className="input-createAccount w-full pr-10"
 										name="password"
 										type={showPassword ? "text" : "password"}
 										value={formData.password}
@@ -145,13 +242,26 @@ function CreateAccountPage() {
 									</span>
 								</div>
 							</label>
-
-							<button
-								type="submit"
-								className="bg-orange-200 p-5 rounded-full font-semibold text-lg md:mb-5 md:text-2xl mb-5  hover:bg-orange-300  hover:shadow-xl"
-							>
+							<section className="mx-4 text-red-500 font-semibold text-lg">
+								<span className={showEmailAlert ? "block" : "hidden"}>
+									This user email has been registered.
+								</span>
+								<span className={showUserAlert ? "block" : "hidden"}>
+									This username has been used. Please make a new one.
+								</span>
+							</section>
+							<button type="submit" className="btn-login">
 								Create Account
 							</button>
+							<section className="flex flex-col md:block text-md md:text-md pb-5 text-end">
+								Already have an account?{" "}
+								<span
+									className="text-red-500 font-medium text-md cursor-pointer hover:font-bold"
+									onClick={changeToLogin}
+								>
+									Login
+								</span>
+							</section>
 						</form>
 					</div>
 				</section>
@@ -159,5 +269,14 @@ function CreateAccountPage() {
 		</div>
 	);
 }
+
+CreateAccountPage.propTypes = {
+	openAccountPage: PropTypes.bool,
+	setOpenAccountPage: PropTypes.func,
+	toggleOpenAccount: PropTypes.func,
+	openLoginPage: PropTypes.bool,
+	setOpenLoginPage: PropTypes.func,
+	toggleOpenLogin: PropTypes.func,
+};
 
 export default CreateAccountPage;

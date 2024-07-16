@@ -15,8 +15,18 @@ export default function DashProductSummary({ productList }) {
 					<tbody className="font-medium">
 						<tr>
 							<td>{productList.length}</td>
-							<td>{productList.length}</td>
-							<td>0</td>
+							<td>
+								{
+									productList.filter((product) => product.isPublish == true)
+										.length
+								}
+							</td>
+							<td>
+								{
+									productList.filter((product) => product.isPublish == false)
+										.length
+								}
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -33,7 +43,7 @@ export default function DashProductSummary({ productList }) {
 					<tbody className="font-medium">
 						<tr>
 							<td className="text-red-500">
-								{productList.filter((product) => product.quantity < 10).length}
+								{productList.filter((product) => product.stock <= 20).length}
 							</td>
 							<td>0</td>
 						</tr>

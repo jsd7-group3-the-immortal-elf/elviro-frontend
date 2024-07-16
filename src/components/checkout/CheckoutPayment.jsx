@@ -1,5 +1,6 @@
 import { IoCardSharp } from "react-icons/io5";
 import { BsQrCodeScan } from "react-icons/bs";
+import { Link } from "react-router-dom";
 // import PayCard from "../../components/checkout/PayCard";
 export default function CheckoutPayment() {
 	return (
@@ -18,9 +19,12 @@ export default function CheckoutPayment() {
 				this website, to manage access to your account, and for other purposes
 				described in our <b>privacy policy</b>.
 			</p>
-			<button className="mt-7 h-16 w-full max-w-80 text-3xl text-black border border-neutral-500 rounded-xl  hover:shadow-xl active:shadow-2xl active:bg-gray-100 ">
+			<Link
+				to={"/cart/checkout/purchased"}
+				className="mt-7 h-16 w-full max-w-80 text-3xl text-black border border-neutral-500 rounded-xl  hover:shadow-xl active:shadow-2xl active:bg-gray-100 "
+			>
 				Place order
-			</button>
+			</Link>
 		</div>
 	);
 }
