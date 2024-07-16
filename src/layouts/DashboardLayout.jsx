@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import DashBoardNav from "../components/DashBoardNav";
 import NavBar from "../components/NavBar";
 
-export default function DashboardLayout({ reload, setReload }) {
+export default function DashboardLayout({
+	reload,
+	setReload,
+	tokenUserId,
+	tokenAdmin,
+}) {
 	return (
 		<>
 			<div className="bg-neutral-100 xl:hidden h-screen flex justify-center items-center">
@@ -12,7 +17,12 @@ export default function DashboardLayout({ reload, setReload }) {
 				</h1>
 			</div>
 			<div className="hidden xl:flex flex-col">
-				<NavBar />
+				<NavBar
+					reload={reload}
+					setReload={setReload}
+					tokenUserId={tokenUserId}
+					tokenAdmin={tokenAdmin}
+				/>
 				<DashBoardNav reload={reload} setReload={setReload} />
 				<Outlet />
 			</div>
@@ -23,4 +33,6 @@ export default function DashboardLayout({ reload, setReload }) {
 DashboardLayout.propTypes = {
 	reload: PropTypes.bool,
 	setReload: PropTypes.func,
+	tokenUserId: PropTypes.string,
+	tokenAdmin: PropTypes.bool,
 };

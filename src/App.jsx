@@ -47,7 +47,7 @@ export default function App() {
 	const [tokenUserId, setTokenUserId] = useState("");
 	const [tokenAdmin, setTokenAdmin] = useState(false);
 
-	// const token = localStorage.getItem("access_token");
+	const token = localStorage.getItem("access_token");
 	// if (token) {
 	// 	const decoded = jwtDecode(token);
 	// 	setTokenUserId(decoded.id);
@@ -58,9 +58,11 @@ export default function App() {
 	// console.log(tokenAdmin);
 
 	useEffect(() => {
-		setTokenUserId(jwtDecode(localStorage.getItem("access_token")).id);
-		setTokenAdmin(jwtDecode(localStorage.getItem("access_token")).isAdmin);
-	}, [tokenAdmin, tokenUserId]);
+		if (token) {
+			setTokenUserId(jwtDecode(localStorage.getItem("access_token")).id);
+			setTokenAdmin(jwtDecode(localStorage.getItem("access_token")).isAdmin);
+		}
+	}, [tokenAdmin, tokenUserId, token]);
 
 	const AuthUserRoute = ({ children }) => {
 		return tokenUserId ? <>{children}</> : <Navigate to="/" />;
@@ -75,7 +77,12 @@ export default function App() {
 			path: "/",
 			element: (
 				<>
-					<NavBar reload={reload} setReload={setReload} />
+					<NavBar
+						reload={reload}
+						setReload={setReload}
+						tokenUserId={tokenUserId}
+						tokenAdmin={tokenAdmin}
+					/>
 					<Outlet />
 					<Footer />
 				</>
@@ -122,7 +129,12 @@ export default function App() {
 			element: (
 				<>
 					<AuthUserRoute>
-						<NavBar />
+						<NavBar
+							reload={reload}
+							setReload={setReload}
+							tokenUserId={tokenUserId}
+							tokenAdmin={tokenAdmin}
+						/>
 						<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
 							<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
 							<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
@@ -163,7 +175,12 @@ export default function App() {
 			path: "/dashboard",
 			element: (
 				<AuthAdminRoute>
-					<DashboardLayout reload={reload} setReload={setReload} />
+					<DashboardLayout
+						reload={reload}
+						setReload={setReload}
+						tokenUserId={tokenUserId}
+						tokenAdmin={tokenAdmin}
+					/>
 				</AuthAdminRoute>
 			),
 			// errorElement: <ErrorPage/>,
