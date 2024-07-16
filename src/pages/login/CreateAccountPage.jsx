@@ -49,13 +49,17 @@ function CreateAccountPage({
 	//Create a new account-----
 	async function createNewAccount(profile, account) {
 		try {
-			const response = await axiosInstance.post(`/users/create-account`, {
+			await axiosInstance.post("/users/create-account", {
 				profile,
 				account,
 			});
 
-			const { message } = response.data;
-			alert(message);
+			// const { message } = response.data;
+			// alert(message);
+
+			alert(
+				`New account with username ${formData.username} created successfully.`
+			);
 		} catch (error) {
 			console.log("Failed to create an account", error);
 		}
@@ -77,9 +81,6 @@ function CreateAccountPage({
 
 		//สร้าง Account ใหม่
 		createNewAccount(profile, account);
-		alert(
-			`New account with username ${formData.username} created successfully.`
-		);
 
 		setFormData({
 			firstName: "",

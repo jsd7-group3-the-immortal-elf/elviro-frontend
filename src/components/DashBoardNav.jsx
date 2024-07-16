@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom";
 import {
-	FaChartLine,
+	// FaChartLine,
 	FaCartShopping,
 	FaCirclePlus,
 	FaBox,
 } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 
 export default function DashBoardNav({ reload, setReload }) {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [location]);
-
 	return (
 		<>
 			<div className="hidden xl:flex bg-white h-[calc(100vh-64px)] p-6 fixed w-72 top-16 left-0">
@@ -21,7 +16,7 @@ export default function DashBoardNav({ reload, setReload }) {
 						<li className="text-xs px-4 flex justify-between">
 							<span className="flex">MAIN MENU</span>
 						</li>
-						<li className="rounded hover:bg-green">
+						{/* <li className="rounded hover:bg-green">
 							<Link
 								to="/dashboard"
 								className="flex items-center gap-2 px-4 py-2"
@@ -29,7 +24,7 @@ export default function DashBoardNav({ reload, setReload }) {
 								<FaChartLine />
 								<span className="flex">Dashboard</span>
 							</Link>
-						</li>
+						</li> */}
 						<li className="rounded hover:bg-green">
 							<Link
 								to="/dashboard/order"

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
-import DashChangePage from "../../components/dashboard/DashChangePage";
+// import DashChangePage from "../../components/dashboard/DashChangePage";
 import DashProductSummary from "../../components/dashboard/DashProductSummary";
 import DashProductTable from "../../components/dashboard/DashProductTable";
 
@@ -29,6 +29,7 @@ export default function DashProductPage({ reload, setReload }) {
 	}
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProduct();
 	}, [reload]);
 
@@ -60,16 +61,16 @@ export default function DashProductPage({ reload, setReload }) {
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
-								<th className="text-white w-5">
+								{/* <th className="text-white w-5">
 									<input
 										type="checkbox"
 										name=""
 										id=""
 										className="accent-green w-4 h-4 m-3 "
 									/>
-								</th>
+								</th> */}
 								<th></th>
-								<th>Product Name</th>
+								<th className="py-2">Product Name</th>
 								<th>Room</th>
 								<th>Category</th>
 								<th>Unit Price</th>
@@ -91,7 +92,7 @@ export default function DashProductPage({ reload, setReload }) {
 					</table>
 				</div>
 
-				<DashChangePage />
+				{/* <DashChangePage /> */}
 			</section>
 		</div>
 	);
