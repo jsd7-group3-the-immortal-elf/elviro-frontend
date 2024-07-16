@@ -1,6 +1,6 @@
 // import mockup_sofa from "/images/mockup_sofa.png";
 
-export default function CheckoutProduct({ inputArrayProduct }) {
+export default function CheckoutProduct({ cartData }) {
 	// ไม่มีเวลาหาวิธี เอา object ของ Array จากหน้า page มาใส่ในหน้านี้ได้
 	// const priceList = [
 	// 	{
@@ -25,7 +25,7 @@ export default function CheckoutProduct({ inputArrayProduct }) {
 	return (
 		<div className="w-auto px-4">
 			<div className="grid grid-col-1 gap-2  justify-center">
-				{inputArrayProduct?.map((product, index) => (
+				{cartData?.map((product, index) => (
 					<div key={index} className="flex ">
 						<picture className="flex w-auto h-auto border-2 py">
 							<img

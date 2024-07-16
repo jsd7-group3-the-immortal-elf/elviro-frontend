@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
@@ -13,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 function CheckoutPage({ tokenUserId }) {
 	const [showInfo, setShowInfo] = useState(false);
 	const [cartData, setCartData] = useState([]);
-	// const [userData, setUserData] = useState([]);
+	const [userData, setUserData] = useState([]);
 	const [addressData, setAddressData] = useState({});
 	const navigate = useNavigate();
-	const userId = "669676540410f4d38d65f7c3";
+	// const userId = "6696a3abfe99d24b14e13cc5";
 
 	function toggle() {
 		setShowInfo(!showInfo);
@@ -50,11 +49,9 @@ function CheckoutPage({ tokenUserId }) {
 	async function getProductInUser() {
 		try {
 			const response = await axiosInstance.get(
-				`/cart/${userId}?isChecked=true`
+				`/cart/${tokenUserId}?isChecked=true`
 			);
-			console.log(response);
 			const { data } = await response.data;
-			console.log({ data });
 			setCartData(data);
 		} catch (error) {
 			console.error("Not found user:", error);
@@ -62,18 +59,20 @@ function CheckoutPage({ tokenUserId }) {
 	}
 
 	async function getUser() {
-		const response = await axiosInstance.get(`/users/${userId}`);
-		console.log(response);
-		const { data } = await response.data;
-		console.log(`getUser :  ${data}`);
-		// setUserData(data);
-		setAddressData(data.address.find((adr) => adr.default == true));
+		try {
+			const response = await axiosInstance.get(`/users/${tokenUserId}`);
+			const { data } = await response.data;
+			setUserData(data);
+			setAddressData(data.address.find((adr) => adr.default == true));
+		} catch (error) {
+			console.error("Not found user:", error);
+		}
 	}
-	console.log(addressData);
+
 	useEffect(() => {
 		getProductInUser();
 		getUser();
-	}, [userId]);
+	}, []);
 	// console.log(`cartData :  ${cartData}`);
 	//
 	// const cartData = [
@@ -103,14 +102,6 @@ function CheckoutPage({ tokenUserId }) {
 	// 	email: "charlee@mail.com",
 	// };
 
-	// เช็คว่า user id อะไร
-	// นำข้อมูล user Assdress ข้อแต่ละ user เข้ามา แกะ token เอา Id มา
-	// นำProduct ที่ user เลือก ในหน้า cart เข้ามา
-	//
-	//validat เช็คข้อมูลมาใส่ข้อมูลเข้ามาหมดไหม
-
-	//ข้อมูล user
-
 	function handleSubmit() {
 		navigate("/cart/checkout/purchased");
 	}
@@ -128,15 +119,15 @@ function CheckoutPage({ tokenUserId }) {
 				<div
 					className={`${showInfo ? "" : "hidden"} lg:flex w-1/2 justify-end `}
 				>
-					{/* <CheckoutBilling
-						firstName={addressData.address.firstName}
-						lastName={addressData.address.lastName}
-						phone={addressData.address.phone}
-						email={addressData.address.email}
-					/> */}
+					<CheckoutBilling
+						firstName={addressData?.firstNameAdr}
+						lastName={addressData?.lastNameAdr}
+						phone={addressData?.phoneAdr}
+						email={userData?.profile?.email}
+					/>
 				</div>
 				<div className="flex flex-col items-center w-full lg:w-1/2 ">
-					<CheckoutProduct inputArrayProduct={cartData} />
+					<CheckoutProduct cartData={cartData} />
 					<CheckoutPayment handleSubmit={handleSubmit} />
 				</div>
 			</section>
