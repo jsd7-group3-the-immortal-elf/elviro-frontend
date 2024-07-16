@@ -59,31 +59,31 @@ function Footer() {
 						</form>
 					</li>
 				</ul>
-				<ul className="lg:flex flex-col gap-4 hidden">
+				<ul className="xl:flex flex-col gap-4 hidden">
 					<li className="text-neutral-800 mb-1 font-semibold">Creator List</li>
-					<li className="flex gap-2">
+					<li className="flex items-center gap-2">
 						<a target="_blank" href="https://github.com/supakarn-t">
 							<FaGithub />
 						</a>
-						Supakarn TANGSIRIVATTHANAVONG
+						Supakarn Tangsirivatthanavong
 					</li>
-					<li className="flex gap-2">
+					<li className="flex items-center gap-2">
 						<a target="_blank" href="https://github.com/jittakan2539">
 							<FaGithub />
 						</a>
-						Kan JITTAPRAMOULBOON
+						Kan Jittapramoulboon
 					</li>
-					<li className="flex gap-2">
+					<li className="flex items-center gap-2">
 						<a target="_blank" href="https://github.com/Charlee2543">
 							<FaGithub />
 						</a>
-						Pongsakon MEICHOM
+						Pongsakon Meichom
 					</li>
-					<li className="flex gap-2">
+					<li className="flex items-center gap-2">
 						<a target="_blank" href="https://github.com/Phatthawut">
 							<FaGithub />
 						</a>
-						Phatthawut CHAIYAPIN
+						Phatthawut Chaiyapin
 					</li>
 				</ul>
 			</div>

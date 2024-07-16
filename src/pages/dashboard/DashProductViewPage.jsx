@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
-import DashChangePage from "../../components/dashboard/DashChangePage";
+import { thCurrency, thDateTime } from "../../utils/format";
+// import DashChangePage from "../../components/dashboard/DashChangePage";
 
 export default function DashProductViewPage() {
 	const navigate = useNavigate();
 	const [product, setProduct] = useState({});
+	const [orderList, setOrderList] = useState([]);
+	const [totalPrice, setTotalPrice] = useState(0);
 	const { id } = useParams();
 
 	async function getProduct(id) {
 		try {
 			const response = await axiosInstance.get(`/products/${id}`);
 			const { data } = await response.data;
+
 			setProduct(data);
+			setOrderList(data.order);
+			setTotalPrice(
+				data.order.reduce((prev, curr) => {
+					return prev + curr.totalPrice;
+				}, 0)
+			);
 		} catch (error) {
 			console.error("Failed to get data:", error);
 		}
@@ -42,6 +52,7 @@ export default function DashProductViewPage() {
 	}
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProduct(id);
 	}, [id]);
 
@@ -87,7 +98,7 @@ export default function DashProductViewPage() {
 					/>
 				</div>
 
-				<div className="flex flex-col bg-green text-white rounded-lg w-1/4 justify-around items-start px-4 py-2">
+				<div className="flex flex-col bg-green text-white rounded-lg w-1/3 justify-around items-start px-4 py-2">
 					{/* <select name="" id="" className="w-fit text-center text-sm">
 						<option value="">All time</option>
 						<option value="">Last Year</option>
@@ -96,13 +107,16 @@ export default function DashProductViewPage() {
 						<option value="">This Month</option>
 					</select> */}
 
-					<p>Price : {product.price}</p>
+					<p>Price : {thCurrency(product.price)}</p>
 					<p>In-Stock : {product.stock}</p>
-					<p>Total Order : {product.price}</p>
+					<p>Total Order : {thCurrency(totalPrice)}</p>
 				</div>
 
 				<section className="flex flex-col h-32 bg-white rounded-lg w-full justify-between items-end p-2">
-					<select
+					<p className="btn rounded-full text-sm hover:bg-neutral-200">
+						All time
+					</p>
+					{/* <select
 						name=""
 						id=""
 						className="w-fit text-center text-sm bg-transparent"
@@ -112,13 +126,13 @@ export default function DashProductViewPage() {
 						<option value="">This Year</option>
 						<option value="">Last Month</option>
 						<option value="">This Month</option>
-					</select>
+					</select> */}
 					<table className="w-full text-center">
 						<thead className="text-sm">
 							<tr>
 								<th className="w-[calc(100%/8)]">All Order</th>
 								<th className="w-[calc(100%/8)]">Pending</th>
-								<th className="w-[calc(100%/8)]">Confirming</th>
+								<th className="w-[calc(100%/8)]">Confirmed</th>
 								<th className="w-[calc(100%/8)]">Processing</th>
 								<th className="w-[calc(100%/8)]">Picked</th>
 								<th className="w-[calc(100%/8)]">Shipped</th>
@@ -128,14 +142,49 @@ export default function DashProductViewPage() {
 						</thead>
 						<tbody className="font-medium">
 							<tr>
-								<td>{6 + 5 + 4 + 3 + 2 + 1}</td>
-								<td>6</td>
-								<td>5</td>
-								<td>4</td>
-								<td>3</td>
-								<td>2</td>
-								<td>1</td>
-								<td>0</td>
+								<td>{orderList ? orderList.length : 0}</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Pending")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Confirmed")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Processing")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Picked")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Shipped")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Delivered")
+												.length
+										: 0}
+								</td>
+								<td>
+									{orderList
+										? orderList.filter((order) => order.status == "Cancelled")
+												.length
+										: 0}
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -148,42 +197,67 @@ export default function DashProductViewPage() {
 					<table className="w-full">
 						<thead className="border-y">
 							<tr>
-								<th className="text-white w-5">
+								{/* <th className="text-white w-5">
 									<input
 										type="checkbox"
 										name=""
 										id=""
 										className="accent-green w-4 h-4 m-3 "
 									/>
-								</th>
-								<th>Order Date</th>
-								<th>Unit Price</th>
-								<th>Quantity</th>
-								<th>Order Total</th>
+								</th> */}
+								<th className="py-2">Order Date</th>
+								<th>Product Quantity</th>
+								<th>Product Price</th>
+								<th>Order Total Price</th>
 								<th>Status</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th className="text-white w-5">
-									<input
-										type="checkbox"
-										name=""
-										id=""
-										className="accent-green w-4 h-4 m-3 "
-									/>
-								</th>
-								<th>12 Aug 2022 - 12:25 am</th>
-								<th>12400</th>
-								<th>1</th>
-								<th>12400</th>
-								<th>Complete</th>
-							</tr>
+							{!orderList ? (
+								<tr className="text-center">
+									<td colSpan={6} className="p-8">
+										Don&apos;t have any order
+									</td>
+								</tr>
+							) : (
+								orderList?.map((order, index) => (
+									<tr key={index}>
+										{/* <th className="text-white w-5">
+												<input
+													type="checkbox"
+													name=""
+													id=""
+													className="accent-green w-4 h-4 m-3 "
+												/>
+											</th> */}
+										<th className="py-2">{thDateTime(order.createOn)}</th>
+										<th>
+											{
+												order.orderDetail.find(
+													(item) => item.productId == product._id
+												).quantity
+											}
+										</th>
+										<th>{thCurrency(product.price)}</th>
+										<th>{thCurrency(order.totalPrice)}</th>
+										<th>{order.status}</th>
+										<th>
+											<Link
+												to={`/dashboard/order/${order._id}`}
+												className="border border-green hover:bg-green hover:text-white px-3 py-1 rounded-xl"
+											>
+												View
+											</Link>
+										</th>
+									</tr>
+								))
+							)}
 						</tbody>
 					</table>
 				</div>
 
-				<DashChangePage />
+				{/* <DashChangePage /> */}
 			</section>
 		</div>
 	);

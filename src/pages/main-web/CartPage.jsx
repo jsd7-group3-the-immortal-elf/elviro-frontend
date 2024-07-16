@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useParams } from "react-router-dom";
+import { useState ,useEffect } from "react";
 import CartBanner from "../../components/cart/CartBanner";
 import CartList from "../../components/cart/CartList";
 import CartTotal from "../../components/cart/CartTotal";
@@ -8,6 +7,10 @@ function CartPage() {
 
 	const { userId } = useParams();
 	const [totalPrice, setTotalPrice] = useState(0);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	return (
 		<div className="w-full px-4 md:px-20">

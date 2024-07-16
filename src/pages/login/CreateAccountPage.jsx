@@ -6,6 +6,7 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import axiosInstance from "../../utils/axiosInstance";
+import { validateEmail, validatePassword } from "../../utils/validation.js";
 
 function CreateAccountPage({
 	openAccountPage,
@@ -49,13 +50,17 @@ function CreateAccountPage({
 	//Create a new account-----
 	async function createNewAccount(profile, account) {
 		try {
-			const response = await axiosInstance.post(`/users/create-account`, {
+			await axiosInstance.post("/users/create-account", {
 				profile,
 				account,
 			});
 
-			const { message } = response.data;
-			alert(message);
+			// const { message } = response.data;
+			// alert(message);
+
+			alert(
+				`New account with username ${formData.username} created successfully.`
+			);
 		} catch (error) {
 			console.log("Failed to create an account", error);
 		}
@@ -75,11 +80,12 @@ function CreateAccountPage({
 	const handleSubmit = (event) => {
 		event.preventDefault(); //ไม่ให้ refresh หน้า
 
+		//validate
+		checkEmail(formData.email);
+		checkPassword(formData.password);
+
 		//สร้าง Account ใหม่
 		createNewAccount(profile, account);
-		alert(
-			`New account with username ${formData.username} created successfully.`
-		);
 
 		setFormData({
 			firstName: "",
@@ -121,6 +127,22 @@ function CreateAccountPage({
 		setShowEmailAlert(false);
 		setShowUserAlert(false);
 	};
+
+	const checkEmail = (email) => {
+		if (!validateEmail(email)) {
+			alert("Invalid email address");
+			return;
+		}
+	};
+
+	const checkPassword = (password) => {
+		if (!validatePassword(password)) {
+			alert("at least 5 characters arerequired.");
+			return;
+		}
+	};
+
+	validateEmail, validatePassword;
 
 	return (
 		<div
@@ -222,6 +244,10 @@ function CreateAccountPage({
 							<label className="label-createAccount">
 								<section>
 									Password <span className="text-red-500">*</span>
+									<span className="text-neutral-400 font-medium text-sm">
+										{" "}
+										5 characters min.
+									</span>
 								</section>
 
 								<div id="password-relative" className="relative mb-4">

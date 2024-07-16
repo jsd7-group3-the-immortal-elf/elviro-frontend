@@ -1,4 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 
@@ -13,10 +15,11 @@ import ShopPage from "./pages/main-web/ShopPage";
 import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
+import PurchasedPage from "./pages/main-web/PurchasedPage";
 import AboutPage from "./pages/main-web/AboutPage";
 import ContactPage from "./pages/main-web/ContactPage";
 
-// import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
 import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
 // import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
@@ -33,17 +36,26 @@ import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-import { useState } from "react";
-
 export default function App() {
 	const [reload, setReload] = useState(false);
-	
+	const [tokenUserId, setTokenUserId] = useState("");
+	const [tokenAdmin, setTokenAdmin] = useState("");
+
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+		if (token) {
+			const decoded = jwtDecode(token);
+			setTokenUserId(decoded.id);
+			setTokenUserId(setTokenAdmin.isAdmin);
+		}
+	}, []);
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
 			element: (
 				<>
-					<NavBar />
+					<NavBar reload={reload} setReload={setReload} />
 					<Outlet />
 					<Footer />
 				</>
@@ -76,7 +88,7 @@ export default function App() {
 				},
 				{
 					path: "cart/checkout/purchased",
-					// element: <PurchasedPage />,
+					element: <PurchasedPage />,
 				},
 				{
 					path: "about",
@@ -94,8 +106,8 @@ export default function App() {
 			element: (
 				<>
 					<NavBar />
-					<main class="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
-						<h1 class="w-11/12 xl:w-4/5 justify-start">My Account</h1>
+					<main className="flex flex-col items-center gap-10 bg-green py-10 min-h-[calc(100vh-64px)]">
+						<h1 className="w-11/12 xl:w-4/5 justify-start">My Account</h1>
 						<section className="flex flex-col lg:flex-row flex-grow gap-8 h-full w-11/12 xl:w-4/5">
 							<ProfileNav />
 							<Outlet />
@@ -108,10 +120,10 @@ export default function App() {
 			children: [
 				{
 					path: "",
-					// element: <ProfilePage />,
+					element: <ProfilePage />,
 				},
 				{
-					path: "account",
+					path: "account/:id",
 					element: <ProfileAccountPage />,
 				},
 				{

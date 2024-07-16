@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import format from "../../utils/format";
+import { thCurrency } from "../../utils/format";
 
 export default function DashProductTable({ product, handleChange }) {
 	return (
 		<tr key={product._id}>
-			<th className="text-white w-5">
+			{/* <th className="text-white w-5">
 				<input
 					type="checkbox"
 					name="checkbox"
 					onChange={(e) => handleChange(e, product._id)}
 					className="accent-green w-4 h-4 m-3 "
 				/>
-			</th>
+			</th> */}
 			<th>
 				<div className="h-10 w-10 flex justify-center items-center">
 					<img
@@ -22,10 +22,10 @@ export default function DashProductTable({ product, handleChange }) {
 					/>
 				</div>
 			</th>
-			<th>{product.productName}</th>
+			<th className="py-2">{product.productName}</th>
 			<th>{product.rooms.join(", ")}</th>
 			<th>{product.category}</th>
-			<th>{format.thCurrency(product.price)}</th>
+			<th>{thCurrency(product.price)}</th>
 			<th className={`${product.stock <= 20 ? "text-red-500" : ""}`}>
 				{product.stock}
 			</th>

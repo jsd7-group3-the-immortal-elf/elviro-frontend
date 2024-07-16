@@ -1,35 +1,45 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import ProfileNav from "../../components/ProfileNav";
+import axiosInstance from "../../utils/axiosInstance";
+import { useParams } from "react-router-dom";
 
 function ProfileAccountPage() {
+	// const [formData, setFormData] = useState({});
+
 	const [formData, setFormData] = useState({
-		userName: "",
+		firstName: "",
+		lastName: "",
 		email: "",
+		phone: "",
+		username: "",
 		password: "",
 		newPassword: "",
 	});
 
-	const [passwordVisible, setPasswordVisble] = useState(false);
+	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [errors, setErrors] = useState({});
+	const { id } = useParams();
+
+	const fetchData = async () => {
+		try {
+			const response = await axiosInstance.get(`/users/${id}`);
+			const data = response.data.data;
+			console.log(response.data.data);
+			setFormData({
+				firstName: data.profile.firstName,
+				lastName: data.profile.lastName,
+				email: data.profile.email,
+				phone: data.profile.phone,
+				username: data.account.username,
+				password: "",
+				newPassword: "",
+			});
+		} catch (error) {
+			console.error("Error fetching Data: ", error);
+		}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const respones = await axios.get(
-					"https://65f455dcf54db27bc0217060.mockapi.io/todos/3"
-				);
-				setFormData({
-					userName: respones.data.userName,
-					email: respones.data.email,
-					password: respones.data.password,
-					newPassword: "",
-				});
-			} catch (error) {
-				console.error("Error fetching Data: ", error);
-			}
-		};
 		fetchData();
 	}, []);
 
@@ -42,7 +52,21 @@ function ProfileAccountPage() {
 	};
 
 	const togglePasswordVisible = () => {
-		setPasswordVisble(!passwordVisible);
+		setPasswordVisible(!passwordVisible);
+	};
+
+	const validateForm = (data) => {
+		const errors = {};
+		if (!data.username.trim()) {
+			errors.username = "Username is required";
+		}
+		if (!data.email.trim()) {
+			errors.email = "Email is required";
+		}
+		if (data.newPassword && data.newPassword.length < 8) {
+			errors.newPassword = "New password must be at least 8 characters long"
+		}
+		return errors;
 	};
 
 	const handleSubmit = async (e) => {
@@ -51,11 +75,11 @@ function ProfileAccountPage() {
 		setErrors(newErrors);
 		if (Object.keys(newErrors).length === 0) {
 			try {
-				await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
-					userName: formData.userName,
+				await axiosInstance.patch(`/users/${id}`, {
+					username: formData.username,
 					email: formData.email,
 				});
-				alert("Form Submitted Successfully!");
+				alert("Profile updated Successfully!");
 
 				if (formData.newPassword.trim() !== "") {
 					handleChangePassword();
@@ -71,57 +95,19 @@ function ProfileAccountPage() {
 
 	const handleChangePassword = async () => {
 		try {
-			if (formData.newPassword.length < 8) {
-				setErrors((prevErrors) => ({
-					...prevErrors,
-					newPassword: "New password must be a least 8 charecters long",
-				}));
-				return;
-			}
-			await axios.put("https://65f455dcf54db27bc0217060.mockapi.io/todos/2", {
+			await axiosInstance.put(`/users/${id}`, {
 				password: formData.newPassword,
 			});
 			alert("Password updated");
 			setFormData((prevFormData) => ({
 				...prevFormData,
-				password: formData.newPassword,
+				password: "",
 				newPassword: "",
 			}));
 		} catch (error) {
 			console.error("Error updating password", error);
+			alert("Password update failed!");
 		}
-	};
-	const validationForm = (data) => {
-		const errors = {};
-
-		if (!data.userName.trim()) {
-			errors.userName = "Name on Card required";
-		}
-		if (!data.email.trim()) {
-			errors.email = "Email required";
-		} else if (!/\S+@\S+\.\S+/.test(data.email)) {
-			errors.email = "Email is invalid";
-		}
-		if (!data.password) {
-			errors.password = "Password is required";
-		} else if (data.password.length < 8) {
-			errors.password = "Must be at least 8 characters long";
-		}
-		if (data.newPassword && data.newPassword.length < 8) {
-			errors.newPassword = "New Password must be at least 8 characters long";
-		}
-		return errors;
-	};
-
-	const validateForm = (data) => {
-		const errors = {};
-		if (!data.userName.trim()) {
-			errors.userName = "User Name is required";
-		}
-		if (!data.email.trim()) {
-			errors.email = "Email is required";
-		}
-		return errors;
 	};
 
 	return (
@@ -139,15 +125,15 @@ function ProfileAccountPage() {
 							Username
 							<input
 								type="text"
-								name="userName"
-								value={formData.userName}
+								name="username"
+								value={formData.username}
 								onChange={handleInputChange}
 								className="input mt-3"
 								required
 							/>
-							{errors.userName && (
+							{errors.username && (
 								<span className="text-red-500 text-sm mt-1">
-									{errors.userName}
+									{errors.username}
 								</span>
 							)}
 						</label>
@@ -170,7 +156,7 @@ function ProfileAccountPage() {
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-6">
-						<label className="flex flex-col w-full sm:w-1/2 relative">
+						{/* <label className="flex flex-col w-full sm:w-1/2 relative">
 							Password
 							<input
 								type={passwordVisible ? "text" : "password"}
@@ -186,7 +172,7 @@ function ProfileAccountPage() {
 							>
 								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
-						</label>
+						</label> */}
 						<label className="flex flex-col w-full sm:w-1/2">
 							Change password
 							<input
@@ -217,3 +203,26 @@ function ProfileAccountPage() {
 }
 
 export default ProfileAccountPage;
+
+
+	// const validationForm = (data) => {
+	// 	const errors = {};
+
+	// 	if (!data.userName.trim()) {
+	// 		errors.userName = "Name on Card required";
+	// 	}
+	// 	if (!data.email.trim()) {
+	// 		errors.email = "Email required";
+	// 	} else if (!/\S+@\S+\.\S+/.test(data.email)) {
+	// 		errors.email = "Email is invalid";
+	// 	}
+	// 	if (!data.password) {
+	// 		errors.password = "Password is required";
+	// 	} else if (data.password.length < 8) {
+	// 		errors.password = "Must be at least 8 characters long";
+	// 	}
+	// 	if (data.newPassword && data.newPassword.length < 8) {
+	// 		errors.newPassword = "New Password must be at least 8 characters long";
+	// 	}
+	// 	return errors;
+	// };
