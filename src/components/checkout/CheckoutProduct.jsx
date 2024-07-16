@@ -25,21 +25,26 @@ export default function CheckoutProduct({ inputArrayProduct }) {
 	return (
 		<div className="w-auto px-4">
 			<div className="grid grid-col-1 gap-2  justify-center">
-				{inputArrayProduct.map((product, index) => (
+				{inputArrayProduct?.map((product, index) => (
 					<div key={index} className="flex ">
 						<picture className="flex w-auto h-auto border-2 py">
 							<img
 								className="px-1"
-								src={product.productPicture}
-								alt={product.productName}
+								src={product.productDetail.productPicture}
+								alt={product.productDetail.productName}
 							/>
 						</picture>
 						<div className="flex flex-col justify-center  px-8 bg-[#F4F4F4]">
-							<h3 className="text-base">{product.productName}</h3>
+							<h3 className="text-base">{product.productDetail.productName}</h3>
 							<ul className="mt-3 text-base flex gap-4">
-								<li>{product.productQuality}</li>
+								<li>{product.productDetail.productQuality}</li>
 								<li>x</li>
-								<li>{parseFloat(product.productPrice).toLocaleString()} ฿</li>
+								<li>
+									{parseFloat(
+										product.productDetail.productPrice
+									).toLocaleString()}{" "}
+									฿
+								</li>
 							</ul>
 							<div className="flex py-2 justify-between items-center">
 								<p className="px-4"></p>
