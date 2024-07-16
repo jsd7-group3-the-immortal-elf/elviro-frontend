@@ -1,4 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 
@@ -13,6 +15,7 @@ import ShopPage from "./pages/main-web/ShopPage";
 import ProductPage from "./pages/main-web/ProductPage";
 import CartPage from "./pages/main-web/CartPage";
 import CheckoutPage from "./pages/main-web/CheckoutPage";
+import PurchasedPage from "./pages/main-web/PurchasedPage";
 import AboutPage from "./pages/main-web/AboutPage";
 import ContactPage from "./pages/main-web/ContactPage";
 
@@ -33,10 +36,17 @@ import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
 
-import { useState } from "react";
-
 export default function App() {
 	const [reload, setReload] = useState(false);
+	const [tokenUserId, setTokenUserId] = useState("");
+	const [tokenAdmin, setTokenAdmin] = useState("");
+
+	useEffect(() => {
+		const token = localStorage.getItem("access_token");
+		const decoded = jwtDecode(token);
+		setTokenUserId(decoded.id);
+		setTokenUserId(setTokenAdmin.isAdmin);
+	}, []);
 
 	const router = createBrowserRouter([
 		{
@@ -72,7 +82,7 @@ export default function App() {
 				},
 				{
 					path: "cart/checkout/purchased",
-					// element: <PurchasedPage />,
+					element: <PurchasedPage />,
 				},
 				{
 					path: "about",
@@ -107,7 +117,7 @@ export default function App() {
 					element: <ProfilePage />,
 				},
 				{
-					path: "account",
+					path: "account/:id",
 					element: <ProfileAccountPage />,
 				},
 				{
