@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
 			<article className="flex flex-col gap-2 p-4">
 				<h3>{product.productName}</h3>
 				<p>{thCurrency(product.price)}</p>
-				<p>{thCurrency(product.price)}</p>
+				{/* <p>{thCurrency(product.price)}</p> */}
 			</article>
 		</Link>
 	);

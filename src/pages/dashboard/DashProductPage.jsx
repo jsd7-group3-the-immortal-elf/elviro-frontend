@@ -81,13 +81,21 @@ export default function DashProductPage({ reload, setReload }) {
 							</tr>
 						</thead>
 						<tbody>
-							{productList.map((product) => (
-								<DashProductTable
-									key={product._id}
-									product={product}
-									handleChange={handleChange}
-								/>
-							))}
+							{!productList ? (
+								<tr className="text-center">
+									<td colSpan={8} className="p-8">
+										Don&apos;t have any product
+									</td>
+								</tr>
+							) : (
+								productList.map((product) => (
+									<DashProductTable
+										key={product._id}
+										product={product}
+										handleChange={handleChange}
+									/>
+								))
+							)}
 						</tbody>
 					</table>
 				</div>
