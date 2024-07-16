@@ -12,7 +12,7 @@ export default function PurchasedPage() {
 					<h3>Thank you for your purchased</h3>
 					<Link
 						to={"/"}
-						className="text-center mt-8 p-1 w-full text-3xl rounded-full text-black bg-lightgreen hover:text-white border border-neutral-50  hover:bg-brown hover:shadow-xl active:shadow-2xl active:bg-gray-100 "
+						className="text-center mt-8 p-2 w-full text-3xl rounded-full text-black bg-lightgreen hover:text-white border border-neutral-50  hover:bg-brown hover:shadow-2xl  "
 					>
 						Continue
 					</Link>
