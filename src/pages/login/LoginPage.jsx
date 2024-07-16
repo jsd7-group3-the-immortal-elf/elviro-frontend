@@ -37,7 +37,7 @@ function LoginPage({
 
 			alert(`${response.data.message}`);
 
-			setCookie(response.data.access_token);
+			setCookie("access_token", response.data.access_token);
 			setReload(!reload);
 		} catch (error) {
 			console.log("Failed to create an account", error);
