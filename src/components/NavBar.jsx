@@ -8,6 +8,7 @@ import {
 	FaXmark,
 } from "react-icons/fa6";
 import { useCookies } from "react-cookie";
+
 import PropTypes from "prop-types";
 
 import CreateAccountPage from "../pages/login/CreateAccountPage";
@@ -34,7 +35,7 @@ function NavBar({ reload, setReload }) {
 	}, [reload, isLogin]);
 
 	function handleLogout() {
-		removeCookie["access_token"];
+		removeCookie(["access_token"]);
 		location.reload();
 	}
 
