@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-function ProfilePaymentPage() {
+function ProfilePaymentPage({ tokenUserId }) {
 	const mockCardData = {
 		cardNumber: "1234567890123456",
 		nameOnCard: "John Doe",
@@ -171,4 +172,9 @@ function ProfilePaymentPage() {
 		</section>
 	);
 }
+
+ProfilePaymentPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
+
 export default ProfilePaymentPage;

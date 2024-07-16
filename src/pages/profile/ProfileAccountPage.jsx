@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import PropTypes from "prop-types";
+// import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-function ProfileAccountPage() {
+function ProfileAccountPage({ tokenUserId }) {
 	// const [formData, setFormData] = useState({});
 
 	const [formData, setFormData] = useState({
@@ -16,13 +17,13 @@ function ProfileAccountPage() {
 		newPassword: "",
 	});
 
-	const [passwordVisible, setPasswordVisible] = useState(false);
+	// const [passwordVisible, setPasswordVisible] = useState(false);
 	const [errors, setErrors] = useState({});
-	const { id } = useParams();
+	// const { id } = useParams();
 
 	const fetchData = async () => {
 		try {
-			const response = await axiosInstance.get(`/users/${id}`);
+			const response = await axiosInstance.get(`/users/${tokenUserId}`);
 			const data = response.data.data;
 			console.log(response.data.data);
 			setFormData({
@@ -51,9 +52,9 @@ function ProfileAccountPage() {
 		}));
 	};
 
-	const togglePasswordVisible = () => {
-		setPasswordVisible(!passwordVisible);
-	};
+	// const togglePasswordVisible = () => {
+	// 	setPasswordVisible(!passwordVisible);
+	// };
 
 	const validateForm = (data) => {
 		const errors = {};
@@ -64,7 +65,7 @@ function ProfileAccountPage() {
 			errors.email = "Email is required";
 		}
 		if (data.newPassword && data.newPassword.length < 8) {
-			errors.newPassword = "New password must be at least 8 characters long"
+			errors.newPassword = "New password must be at least 8 characters long";
 		}
 		return errors;
 	};
@@ -75,7 +76,7 @@ function ProfileAccountPage() {
 		setErrors(newErrors);
 		if (Object.keys(newErrors).length === 0) {
 			try {
-				await axiosInstance.patch(`/users/${id}`, {
+				await axiosInstance.patch(`/users/${tokenUserId}`, {
 					username: formData.username,
 					email: formData.email,
 				});
@@ -95,7 +96,7 @@ function ProfileAccountPage() {
 
 	const handleChangePassword = async () => {
 		try {
-			await axiosInstance.put(`/users/${id}`, {
+			await axiosInstance.put(`/users/${tokenUserId}`, {
 				password: formData.newPassword,
 			});
 			alert("Password updated");
@@ -173,7 +174,7 @@ function ProfileAccountPage() {
 								{passwordVisible ? <FaEyeSlash /> : <FaEye />}
 							</button>
 						</label> */}
-						<label className="flex flex-col w-full sm:w-1/2">
+						<label className="flex flex-col w-full sm:w-1/2 pr-3">
 							Change password
 							<input
 								type="password"
@@ -202,27 +203,30 @@ function ProfileAccountPage() {
 	);
 }
 
+ProfileAccountPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
+
 export default ProfileAccountPage;
 
+// const validationForm = (data) => {
+// 	const errors = {};
 
-	// const validationForm = (data) => {
-	// 	const errors = {};
-
-	// 	if (!data.userName.trim()) {
-	// 		errors.userName = "Name on Card required";
-	// 	}
-	// 	if (!data.email.trim()) {
-	// 		errors.email = "Email required";
-	// 	} else if (!/\S+@\S+\.\S+/.test(data.email)) {
-	// 		errors.email = "Email is invalid";
-	// 	}
-	// 	if (!data.password) {
-	// 		errors.password = "Password is required";
-	// 	} else if (data.password.length < 8) {
-	// 		errors.password = "Must be at least 8 characters long";
-	// 	}
-	// 	if (data.newPassword && data.newPassword.length < 8) {
-	// 		errors.newPassword = "New Password must be at least 8 characters long";
-	// 	}
-	// 	return errors;
-	// };
+// 	if (!data.userName.trim()) {
+// 		errors.userName = "Name on Card required";
+// 	}
+// 	if (!data.email.trim()) {
+// 		errors.email = "Email required";
+// 	} else if (!/\S+@\S+\.\S+/.test(data.email)) {
+// 		errors.email = "Email is invalid";
+// 	}
+// 	if (!data.password) {
+// 		errors.password = "Password is required";
+// 	} else if (data.password.length < 8) {
+// 		errors.password = "Must be at least 8 characters long";
+// 	}
+// 	if (data.newPassword && data.newPassword.length < 8) {
+// 		errors.newPassword = "New Password must be at least 8 characters long";
+// 	}
+// 	return errors;
+// };
