@@ -33,24 +33,33 @@ import DashProductAddPage from "./pages/dashboard/DashProductAddPage";
 import DashProductViewPage from "./pages/dashboard/DashProductViewPage";
 // import DashAdminPage from "./pages/dashboard/DashAdminPage";
 // import DashAdminSettingPage from "./pages/dashboard/DashAdminSettingPage";
-import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
+// import { jwtDecode } from "jwt-decode";
+// import { useCookies } from "react-cookie";
 
 import { useState, useEffect } from "react";
 
 export default function App() {
 	const [reload, setReload] = useState(false);
+
 	//แกะ token ตรงนี้
-	const [decodeTokenId, SetDecodeTokenId] = useState("");
-	const [decodeTokenAdmin, SetDecodeTokenAdmin] = useState(false);
+	// const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+	// const [decodeTokenId, SetDecodeTokenId] = useState("");
+	// const [decodeTokenAdmin, SetDecodeTokenAdmin] = useState(false);
 
-	const token = Cookies.get("access_token");
+	// const token = cookies["access_token"];
+	// console.log(token);
+	// // const decoded = jwtDecode(token);
+	// // console.log(decoded);
 
-	useEffect(() => {
-		const decoded = jwtDecode(token);
-		SetDecodeTokenId(decoded.id);
-		SetDecodeTokenAdmin(decoded.isAdmin);
-	}, [token]);
+	// useEffect(() => {
+	// 	// const token = cookies["access_token"];
+	// 	// console.log(token);
+	// 	// console.log(typeof token);
+	// 	// const decoded = jwtDecode(token);
+	// 	// SetDecodeTokenId(decoded.id);
+	// 	// SetDecodeTokenAdmin(decoded.isAdmin);
+	// 	// console.log(decodeTokenAdmin);
+	// }, [cookies]);
 
 	const router = createBrowserRouter([
 		{
@@ -74,7 +83,7 @@ export default function App() {
 				},
 				{
 					path: "product/:id",
-					element: <ProductPage decodeTokenId={decodeTokenId} />,
+					element: <ProductPage />,
 				},
 				{
 					path: "cart",
