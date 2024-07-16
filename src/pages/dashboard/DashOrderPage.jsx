@@ -214,23 +214,23 @@ export default function DashOrderPage({ reload, setReload }) {
 								<th className=" w-1/12"></th>
 							</tr>
 						</thead>
-						{orderList.length == 0 ? (
-							<tbody>
+						<tbody>
+							{orderList.length == 0 ? (
 								<tr className="text-center">
-									<td colSpan={7}>Not found order</td>
+									<td colSpan={7} className="p-8">
+										Not found order
+									</td>
 								</tr>
-							</tbody>
-						) : (
-							<tbody>
-								{orderList.map((order) => (
+							) : (
+								orderList.map((order) => (
 									<DashOrderTable
 										key={order._id}
 										order={order}
 										handleChange={handleChange}
 									/>
-								))}
-							</tbody>
-						)}
+								))
+							)}
+						</tbody>
 					</table>
 				</div>
 

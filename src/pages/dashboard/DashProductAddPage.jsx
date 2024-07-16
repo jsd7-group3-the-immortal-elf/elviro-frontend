@@ -62,7 +62,12 @@ export default function DashProductAddPage({ reload }) {
 
 	function handleChange(e) {
 		const { name, value } = e.target;
-		if (name == "width" || name == "depth" || name == "height") {
+		if (
+			name == "width" ||
+			name == "depth" ||
+			name == "depthExtend" ||
+			name == "height"
+		) {
 			setDimension((prev) => {
 				const newDimension = { ...prev, [name]: value };
 				setProduct((prev) => {
@@ -290,6 +295,19 @@ export default function DashProductAddPage({ reload }) {
 									value={dimension.depth}
 									onChange={handleChange}
 									required
+									className="dash-input w-full"
+								/>
+							</label>
+							<label className="w-full">
+								Depth Extend (cm)
+								<input
+									type="number"
+									min={0}
+									step={0.01}
+									placeholder="Depth Extend (cm)"
+									name="depthExtend"
+									value={dimension.depthExtend}
+									onChange={handleChange}
 									className="dash-input w-full"
 								/>
 							</label>
