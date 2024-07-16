@@ -52,10 +52,11 @@ export default function ProductPage() {
 
 	async function createNewCart(productId, quantity) {
 		try {
-			await axiosInstance.post(`/cart/${userId}`, {
+			await axiosInstance.post(`/cart/${id}`, {
 				productId,
 				quantity,
 			});
+			alert("Create cart successful");
 		} catch (error) {
 			console.log("Failed to create a new cart", error);
 		}
