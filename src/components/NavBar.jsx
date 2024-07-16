@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
 	// FaMagnifyingGlass,
 	FaUser,
@@ -7,16 +8,13 @@ import {
 	FaBars,
 	FaXmark,
 } from "react-icons/fa6";
-import { useCookies } from "react-cookie";
-
-import PropTypes from "prop-types";
 
 import CreateAccountPage from "../pages/login/CreateAccountPage";
 import ForgetPage from "../pages/login/ForgetPage";
 import LoginPage from "../pages/login/LoginPage";
 import ResetPage from "../pages/login/ResetPage";
 
-function NavBar({ reload, setReload }) {
+function NavBar({ reload, setReload, tokenUserId, tokenAdmin }) {
 	const [mobileNavVisible, setMobileNavVisible] = useState(false);
 	const [profileNavVisible, setProfileNavVisible] = useState(false);
 
@@ -25,17 +23,15 @@ function NavBar({ reload, setReload }) {
 	const [openLoginPage, setOpenLoginPage] = useState(false);
 	const [openResetPage, setOpenResetPage] = useState(false);
 
-	const [isLogin, setIsLogin] = useState(true);
-	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+	// const [isLogin, setIsLogin] = useState(true);
 
-	useEffect(() => {
-		const token = cookies["access_token"];
-		setIsLogin(false);
-		if (token) setIsLogin(true);
-	}, [reload, isLogin]);
+	// useEffect(() => {
+	// 	setIsLogin(false);
+	// 	if (tokenUserId) setIsLogin(true);
+	// }, [reload, tokenUserId]);
 
 	function handleLogout() {
-		removeCookie(["access_token"]);
+		localStorage.clear();
 		location.reload();
 	}
 
@@ -128,7 +124,7 @@ function NavBar({ reload, setReload }) {
 							</li>
 							<li className="h-full">
 								<button
-									onClick={isLogin ? toggleProfileNav : toggleOpenLogin}
+									onClick={tokenUserId ? toggleProfileNav : toggleOpenLogin}
 									className="h-full flex items-center px-2 hover:cursor-pointer"
 								>
 									<FaUser />
@@ -162,15 +158,17 @@ function NavBar({ reload, setReload }) {
 										Dashboard
 									</Link>
 								</li>
-								<li className="border-b">
-									<Link
-										to="/profile"
-										onClick={toggleProfileNav}
-										className="block w-full p-3"
-									>
-										Profile
-									</Link>
-								</li>
+								{tokenAdmin ? (
+									<li className="border-b">
+										<Link
+											to="/profile"
+											onClick={toggleProfileNav}
+											className="block w-full p-3"
+										>
+											Profile
+										</Link>
+									</li>
+								) : null}
 								<li className="border-b">
 									<Link
 										to="/profile/account"
@@ -253,7 +251,6 @@ function NavBar({ reload, setReload }) {
 					setOpenForgetPage={setOpenForgetPage}
 					reload={reload}
 					setReload={setReload}
-					setCookie={setCookie}
 				/>
 				<ForgetPage
 					openForgetPage={openForgetPage}
@@ -274,6 +271,8 @@ function NavBar({ reload, setReload }) {
 NavBar.propTypes = {
 	reload: PropTypes.bool,
 	setReload: PropTypes.func,
+	tokenUserId: PropTypes.string,
+	tokenAdmin: PropTypes.bool,
 };
 
 export default NavBar;

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
@@ -8,7 +10,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 // import mockup_sofa from "/images/mockup_sofa.png";
 
-function CheckoutPage() {
+function CheckoutPage({ tokenUserId }) {
 	const [showInfo, setShowInfo] = useState(false);
 	const [cartData, setCartData] = useState([]);
 	// const [userData, setUserData] = useState([]);
@@ -142,6 +144,10 @@ function CheckoutPage() {
 		</>
 	);
 }
+
+CheckoutPage.propTypes = {
+	tokenUserId: PropTypes.string,
+};
 
 export default CheckoutPage;
 

@@ -17,7 +17,6 @@ function LoginPage({
 	setOpenForgetPage,
 	reload,
 	setReload,
-	setCookie,
 }) {
 	//ไว้รับค่า object จาก formData
 	const [loginData, setLoginData] = useState({
@@ -28,7 +27,6 @@ function LoginPage({
 	//-----------Password--------------//
 	//สร้าง state สลับระหว่างโชว์ password/text
 	const [showPassword, setShowPassword] = useState(false);
-
 	const [showAlert, setShowAlert] = useState(false);
 
 	async function userLogin() {
@@ -37,7 +35,7 @@ function LoginPage({
 
 			alert(`${response.data.message}`);
 
-			setCookie("access_token", response.data.access_token);
+			localStorage.setItem("access_token", response.data.access_token);
 			setReload(!reload);
 		} catch (error) {
 			console.log("Failed to create an account", error);
