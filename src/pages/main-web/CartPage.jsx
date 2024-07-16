@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams} from 'react-router-dom'
+// import { useParams} from 'react-router-dom'
 import PropTypes from "prop-types";
 import CartBanner from "../../components/cart/CartBanner";
 import CartList from "../../components/cart/CartList";
 import CartTotal from "../../components/cart/CartTotal";
 
-function CartPage() {
+function CartPage({tokenUserId}) {
 
-	const { userId } = useParams();
+	// const { userId } = useParams();
 	const [totalPrice, setTotalPrice] = useState(0);
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ function CartPage() {
 			<CartBanner />
 			<div className="flex flex-col md:flex-row justify-center gap-4">
 				<div className="w-full md:basis-2/3">
-					<CartList userId = {userId} />
+					<CartList tokenUserId = {tokenUserId} />
 				</div>
 				<div className="w-full md:basis-1/3">
 					<CartTotal totalPrice={totalPrice} />
@@ -34,8 +34,11 @@ function CartPage() {
 	);
 }
 
-CartPage.propTypes = {
-	tokenUserId: PropTypes.string,
+
+
+
+	CartPage.propTypes = {
+    tokenUserId: PropTypes.string,
 };
 
 export default CartPage;

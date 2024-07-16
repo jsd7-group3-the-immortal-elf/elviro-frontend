@@ -1,58 +1,54 @@
-import { useState,  useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 
-function CartList({userId}) {
-
+function CartList({ tokenUserId }) {
 	const [cartItems, setCarItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	// const [cart, setCart] = useState({})
 
-	async function getCartList(userId) {
+	async function getCartList() {
 		try {
-			const res = await axiosInstance.get(`/cart/${userId}`)
-			console.log('cart respone ',res.data)
-			const {data} = res.data;
-			return data;
+			console.log(tokenUserId)
+			const res = await axiosInstance.get(`/cart/${tokenUserId}`);
+			const { data } = res.data;
+			console.log(data);
+			setCarItems(data);
 		} catch (error) {
 			console.log("Failed to get data:", error);
-			return [];
 		}
 	}
 
-	async function fetchCartAndProducts() {
-		const cartList = await getCartList(userId);
-		setCarItems(cartList);
+	// async function fetchCartAndProducts() {
+	// 	const cartList = await getCartList(userId);
+	// 	setCarItems(cartList);
 
-		const total = cartList.reduce((sum, item) => {
-			return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
-		}, 0);
-		setTotalPrice(total);
-	}
+	// 	const total = cartList.reduce((sum, item) => {
+	// 		return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
+	// 	}, 0);
+	// 	setTotalPrice(total);
+	// }
 
 	useEffect(() => {
-		if (userId) {
-			fetchCartAndProducts();
-		}
-	}, [userId]);
+		getCartList();
+	}, []);
 
-	const handleQuantityChange = (cartItemId, change) => {
-		const updateCartItems = cartItems.map(item => {
-			if (item.cart._id === cartItemId) {
-				const newQuantity = Math.max(1, item.cart.quantity + change);
-				// Assume a function to update the cart item quantity on the server
-				updateCartItemQuantity(cartItemId, newQuantity);
-				return { ...item, cart: { ...item.cart, quantity: newQuantity } };
-			}
-			return item;
-		});
-		setCarItems(updateCartItems);
-	};
-
+	// const handleQuantityChange = (cartItemId, change) => {
+	// 	const updateCartItems = cartItems.map((item) => {
+	// 		if (item.cart._id === cartItemId) {
+	// 			const newQuantity = Math.max(1, item.cart.quantity + change);
+	// 			// Assume a function to update the cart item quantity on the server
+	// 			updateCartItemQuantity(cartItemId, newQuantity);
+	// 			return { ...item, cart: { ...item.cart, quantity: newQuantity } };
+	// 		}
+	// 		return item;
+	// 	});
+	// 	setCarItems(updateCartItems);
+	// };
 
 	return (
 		<div>
-			<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+			<table style={{ width: "100%", borderCollapse: "collapse" }}>
 				<thead>
 					<tr>
 						<th style={tableHeaderStyle}>Image</th>
@@ -70,24 +66,54 @@ function CartList({userId}) {
 									<img
 										src={cartItem.productDetail[0].image}
 										alt={cartItem.productDetail[0].name}
-										style={{ width: '50px', height: '50px' }}
+										style={{ width: "50px", height: "50px" }}
 									/>
 								)}
 							</td>
-							<td style={tableCellStyle}>{cartItem.productDetail[0]?.name || 'N/A'}</td>
-							<td style={tableCellStyle}>฿{cartItem.productDetail[0]?.price.toFixed(2) || 'N/A'}</td>
 							<td style={tableCellStyle}>
-								<button onClick={() => handleQuantityChange(cartItem.cart._id, -1)}><FaMinus /></button> {cartItem.cart.quantity} <button onClick={() => handleQuantityChange(cartItem.cart._id, 1)}><FaPlus /></button></td>
+								{cartItem.productDetail[0]?.name || "N/A"}
+							</td>
 							<td style={tableCellStyle}>
-								฿{((cartItem.productDetail[0]?.price || 0) * cartItem.cart.quantity).toFixed(2)}
+								฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
+							</td>
+							<td style={tableCellStyle}>
+								<button
+									// onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
+								>
+									<FaMinus />
+								</button>{" "}
+								{cartItem.cart.quantity}{" "}
+								<button
+									// onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
+								>
+									<FaPlus />
+								</button>
+							</td>
+							<td style={tableCellStyle}>
+								฿
+								{(
+									(cartItem.productDetail[0]?.price || 0) *
+									cartItem.cart.quantity
+								).toFixed(2)}
 							</td>
 						</tr>
 					))}
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colSpan="4" style={{ ...tableCellStyle, textAlign: 'right', fontWeight: 'bold' }}>Total Price:</td>
-						<td style={{ ...tableCellStyle, fontWeight: 'bold' }}>฿{totalPrice.toFixed(2)}</td>
+						<td
+							colSpan="4"
+							style={{
+								...tableCellStyle,
+								textAlign: "right",
+								fontWeight: "bold",
+							}}
+						>
+							Total Price:
+						</td>
+						<td style={{ ...tableCellStyle, fontWeight: "bold" }}>
+							฿{totalPrice.toFixed(2)}
+						</td>
 					</tr>
 				</tfoot>
 			</table>
@@ -96,22 +122,18 @@ function CartList({userId}) {
 }
 
 const tableHeaderStyle = {
-	backgroundColor: '#f2f2f2',
-	padding: '10px',
-	borderBottom: '1px solid #ddd',
-	textAlign: 'left'
+	backgroundColor: "#f2f2f2",
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
+	textAlign: "left",
 };
 
 const tableCellStyle = {
-	padding: '10px',
-	borderBottom: '1px solid #ddd'
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
 };
 
 export default CartList;
-
-
-
-
 
 // const handleQuantityChange = (cartItemId, change) => {
 // 	const updateCartItems = cartItems.map(item => {
@@ -124,8 +146,6 @@ export default CartList;
 // 	});
 // 	setCarItems(updateCartItems);
 // };
-
-
 
 // async function getProductDetails(productId) {
 // 	try {
@@ -165,14 +185,14 @@ export default CartList;
 // 	}));
 // 	setCarItems(itemWithDetails);
 
-
 // const total = itemWithDetails.reduce((sum, item) => {
 // 	return sum + (item.productDetails?.price || 0) * item.quantity;
 //   }, 0);
 //   setTotalPrice(total);
 // }
 
-{/* <>
+{
+	/* <>
 			<section className="px-8" id="cart_item">
 				<div className="hidden md:block">
 					<table className="table-auto w-full text-center">
@@ -254,25 +274,26 @@ export default CartList;
 					</div>
 				</div>
 			</section>
-		</> */}
+		</> */
+}
 
-	// const priceList = [
-	// 	{
-	// 		productPicture: "/images/mockup-sofa.png",
-	// 		productName: "PÄRUP sofa",
-	// 		productQuanlity: "3",
-	// 		productPrice: "8999",
-	// 	},
-	// 	{
-	// 		productPicture: "/images/mockup-sofa.png",
-	// 		productName: "VIMLE sofa",
-	// 		productQuanlity: "1",
-	// 		productPrice: "15999",
-	// 	},
-	// 	{
-	// 		productPicture: "/images/mockup-sofa.png",
-	// 		productName: "GLOSTAD sofa",
-	// 		productQuanlity: "2",
-	// 		productPrice: "2999",
-	// 	},
-	// ];
+// const priceList = [
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "PÄRUP sofa",
+// 		productQuanlity: "3",
+// 		productPrice: "8999",
+// 	},
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "VIMLE sofa",
+// 		productQuanlity: "1",
+// 		productPrice: "15999",
+// 	},
+// 	{
+// 		productPicture: "/images/mockup-sofa.png",
+// 		productName: "GLOSTAD sofa",
+// 		productQuanlity: "2",
+// 		productPrice: "2999",
+// 	},
+// ];
