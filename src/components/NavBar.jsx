@@ -25,7 +25,7 @@ function NavBar({ reload, setReload }) {
 	const [openResetPage, setOpenResetPage] = useState(false);
 
 	const [isLogin, setIsLogin] = useState(true);
-	const [cookies, , removeCookie] = useCookies(["access_token"]);
+	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
 	useEffect(() => {
 		const token = cookies["access_token"];
@@ -243,6 +243,7 @@ function NavBar({ reload, setReload }) {
 					setOpenForgetPage={setOpenForgetPage}
 					reload={reload}
 					setReload={setReload}
+					setCookie={setCookie}
 				/>
 				<ForgetPage
 					openForgetPage={openForgetPage}
