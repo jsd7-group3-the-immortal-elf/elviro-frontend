@@ -8,48 +8,48 @@ import {
 
 function ProfileNav() {
 	return (
-		<section class="flex flex-row lg:flex-col justify-center lg:justify-start items-center gap-8 lg:w-2/5 xl:w-1/4">
-			<picture class="w-1/2 h-1/2 lg:h-auto xl:w-2/3">
+		<section className="flex flex-row lg:flex-col justify-center lg:justify-start items-center gap-8 lg:w-2/5 xl:w-1/4">
+			<picture className="w-1/2 h-1/2 lg:h-auto xl:w-2/3">
 				<img
 					src="/images/contact.png"
 					alt="Profile Image"
-					class="rounded-full"
+					className="rounded-full"
 				/>
 			</picture>
 
-			<nav class="hidden sm:flex bg-white p-4 rounded-3xl w-full">
-				<ul class="flex flex-col gap-2 w-full">
-					<li class="rounded-full">
+			<nav className="hidden sm:flex bg-white p-4 rounded-3xl w-full">
+				<ul className="flex flex-col gap-2 w-full">
+					<li className="rounded-full">
 						<Link
 							to="/profile"
-							class="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
+							className="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
 						>
 							<FaCircleUser />
 							Profile
 						</Link>
 					</li>
-					<li class="rounded-full">
+					<li className="rounded-full">
 						<Link
 							to="/profile/account"
-							class="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
+							className="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
 						>
 							<FaGear />
 							Account
 						</Link>
 					</li>
-					<li class="rounded-full">
+					<li className="rounded-full">
 						<Link
 							to="/profile/payment"
-							class="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
+							className="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
 						>
 							<FaCreditCard />
 							Payment
 						</Link>
 					</li>
-					<li class="rounded-full">
+					<li className="rounded-full">
 						<Link
 							to="/profile/order-history"
-							class="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
+							className="flex items-center gap-4 w-full h-full px-4 py-2 rounded-full hover:bg-orange-200"
 						>
 							<FaBagShopping />
 							Purchase History

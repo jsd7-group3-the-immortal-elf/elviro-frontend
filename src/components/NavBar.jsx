@@ -7,8 +7,8 @@ import {
 	FaBars,
 	FaXmark,
 } from "react-icons/fa6";
-
 import { useCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 import CreateAccountPage from "../pages/login/CreateAccountPage";
 import ForgetPage from "../pages/login/ForgetPage";
@@ -25,7 +25,7 @@ function NavBar({ reload, setReload }) {
 	const [openResetPage, setOpenResetPage] = useState(false);
 
 	const [isLogin, setIsLogin] = useState(true);
-	const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+	const [cookies, , removeCookie] = useCookies(["access_token"]);
 
 	useEffect(() => {
 		const token = cookies["access_token"];
@@ -259,5 +259,10 @@ function NavBar({ reload, setReload }) {
 		</>
 	);
 }
+
+NavBar.propTypes = {
+	reload: PropTypes.bool,
+	setReload: PropTypes.func,
+};
 
 export default NavBar;
