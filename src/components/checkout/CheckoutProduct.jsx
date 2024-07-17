@@ -8,6 +8,7 @@ export default function CheckoutProduct({
 	return (
 		<div className="w-auto px-4">
 			<div className="grid grid-col-1 gap-2 justify-center w-full">
+				{/* น้ำของออกมาด้วยการ map */}
 				{cartData?.map((product, index) => (
 					<div key={index} className="flex w-full ">
 						{/* {console.log(product)} */}
@@ -37,24 +38,12 @@ export default function CheckoutProduct({
 					</div>
 				))}
 			</div>
-
-			{/* --------------------  รูป  -------------------- */}
-			{/* <img
-				alt="image_product"
-				src={mockup_sofa}
-				className="max-w-52 bg-origin-border rounded-2xl"
-			/> */}
-			{/* --------------------  หัวข้อ  -------------------- */}
+			{/* ราคาสินค้า */}
 			<div className="flex flex-col justify-between w-auto mb-4">
-				{/* <div className="flex justify-between w-full">
-					<h3>Product</h3>
-					<h3>Subtotal</h3>
-				</div> */}
-				{/* --------------------  ลิสรายการ  -------------------- */}
 				<ul className="w-auto gap-4 flex flex-col mb-7">
 					<li className="flex justify-between">
 						<span>7% Tax</span>
-						<span>{(totalPrice * 0.07).toFixed(2)} ฿</span>
+						<span>{(totalPrice * 0.07).toFixed(1)} ฿</span>
 					</li>
 					<li className="flex justify-between">
 						<span>Subtotal</span>

@@ -14,12 +14,13 @@ function CheckoutPage({ tokenUserId }) {
 	const [cartData, setCartData] = useState([]);
 	const [userData, setUserData] = useState([]);
 	const [addressData, setAddressData] = useState({});
+	const [payment, setPayment] = useState("");
 	const navigate = useNavigate();
 	// const userId = "6696a3abfe99d24b14e13cc5";
 	function toggle() {
 		setShowInfo(!showInfo);
 	}
-
+	// ดึงข้อมูลจาก Product
 	async function getProductInUser() {
 		try {
 			const response = await axiosInstance.get(
@@ -31,7 +32,9 @@ function CheckoutPage({ tokenUserId }) {
 			console.log("Not found user:", error);
 		}
 	}
+	// console.log(cartData);
 
+	// ดึงข้อมูลจาก user
 	async function getUser() {
 		try {
 			const response = await axiosInstance.get(`/users/${tokenUserId}`);
@@ -42,23 +45,55 @@ function CheckoutPage({ tokenUserId }) {
 			console.log("Not found user:", error);
 		}
 	}
+	// console.log(userData);
+
 	useEffect(() => {
 		getProductInUser();
 		getUser();
 	}, []);
 
-	function handleSubmit() {
-		navigate("/cart/checkout/purchased");
-	}
+	const cartProduct = cartData.map((product) => {
+		return {
+			productId: product.productDetail[0]._id,
+			quantity: product.cart.quantity,
+		};
+	});
+	// console.log(orderDetail);
+
 	//คำนวนราคารวม บวก tax
 	const priceProduct = cartData.map((product) => {
 		return product.productDetail[0].price * product.cart.quantity;
 	});
-	console.log(priceProduct);
+
+	// console.log(priceProduct);
+
 	const totalPrice = priceProduct.reduce((numberOne, numberTwo) => {
 		return numberOne + numberTwo;
 	}, 0);
-	const totalPriceTax = (totalPrice + totalPrice * 0.07).toFixed(2);
+
+	const totalPriceTax = (totalPrice + totalPrice * 0.07).toFixed(1);
+
+	const orderDetail = {
+		orderDetail: [cartProduct],
+		totalPrice: totalPriceTax,
+		payment: payment,
+		customer: {
+			customerId: userData._id,
+			addressIndex: "0",
+		},
+	};
+
+	async function postOder() {
+		try {
+			await axiosInstance.post(`/order/`, { orderDetail });
+		} catch (error) {
+			console.log(`postOder error`, error);
+		}
+	}
+
+	function handleSubmit() {
+		navigate("/cart/checkout/purchased");
+	}
 	return (
 		<>
 			<Banner h3="Checkout" />
@@ -90,7 +125,12 @@ function CheckoutPage({ tokenUserId }) {
 						totalPrice={totalPrice}
 						totalPriceTax={totalPriceTax}
 					/>
-					<CheckoutPayment handleSubmit={handleSubmit} />
+					<CheckoutPayment
+						handleSubmit={handleSubmit}
+						postOder={postOder}
+						setPayment={setPayment}
+						orderDetail={orderDetail}
+					/>
 				</div>
 			</section>
 			<Motto />
@@ -103,13 +143,3 @@ CheckoutPage.propTypes = {
 };
 
 export default CheckoutPage;
-
-//`/cart/${userId}?isChecked=true`
-// cart:[
-// 	{
-// 	productID,
-// 	quantity,
-// 	inChecked,
-// 	productDetail:{แล้วแสดงข้อมูล อ้างอิงจาก productID }
-// 	}
-// 	]
