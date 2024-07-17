@@ -1,4 +1,4 @@
-// import mockup_sofa from "/images/mockup_sofa.png";
+import PropTypes from "prop-types";
 
 export default function CheckoutProduct({
 	cartData,
@@ -8,10 +8,8 @@ export default function CheckoutProduct({
 	return (
 		<div className="w-auto px-4">
 			<div className="grid grid-col-1 gap-2 justify-center w-full">
-				{/* น้ำของออกมาด้วยการ map */}
 				{cartData?.map((product, index) => (
 					<div key={index} className="flex w-full ">
-						{/* {console.log(product)} */}
 						<picture className="flex w-36 h-auto border-2 py">
 							<img
 								className="px-1"
@@ -38,7 +36,7 @@ export default function CheckoutProduct({
 					</div>
 				))}
 			</div>
-			{/* ราคาสินค้า */}
+
 			<div className="flex flex-col justify-between w-auto mb-4">
 				<ul className="w-auto gap-4 flex flex-col mb-7">
 					<li className="flex justify-between">
@@ -61,3 +59,9 @@ export default function CheckoutProduct({
 		</div>
 	);
 }
+
+CheckoutProduct.propTypes = {
+	cartData: PropTypes.array,
+	totalPrice: PropTypes.number,
+	totalPriceTax: PropTypes.number,
+};
