@@ -2,68 +2,85 @@ import { useState, useEffect } from "react";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 
-function CartList({ tokenUserId}) {
-    const [cartItems, setCarItems] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
+function CartList({ tokenUserId, totalPrice, setTotalPrice }) {
+	const [cartItems, setCarItems] = useState([]);
 
-    async function getCartList() {
-        try {
-            console.log(tokenUserId);
-            const res = await axiosInstance.get(`/cart/${tokenUserId}`);
-            const { data } = res.data;
-            console.log(data);
-            setCarItems(data);
-            calculateTotalPrice(data);
-        } catch (error) {
-            console.log("Failed to get data:", error);
-        }
-    }
+	async function getCartList() {
+		try {
+			console.log(tokenUserId);
+			const res = await axiosInstance.get(`/cart/${tokenUserId}`);
+			const { data } = res.data;
+			console.log(data);
+			setCarItems(data);
+			calculateTotalPrice(data);
+		} catch (error) {
+			console.log("Failed to get data:", error);
+		}
+	}
 
-    useEffect(() => {
-        getCartList();
-    }, []);
+	useEffect(() => {
+		getCartList();
+	}, []);
 
-    const calculateTotalPrice = (items) => {
-        const total = items.reduce((sum, item) => {
-            if (item.cart.isChecked) {
-                return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
-            }
-            return sum;
-        }, 0);
-        setTotalPrice(total);
-    };
+	const calculateTotalPrice = (items) => {
+		const total = items.reduce((sum, item) => {
+			if (item.cart.isChecked) {
+				return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
+			}
+			return sum;
+		}, 0);
+		setTotalPrice(total);
+	};
 
 	const updateCartItemQuantity = async (cartItemId, newQuantity) => {
-        try {
-            await axiosInstance.patch(`/cart/${tokenUserId}`, { cartItemId, newQuantity });
-        } catch (error) {
-            console.log("Failed to update item quantity:", error);
-        }
-    };
+		try {
+			await axiosInstance.patch(`/cart/${tokenUserId}`, {
+				cartItemId,
+				newQuantity,
+			});
+		} catch (error) {
+			console.log("Failed to update item quantity:", error);
+		}
+	};
 
-    const handleQuantityChange = (cartItemId, change) => {
-        const updatedCartItems = cartItems.map(item => {
-            if (item.cart._id === cartItemId) {
-                const newQuantity = Math.max(1, item.cart.quantity + change);
-                updateCartItemQuantity(cartItemId, newQuantity);
-                return { ...item, cart: { ...item.cart, quantity: newQuantity } };
-            }
-            return item;
-        });
-        setCarItems(updatedCartItems);
-        calculateTotalPrice(updatedCartItems);
-    };
+	const handleQuantityChange = (cartItemId, change) => {
+		const updatedCartItems = cartItems.map((item) => {
+			if (item.cart._id === cartItemId) {
+				const newQuantity = Math.max(1, item.cart.quantity + change);
+				updateCartItemQuantity(cartItemId, newQuantity);
+				return { ...item, cart: { ...item.cart, quantity: newQuantity } };
+			}
+			return item;
+		});
+		setCarItems(updatedCartItems);
+		calculateTotalPrice(updatedCartItems);
+	};
 
-    const handleCheckboxChange = (cartItemId) => {
-        const updatedCartItems = cartItems.map(item => {
-            if (item.cart._id === cartItemId) {
-                return { ...item, cart: { ...item.cart, isChecked: !item.cart.isChecked } };
-            }
-            return item;
-        });
-        setCarItems(updatedCartItems);
-        calculateTotalPrice(updatedCartItems);
-    };
+	const handleCheckboxChange = (cartItemId) => {
+		const updatedCartItems = cartItems.map((item) => {
+			if (item.cart._id === cartItemId) {
+				return {
+					...item,
+					cart: { ...item.cart, isChecked: !item.cart.isChecked },
+				};
+			}
+			return item;
+		});
+		setCarItems(updatedCartItems);
+		calculateTotalPrice(updatedCartItems);
+	};
+
+	const handleDeleteCartItem = async (cartItemId) => {
+		try {
+			await axiosInstance.delete(`/cart/${tokenUserId}/${cartItemId}`);
+			const updatedCartItems = cartItems.filter(item => item.cart._id !== cartItemId);
+			setCarItems(updatedCartItems);
+			calculateTotalPrice(updatedCartItems);
+		} catch (error) {
+			console.log("Failed to delete cart item:", error);
+		}
+	};
+
 
     return (
         <div>
@@ -76,6 +93,7 @@ function CartList({ tokenUserId}) {
                         <th style={tableHeaderStyle}>Price</th>
                         <th style={tableHeaderStyle}>Quantity</th>
                         <th style={tableHeaderStyle}>Total</th>
+						<th style={tableHeaderStyle}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,6 +141,14 @@ function CartList({ tokenUserId}) {
                                     cartItem.cart.quantity
                                 ).toFixed(2)}
                             </td>
+							<td style={tableCellStyle}>
+								<button
+									onClick={() => handleDeleteCartItem(cartItem.cart._id)}
+									style={{ color: "red", border: "none", background: "none" }}
+								>
+									<FaTrash />
+								</button>
+							</td>
                         </tr>
                     ))}
                 </tbody>
@@ -149,19 +175,18 @@ function CartList({ tokenUserId}) {
 }
 
 const tableHeaderStyle = {
-    backgroundColor: "#f2f2f2",
-    padding: "10px",
-    borderBottom: "1px solid #ddd",
-    textAlign: "left",
+	backgroundColor: "#f2f2f2",
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
+	textAlign: "left",
 };
 
 const tableCellStyle = {
-    padding: "10px",
-    borderBottom: "1px solid #ddd",
+	padding: "10px",
+	borderBottom: "1px solid #ddd",
 };
 
 export default CartList;
-
 
 // const handleQuantityChange = (cartItemId, change) => {
 // 	const updateCartItems = cartItems.map(item => {
