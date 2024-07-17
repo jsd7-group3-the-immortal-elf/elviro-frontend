@@ -17,7 +17,7 @@ export default function ShopPage() {
 	const [query, setQuery] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const [totalProduct, setTotalProduct] = useState();
+	const [totalProduct, setTotalProduct] = useState(26);
 	const [totalPage, setTotalPage] = useState();
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(16);
@@ -62,7 +62,7 @@ export default function ShopPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		setQuery(`?limit=${limit}&page=${page}&${location.search}`);
+		setQuery(`${location.search}&limit=${limit}&page=${page}`);
 
 		query ? queryProduct() : getProduct();
 	}, [query, totalPage, page, limit]);
