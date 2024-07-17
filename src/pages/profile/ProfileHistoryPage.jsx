@@ -15,7 +15,7 @@ export default function ProfileHistoryPage() {
 				<hr className="my-2 w-full border-[#B5C18E]" />
 
 				<section className="flex gap-20">
-					<picture>sdsd</picture>
+					<picture></picture>
 					<p>Name</p>
 					<p>Status</p>
 				</section>
