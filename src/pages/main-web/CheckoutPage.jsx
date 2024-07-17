@@ -1,3 +1,4 @@
+import { checkPropTypes } from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
@@ -139,8 +140,9 @@ function CheckoutPage({ tokenUserId }) {
 	);
 }
 
-// CheckoutPage.propTypes = {
-// 	tokenUserId: PropTypes.string,
-// };
+CheckoutPage.checkPropTypes = {
+	tokenUserId: checkPropTypes.string,
+};
 
 export default CheckoutPage;
+1;
