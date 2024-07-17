@@ -1,4 +1,4 @@
-import PropTypes, { number } from "prop-types";
+import PropTypes from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
@@ -23,10 +23,9 @@ function CheckoutPage({ tokenUserId }) {
 	// ดึงข้อมูลจาก Product
 	async function getProductInUser() {
 		try {
-			const response = await axiosInstance.get(
-				`/cart/${tokenUserId}?isChecked=true`
-			);
+			const response = await axiosInstance.get(`/cart/${tokenUserId}`);
 			const { data } = await response.data;
+
 			setCartData(data);
 		} catch (error) {
 			console.log("Not found user:", error);
@@ -39,8 +38,9 @@ function CheckoutPage({ tokenUserId }) {
 		try {
 			const response = await axiosInstance.get(`/users/${tokenUserId}`);
 			const { data } = await response.data;
+
 			setUserData(data);
-			setAddressData(data.address.find((adr) => adr.default == true));
+			setAddressData(data?.address.find((adr) => adr.default == true));
 		} catch (error) {
 			console.log("Not found user:", error);
 		}
@@ -85,7 +85,7 @@ function CheckoutPage({ tokenUserId }) {
 
 	async function postOder() {
 		try {
-			await axiosInstance.post(`/order/`, { orderDetail });
+			await axiosInstance.post(`/order`, { orderDetail });
 		} catch (error) {
 			console.log(`postOder error`, error);
 		}
@@ -93,6 +93,7 @@ function CheckoutPage({ tokenUserId }) {
 
 	function handleSubmit() {
 		navigate("/cart/checkout/purchased");
+		postOder();
 	}
 	return (
 		<>

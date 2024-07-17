@@ -62,11 +62,9 @@ export default function App() {
 			setTokenAdmin(jwtDecode(localStorage.getItem("access_token")).isAdmin);
 		}
 	}, [tokenAdmin, tokenUserId, token]);
-
 	const AuthUserRoute = ({ children }) => {
 		return tokenUserId ? <>{children}</> : <Navigate to="/" />;
 	};
-	console.log(tokenUserId);
 	const AuthAdminRoute = ({ children }) => {
 		return tokenAdmin ? <>{children}</> : <Navigate to="/" />;
 	};
@@ -177,14 +175,14 @@ export default function App() {
 		{
 			path: "/dashboard",
 			element: (
-				<AuthAdminRoute>
-					<DashboardLayout
-						reload={reload}
-						setReload={setReload}
-						tokenUserId={tokenUserId}
-						tokenAdmin={tokenAdmin}
-					/>
-				</AuthAdminRoute>
+				// <AuthAdminRoute>
+				<DashboardLayout
+					reload={reload}
+					setReload={setReload}
+					tokenUserId={tokenUserId}
+					tokenAdmin={tokenAdmin}
+				/>
+				// </AuthAdminRoute>
 			),
 			// errorElement: <ErrorPage/>,
 			children: [
