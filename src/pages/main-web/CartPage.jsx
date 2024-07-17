@@ -19,7 +19,7 @@ function CartPage({tokenUserId}) {
 			<CartBanner />
 			<div className="flex flex-col md:flex-row justify-center gap-4">
 				<div className="w-full md:basis-2/3">
-					<CartList tokenUserId = {tokenUserId} />
+					<CartList tokenUserId = {tokenUserId} setTotalPrice={setTotalPrice} />
 				</div>
 				<div className="w-full md:basis-1/3">
 					<CartTotal totalPrice={totalPrice} />

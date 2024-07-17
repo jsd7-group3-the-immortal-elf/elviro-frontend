@@ -2,138 +2,166 @@ import { useState, useEffect } from "react";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 
-function CartList({ tokenUserId }) {
-	const [cartItems, setCarItems] = useState([]);
-	const [totalPrice, setTotalPrice] = useState(0);
-	// const [cart, setCart] = useState({})
+function CartList({ tokenUserId}) {
+    const [cartItems, setCarItems] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
 
-	async function getCartList() {
-		try {
-			console.log(tokenUserId)
-			const res = await axiosInstance.get(`/cart/${tokenUserId}`);
-			const { data } = res.data;
-			console.log(data);
-			setCarItems(data);
-		} catch (error) {
-			console.log("Failed to get data:", error);
-		}
-	}
+    async function getCartList() {
+        try {
+            console.log(tokenUserId);
+            const res = await axiosInstance.get(`/cart/${tokenUserId}`);
+            const { data } = res.data;
+            console.log(data);
+            setCarItems(data);
+            calculateTotalPrice(data);
+        } catch (error) {
+            console.log("Failed to get data:", error);
+        }
+    }
 
-	// async function fetchCartAndProducts() {
-	// 	const cartList = await getCartList(userId);
-	// 	setCarItems(cartList);
+    useEffect(() => {
+        getCartList();
+    }, []);
 
-	// 	const total = cartList.reduce((sum, item) => {
-	// 		return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
-	// 	}, 0);
-	// 	setTotalPrice(total);
-	// }
+    const calculateTotalPrice = (items) => {
+        const total = items.reduce((sum, item) => {
+            if (item.cart.isChecked) {
+                return sum + (item.productDetail[0]?.price || 0) * item.cart.quantity;
+            }
+            return sum;
+        }, 0);
+        setTotalPrice(total);
+    };
 
-	useEffect(() => {
-		getCartList();
-	}, []);
+	const updateCartItemQuantity = async (cartItemId, newQuantity) => {
+        try {
+            await axiosInstance.patch(`/cart/${tokenUserId}`, { cartItemId, newQuantity });
+        } catch (error) {
+            console.log("Failed to update item quantity:", error);
+        }
+    };
 
-	// const handleQuantityChange = (cartItemId, change) => {
-	// 	const updateCartItems = cartItems.map((item) => {
-	// 		if (item.cart._id === cartItemId) {
-	// 			const newQuantity = Math.max(1, item.cart.quantity + change);
-	// 			// Assume a function to update the cart item quantity on the server
-	// 			updateCartItemQuantity(cartItemId, newQuantity);
-	// 			return { ...item, cart: { ...item.cart, quantity: newQuantity } };
-	// 		}
-	// 		return item;
-	// 	});
-	// 	setCarItems(updateCartItems);
-	// };
+    const handleQuantityChange = (cartItemId, change) => {
+        const updatedCartItems = cartItems.map(item => {
+            if (item.cart._id === cartItemId) {
+                const newQuantity = Math.max(1, item.cart.quantity + change);
+                updateCartItemQuantity(cartItemId, newQuantity);
+                return { ...item, cart: { ...item.cart, quantity: newQuantity } };
+            }
+            return item;
+        });
+        setCarItems(updatedCartItems);
+        calculateTotalPrice(updatedCartItems);
+    };
 
-	return (
-		<div>
-			<table style={{ width: "100%", borderCollapse: "collapse" }}>
-				<thead>
-					<tr>
-						<th style={tableHeaderStyle}>Image</th>
-						<th style={tableHeaderStyle}>Product Name</th>
-						<th style={tableHeaderStyle}>Price</th>
-						<th style={tableHeaderStyle}>Quantity</th>
-						<th style={tableHeaderStyle}>Total</th>
-					</tr>
-				</thead>
-				<tbody>
-					{cartItems.map((cartItem) => (
-						<tr key={cartItem.cart._id}>
-							<td style={tableCellStyle}>
-								{cartItem.productDetail[0] && (
-									<img
-										src={cartItem.productDetail[0].image}
-										alt={cartItem.productDetail[0].name}
-										style={{ width: "50px", height: "50px" }}
-									/>
-								)}
-							</td>
-							<td style={tableCellStyle}>
-								{cartItem.productDetail[0]?.name || "N/A"}
-							</td>
-							<td style={tableCellStyle}>
-								฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
-							</td>
-							<td style={tableCellStyle}>
-								<button
-									// onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
-								>
-									<FaMinus />
-								</button>{" "}
-								{cartItem.cart.quantity}{" "}
-								<button
-									// onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
-								>
-									<FaPlus />
-								</button>
-							</td>
-							<td style={tableCellStyle}>
-								฿
-								{(
-									(cartItem.productDetail[0]?.price || 0) *
-									cartItem.cart.quantity
-								).toFixed(2)}
-							</td>
-						</tr>
-					))}
-				</tbody>
-				<tfoot>
-					<tr>
-						<td
-							colSpan="4"
-							style={{
-								...tableCellStyle,
-								textAlign: "right",
-								fontWeight: "bold",
-							}}
-						>
-							Total Price:
-						</td>
-						<td style={{ ...tableCellStyle, fontWeight: "bold" }}>
-							฿{totalPrice.toFixed(2)}
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	);
+    const handleCheckboxChange = (cartItemId) => {
+        const updatedCartItems = cartItems.map(item => {
+            if (item.cart._id === cartItemId) {
+                return { ...item, cart: { ...item.cart, isChecked: !item.cart.isChecked } };
+            }
+            return item;
+        });
+        setCarItems(updatedCartItems);
+        calculateTotalPrice(updatedCartItems);
+    };
+
+    return (
+        <div>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                    <tr>
+                        <th style={tableHeaderStyle}>Select</th>
+                        <th style={tableHeaderStyle}>Image</th>
+                        <th style={tableHeaderStyle}>Product Name</th>
+                        <th style={tableHeaderStyle}>Price</th>
+                        <th style={tableHeaderStyle}>Quantity</th>
+                        <th style={tableHeaderStyle}>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {cartItems.map((cartItem) => (
+                        <tr key={cartItem.cart._id}>
+                            <td style={tableCellStyle}>
+                                <input
+                                    type="checkbox"
+                                    checked={cartItem.cart.isChecked}
+                                    onChange={() => handleCheckboxChange(cartItem.cart._id)}
+                                />
+                            </td>
+                            <td style={tableCellStyle}>
+                                {cartItem.productDetail[0] && (
+                                    <img
+                                        src={cartItem.productDetail[0].productImage}
+                                        alt={cartItem.productDetail[0].productName}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
+                                )}
+                            </td>
+                            <td style={tableCellStyle}>
+                                {cartItem.productDetail[0]?.productName || "N/A"}
+                            </td>
+                            <td style={tableCellStyle}>
+                                ฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
+                            </td>
+                            <td style={tableCellStyle}>
+                                <button
+                                    onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
+                                >
+                                    <FaMinus />
+                                </button>{" "}
+                                {cartItem.cart.quantity}{" "}
+                                <button
+                                    onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
+                                >
+                                    <FaPlus />
+                                </button>
+                            </td>
+                            <td style={tableCellStyle}>
+                                ฿
+                                {(
+                                    (cartItem.productDetail[0]?.price || 0) *
+                                    cartItem.cart.quantity
+                                ).toFixed(2)}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td
+                            colSpan="5"
+                            style={{
+                                ...tableCellStyle,
+                                textAlign: "right",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Total Price:
+                        </td>
+                        <td style={{ ...tableCellStyle, fontWeight: "bold" }}>
+                            ฿{totalPrice.toFixed(2)}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    );
 }
 
 const tableHeaderStyle = {
-	backgroundColor: "#f2f2f2",
-	padding: "10px",
-	borderBottom: "1px solid #ddd",
-	textAlign: "left",
+    backgroundColor: "#f2f2f2",
+    padding: "10px",
+    borderBottom: "1px solid #ddd",
+    textAlign: "left",
 };
 
 const tableCellStyle = {
-	padding: "10px",
-	borderBottom: "1px solid #ddd",
+    padding: "10px",
+    borderBottom: "1px solid #ddd",
 };
 
 export default CartList;
+
 
 // const handleQuantityChange = (cartItemId, change) => {
 // 	const updateCartItems = cartItems.map(item => {
