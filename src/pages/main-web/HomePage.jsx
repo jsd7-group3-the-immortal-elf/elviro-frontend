@@ -11,15 +11,15 @@ export default function HomePage() {
 
 	const roomList = [
 		{
-			image: "/images/Cart-hero-image 1.png",
+			image: "/images/rooms/bedroom.jpg",
 			room: "Bedroom",
 		},
 		{
-			image: "/images/Cart-hero-image 1.png",
+			image: "/images/rooms/living.jpg",
 			room: "Living Room",
 		},
 		{
-			image: "/images/Cart-hero-image 1.png",
+			image: "/images/rooms/kitchen.jpg",
 			room: "Kitchen",
 		},
 	];
