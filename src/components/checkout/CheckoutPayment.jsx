@@ -6,7 +6,6 @@ export default function CheckoutPayment({
 	handleSubmit,
 	postOder,
 	setPayment,
-	orderDetail,
 }) {
 	return (
 		<div className="my-11 flex flex-col items-center w-full">
