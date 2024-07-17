@@ -46,7 +46,6 @@ export default function App() {
 	const [reload, setReload] = useState(false);
 	const [tokenUserId, setTokenUserId] = useState("");
 	const [tokenAdmin, setTokenAdmin] = useState(false);
-
 	const token = localStorage.getItem("access_token");
 	// if (token) {
 	// 	const decoded = jwtDecode(token);
@@ -67,7 +66,7 @@ export default function App() {
 	const AuthUserRoute = ({ children }) => {
 		return tokenUserId ? <>{children}</> : <Navigate to="/" />;
 	};
-
+	console.log(tokenUserId);
 	const AuthAdminRoute = ({ children }) => {
 		return tokenAdmin ? <>{children}</> : <Navigate to="/" />;
 	};

@@ -1,5 +1,15 @@
 // import {  Outlet } from "react-router-dom";
-export default function CheckoutBilling({ firstName, lastName, phone, email }) {
+export default function CheckoutBilling({
+	firstName,
+	lastName,
+	phone,
+	email,
+	address,
+	province,
+	district,
+	subDistrict,
+	postalCode,
+}) {
 	return (
 		<div
 			id="user_profile"
@@ -9,17 +19,6 @@ export default function CheckoutBilling({ firstName, lastName, phone, email }) {
 			<article id="personal " className=" w-full flex flex-col items-center">
 				<h2 className="mb-4">Billing details</h2>
 				<h3 className="text-darkgreen mb-6">Personal information</h3>
-				{/* --------------------  CheckBox  -------------------- */}
-				{/* <div id="head_personal" className=" mb-6 ">
-					<div className="information flex">
-							<input
-								type="checkbox"
-								id="information"
-								className="text-gray-950"
-							/>
-							<p className="">Same info. as your account</p>
-						</div>
-				</div> */}
 				{/* --------------------  ส่วนid  -------------------- */}
 				<div className="flex flex-col items-center gap-4 w-full">
 					<label className=" size-full" id="first_name">
@@ -64,31 +63,23 @@ export default function CheckoutBilling({ firstName, lastName, phone, email }) {
 			{/* --------------------  ข้อมูลที่อยู่  -------------------- */}
 			<article id="user_contact" className="flex flex-col items-center w-full">
 				<h3 className="text-darkgreen mb-6">Address</h3>
-				{/* --------------------  CheckBox  -------------------- */}
-				{/* <div
-					id="head_contact"
-					className="flex flex-col items-start mb-[1.5rem]"
-				>	
-					<div id="information" className="flex">
-						<input type="checkbox" id="information" />
-						<p className="">Same address as your account</p>
-					</div>
-				</div> */}
 				{/* -------------------------ส่วนAddress------------------------- */}
 				<div id="details_contact" className="flex flex-col gap-4 w-full">
-					<label className=" size-full" id="country">
-						{/* --------------------  ประเทศ  -------------------- */}
-						<h4>Country / Region</h4>
-						<input
-							type="text"
-							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
-						/>
-					</label>
 					<label className=" size-full" id="street_address">
 						{/* --------------------  บ้านเลขที่  -------------------- */}
 						<h4>Street address</h4>
 						<input
 							type="text"
+							value={address}
+							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
+						/>
+					</label>
+					<label className=" size-full" id="country">
+						{/* --------------------  ตำบล  -------------------- */}
+						<h4>Sub District</h4>
+						<input
+							type="text"
+							value={subDistrict}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
@@ -97,21 +88,24 @@ export default function CheckoutBilling({ firstName, lastName, phone, email }) {
 						<h4>Town / City</h4>
 						<input
 							type="text"
+							value={district}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
 					<label className=" size-full" id="province">
-						{/* --------------------  จังหวะ  -------------------- */}
+						{/* --------------------  จังหวัด  -------------------- */}
 						<h4>Province</h4>
 						<input
 							type="text"
+							value={province}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>
 					<label className=" size-full" id="zip_code">
-						<h4>ZIP code</h4>
+						<h4>Postalcode</h4>
 						<input
 							type="text"
+							value={postalCode}
 							className="border border-neutral-400 rounded-xl px-4 py-2 mt-1 w-full"
 						/>
 					</label>

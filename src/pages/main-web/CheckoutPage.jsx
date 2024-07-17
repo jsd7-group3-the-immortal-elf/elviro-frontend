@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import CheckoutBilling from "../../components/checkout/CheckoutBilling";
 import CheckoutProduct from "../../components/checkout/CheckoutProduct";
 import CheckoutPayment from "../../components/checkout/CheckoutPayment";
@@ -14,38 +14,13 @@ function CheckoutPage({ tokenUserId }) {
 	const [cartData, setCartData] = useState([]);
 	const [userData, setUserData] = useState([]);
 	const [addressData, setAddressData] = useState({});
+	const [payment, setPayment] = useState("");
 	const navigate = useNavigate();
 	// const userId = "6696a3abfe99d24b14e13cc5";
-
 	function toggle() {
 		setShowInfo(!showInfo);
 	}
-	// เปิดปิดแบบเก่า
-	// const [toggleBillingDesktop, setToggleBillingDesktop] = useState(true);
-	// const [toggleBilling, setToggleBilling] = useState(false);
-	// const buttonBilling = () => {
-	// 	setToggleBilling(!toggleBilling);
-	// };
-	//หน้าต่างใหญ่จะเปิดและปิด
-	// const handleResize = () => {
-	// 	if (window.innerWidth >= 1024) {
-	// 		setToggleBillingDesktop(true);
-	// 	} else {
-	// 		setToggleBillingDesktop(false);
-	// 	}
-	// };
-	//เช็คว่าหน้าต่างขนาดเท่าไหร่
-	// useEffect(() => {
-	// 	// Add event listener for window resize
-	// 	window.addEventListener("resize", handleResize);
-	// 	handleResize(); // Check the window size initially
-	// 	// Cleanup event listener on component unmount
-	// 	return () => {
-	// 		window.removeEventListener("resize", handleResize);
-	// 	};
-	// }, []);
-	// ข้อมูล Product
-
+	// ดึงข้อมูลจาก Product
 	async function getProductInUser() {
 		try {
 			const response = await axiosInstance.get(
@@ -57,7 +32,9 @@ function CheckoutPage({ tokenUserId }) {
 			console.log("Not found user:", error);
 		}
 	}
+	// console.log(cartData);
 
+	// ดึงข้อมูลจาก user
 	async function getUser() {
 		try {
 			const response = await axiosInstance.get(`/users/${tokenUserId}`);
@@ -68,47 +45,58 @@ function CheckoutPage({ tokenUserId }) {
 			console.log("Not found user:", error);
 		}
 	}
+	// console.log(userData);
 
 	useEffect(() => {
 		getProductInUser();
 		getUser();
 	}, []);
-	// console.log(`cartData :  ${cartData}`);
-	//
-	// const cartData = [
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "PÄRUP sofa",
-	// 		productQuality: "3",
-	// 		productPrice: "8999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "VIMLE sofa",
-	// 		productQuality: "1",
-	// 		productPrice: "15999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "GLOSTAD sofa",
-	// 		productQuality: "2",
-	// 		productPrice: "2999",
-	// 	},
-	// ];
-	// const dataProfile = {
-	// 	fistName: "Charlee",
-	// 	lastName: "Meichom",
-	// 	phone: "0812345678",
-	// 	email: "charlee@mail.com",
-	// };
+
+	const cartProduct = cartData.map((product) => {
+		return {
+			productId: product.productDetail[0]._id,
+			quantity: product.cart.quantity,
+		};
+	});
+	// console.log(orderDetail);
+
+	//คำนวนราคารวม บวก tax
+	const priceProduct = cartData.map((product) => {
+		return product.productDetail[0].price * product.cart.quantity;
+	});
+
+	// console.log(priceProduct);
+
+	const totalPrice = priceProduct.reduce((numberOne, numberTwo) => {
+		return numberOne + numberTwo;
+	}, 0);
+
+	const totalPriceTax = (totalPrice + totalPrice * 0.07).toFixed(1);
+
+	const orderDetail = {
+		orderDetail: [cartProduct],
+		totalPrice: totalPriceTax,
+		payment: payment,
+		customer: {
+			customerId: userData._id,
+			addressIndex: "0",
+		},
+	};
+
+	async function postOder() {
+		try {
+			await axiosInstance.post(`/order/`, { orderDetail });
+		} catch (error) {
+			console.log(`postOder error`, error);
+		}
+	}
 
 	function handleSubmit() {
 		navigate("/cart/checkout/purchased");
 	}
-
 	return (
 		<>
-			<Banner />
+			<Banner h3="Checkout" />
 			<section className="flex flex-col items-center justify-start my-24 w-2/3 mx-auto lg:flex-row lg:items-start lg:gap-20 ">
 				<button
 					className="lg:hidden mb-7 h-12 w-11/12 back text-xl text-black border border-neutral-500 rounded-xl hover:shadow-xl active:shadow-xl active:bg-gray-100"
@@ -123,12 +111,26 @@ function CheckoutPage({ tokenUserId }) {
 						firstName={addressData?.firstNameAdr}
 						lastName={addressData?.lastNameAdr}
 						phone={addressData?.phoneAdr}
+						address={addressData?.address}
+						province={addressData?.province}
+						district={addressData?.district}
+						subDistrict={addressData?.subDistrict}
+						postalCode={addressData?.postalCode}
 						email={userData?.profile?.email}
 					/>
 				</div>
 				<div className="flex flex-col items-center w-full lg:w-1/2 ">
-					<CheckoutProduct cartData={cartData} />
-					<CheckoutPayment handleSubmit={handleSubmit} />
+					<CheckoutProduct
+						cartData={cartData}
+						totalPrice={totalPrice}
+						totalPriceTax={totalPriceTax}
+					/>
+					<CheckoutPayment
+						handleSubmit={handleSubmit}
+						postOder={postOder}
+						setPayment={setPayment}
+						orderDetail={orderDetail}
+					/>
 				</div>
 			</section>
 			<Motto />
@@ -141,13 +143,3 @@ CheckoutPage.propTypes = {
 };
 
 export default CheckoutPage;
-
-//`/cart/${userId}?isChecked=true`
-// cart:[
-// 	{
-// 	productID,
-// 	quantity,
-// 	inChecked,
-// 	productDetail:{แล้วแสดงข้อมูล อ้างอิงจาก productID }
-// 	}
-// 	]
