@@ -72,7 +72,7 @@ function CartList({ tokenUserId, totalPrice, setTotalPrice }) {
 
 	const handleDeleteCartItem = async (cartItemId) => {
 		try {
-			await axiosInstance.delete(`/cart/${tokenUserId}/${cartItemId}`);
+			await axiosInstance.delete(`/cart/${tokenUserId}`);
 			const updatedCartItems = cartItems.filter(item => item.cart._id !== cartItemId);
 			setCarItems(updatedCartItems);
 			calculateTotalPrice(updatedCartItems);
