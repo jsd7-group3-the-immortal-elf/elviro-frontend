@@ -48,6 +48,7 @@ function CheckoutPage({ tokenUserId }) {
 	// console.log(userData);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProductInUser();
 		getUser();
 	}, []);
