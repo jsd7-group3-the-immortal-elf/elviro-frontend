@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 
-function CartList({ tokenUserId}) {
+function CartList({ tokenUserId, }) {
     const [cartItems, setCarItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -65,6 +65,18 @@ function CartList({ tokenUserId}) {
         calculateTotalPrice(updatedCartItems);
     };
 
+	const handleDeleteCartItem = async (cartItemId) => {
+		try {
+			await axiosInstance.delete(`/cart/${tokenUserId}/${cartItemId}`);
+			const updatedCartItems = cartItems.filter(item => item.cart._id !== cartItemId);
+			setCarItems(updatedCartItems);
+			calculateTotalPrice(updatedCartItems);
+		} catch (error) {
+			console.log("Failed to delete cart item:", error);
+		}
+	};
+
+
     return (
         <div>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -76,6 +88,7 @@ function CartList({ tokenUserId}) {
                         <th style={tableHeaderStyle}>Price</th>
                         <th style={tableHeaderStyle}>Quantity</th>
                         <th style={tableHeaderStyle}>Total</th>
+						<th style={tableHeaderStyle}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,6 +136,14 @@ function CartList({ tokenUserId}) {
                                     cartItem.cart.quantity
                                 ).toFixed(2)}
                             </td>
+							<td style={tableCellStyle}>
+								<button
+									onClick={() => handleDeleteCartItem(cartItem.cart._id)}
+									style={{ color: "red", border: "none", background: "none" }}
+								>
+									<FaTrash />
+								</button>
+							</td>
                         </tr>
                     ))}
                 </tbody>
