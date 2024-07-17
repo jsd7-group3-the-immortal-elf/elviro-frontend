@@ -28,7 +28,7 @@ import ContactPage from "./pages/main-web/ContactPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProfileAccountPage from "./pages/profile/ProfileAccountPage";
 import ProfilePaymentPage from "./pages/profile/ProfilePaymentPage";
-// import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
+import ProfileHistoryPage from "./pages/profile/ProfileHistoryPage";
 // import ProfileWishlistPage from "./pages/profile/ProfileWishlistPage";
 
 // import DashboardPage from "./pages/dashboard/DashboardPage";
@@ -163,7 +163,7 @@ export default function App() {
 				},
 				{
 					path: "order-history",
-					// element: <ProfileHistoryPage />,
+					element: <ProfileHistoryPage />,
 				},
 				{
 					path: "wishlist",
