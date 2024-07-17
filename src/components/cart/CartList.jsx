@@ -70,87 +70,108 @@ function CartList({ tokenUserId, totalPrice, setTotalPrice }) {
 		calculateTotalPrice(updatedCartItems);
 	};
 
-	return (
-		<div>
-			<table style={{ width: "100%", borderCollapse: "collapse" }}>
-				<thead>
-					<tr>
-						<th style={tableHeaderStyle}>Select</th>
-						<th style={tableHeaderStyle}>Image</th>
-						<th style={tableHeaderStyle}>Product Name</th>
-						<th style={tableHeaderStyle}>Price</th>
-						<th style={tableHeaderStyle}>Quantity</th>
-						<th style={tableHeaderStyle}>Total</th>
-					</tr>
-				</thead>
-				<tbody>
-					{cartItems.map((cartItem) => (
-						<tr key={cartItem.cart._id}>
-							<td style={tableCellStyle}>
-								<input
-									type="checkbox"
-									checked={cartItem.cart.isChecked}
-									onChange={() => handleCheckboxChange(cartItem.cart._id)}
-								/>
-							</td>
-							<td style={tableCellStyle}>
-								{cartItem.productDetail[0] && (
-									<img
-										src={cartItem.productDetail[0].productImage}
-										alt={cartItem.productDetail[0].productName}
-										style={{ width: "50px", height: "50px" }}
-									/>
-								)}
-							</td>
-							<td style={tableCellStyle}>
-								{cartItem.productDetail[0]?.productName || "N/A"}
-							</td>
-							<td style={tableCellStyle}>
-								฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
-							</td>
+	const handleDeleteCartItem = async (cartItemId) => {
+		try {
+			await axiosInstance.delete(`/cart/${tokenUserId}/${cartItemId}`);
+			const updatedCartItems = cartItems.filter(item => item.cart._id !== cartItemId);
+			setCarItems(updatedCartItems);
+			calculateTotalPrice(updatedCartItems);
+		} catch (error) {
+			console.log("Failed to delete cart item:", error);
+		}
+	};
+
+
+    return (
+        <div>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                    <tr>
+                        <th style={tableHeaderStyle}>Select</th>
+                        <th style={tableHeaderStyle}>Image</th>
+                        <th style={tableHeaderStyle}>Product Name</th>
+                        <th style={tableHeaderStyle}>Price</th>
+                        <th style={tableHeaderStyle}>Quantity</th>
+                        <th style={tableHeaderStyle}>Total</th>
+						<th style={tableHeaderStyle}>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {cartItems.map((cartItem) => (
+                        <tr key={cartItem.cart._id}>
+                            <td style={tableCellStyle}>
+                                <input
+                                    type="checkbox"
+                                    checked={cartItem.cart.isChecked}
+                                    onChange={() => handleCheckboxChange(cartItem.cart._id)}
+                                />
+                            </td>
+                            <td style={tableCellStyle}>
+                                {cartItem.productDetail[0] && (
+                                    <img
+                                        src={cartItem.productDetail[0].productImage}
+                                        alt={cartItem.productDetail[0].productName}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
+                                )}
+                            </td>
+                            <td style={tableCellStyle}>
+                                {cartItem.productDetail[0]?.productName || "N/A"}
+                            </td>
+                            <td style={tableCellStyle}>
+                                ฿{cartItem.productDetail[0]?.price.toFixed(2) || "N/A"}
+                            </td>
+                            <td style={tableCellStyle}>
+                                <button
+                                    onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
+                                >
+                                    <FaMinus />
+                                </button>{" "}
+                                {cartItem.cart.quantity}{" "}
+                                <button
+                                    onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
+                                >
+                                    <FaPlus />
+                                </button>
+                            </td>
+                            <td style={tableCellStyle}>
+                                ฿
+                                {(
+                                    (cartItem.productDetail[0]?.price || 0) *
+                                    cartItem.cart.quantity
+                                ).toFixed(2)}
+                            </td>
 							<td style={tableCellStyle}>
 								<button
-									onClick={() => handleQuantityChange(cartItem.cart._id, -1)}
+									onClick={() => handleDeleteCartItem(cartItem.cart._id)}
+									style={{ color: "red", border: "none", background: "none" }}
 								>
-									<FaMinus />
-								</button>{" "}
-								{cartItem.cart.quantity}{" "}
-								<button
-									onClick={() => handleQuantityChange(cartItem.cart._id, 1)}
-								>
-									<FaPlus />
+									<FaTrash />
 								</button>
 							</td>
-							<td style={tableCellStyle}>
-								฿
-								{(
-									(cartItem.productDetail[0]?.price || 0) *
-									cartItem.cart.quantity
-								).toFixed(2)}
-							</td>
-						</tr>
-					))}
-				</tbody>
-				<tfoot>
-					<tr>
-						<td
-							colSpan="5"
-							style={{
-								...tableCellStyle,
-								textAlign: "right",
-								fontWeight: "bold",
-							}}
-						>
-							Total Price:
-						</td>
-						<td style={{ ...tableCellStyle, fontWeight: "bold" }}>
-							฿{totalPrice.toFixed(2)}
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	);
+                        </tr>
+                    ))}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td
+                            colSpan="5"
+                            style={{
+                                ...tableCellStyle,
+                                textAlign: "right",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Total Price:
+                        </td>
+                        <td style={{ ...tableCellStyle, fontWeight: "bold" }}>
+                            ฿{totalPrice.toFixed(2)}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    );
 }
 
 const tableHeaderStyle = {
