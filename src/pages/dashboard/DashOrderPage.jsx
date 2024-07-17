@@ -15,6 +15,7 @@ export default function DashOrderPage({ reload, setReload }) {
 			const response = await axiosInstance.get("/orders");
 			const { data } = await response.data;
 
+			console.log(data);
 			setOrderList(data);
 		} catch (error) {
 			console.log("Failed to get data:", error);

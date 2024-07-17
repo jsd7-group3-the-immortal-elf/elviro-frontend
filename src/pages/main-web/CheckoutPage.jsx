@@ -48,16 +48,11 @@ function CheckoutPage({ tokenUserId }) {
 	// console.log(userData);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		getProductInUser();
 		getUser();
 	}, []);
 
-	const cartProduct = cartData.map((product) => {
-		return {
-			productId: product.productDetail[0]._id,
-			quantity: product.cart.quantity,
-		};
-	});
 	// console.log(orderDetail);
 
 	//คำนวนราคารวม บวก tax
@@ -73,25 +68,35 @@ function CheckoutPage({ tokenUserId }) {
 
 	const totalPriceTax = (totalPrice + totalPrice * 0.07).toFixed(1);
 
-	const orderDetail = {
-		orderDetail: [cartProduct],
-		totalPrice: totalPriceTax,
-		payment: payment,
-		customer: {
-			customerId: userData._id,
-			addressIndex: "0",
-		},
-	};
-
+	//ส่ง Data เป็น order
 	async function postOder() {
+		const cartProduct = cartData.map((product) => {
+			return {
+				productId: product.productDetail[0]._id,
+				quantity: product.cart.quantity,
+			};
+		});
+		// console.log(cartProduct);
+		const orderDetail = {
+			orderDetail: cartProduct,
+			totalPrice: totalPriceTax,
+			payment: payment,
+			customer: {
+				customerId: userData._id,
+				addressIndex: "0",
+			},
+		};
+		// console.log(orderDetail);
+		// async function postOder() {
 		try {
-			await axiosInstance.post(`/order`, { orderDetail });
+			await axiosInstance.post(`/orders/`, orderDetail);
 		} catch (error) {
 			console.log(`postOder error`, error);
 		}
 	}
 
 	function handleSubmit() {
+		postOder();
 		navigate("/cart/checkout/purchased");
 		postOder();
 	}
@@ -128,9 +133,7 @@ function CheckoutPage({ tokenUserId }) {
 					/>
 					<CheckoutPayment
 						handleSubmit={handleSubmit}
-						postOder={postOder}
 						setPayment={setPayment}
-						orderDetail={orderDetail}
 					/>
 				</div>
 			</section>
@@ -144,3 +147,4 @@ CheckoutPage.propTypes = {
 };
 
 export default CheckoutPage;
+1;

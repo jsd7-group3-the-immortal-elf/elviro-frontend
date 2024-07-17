@@ -6,7 +6,6 @@ export default function CheckoutPayment({
 	handleSubmit,
 	postOder,
 	setPayment,
-	orderDetail,
 }) {
 	return (
 		<div className="my-11 flex flex-col items-center w-full">
@@ -31,7 +30,6 @@ export default function CheckoutPayment({
 				described in our <b>privacy policy</b>.
 			</p>
 			<button
-				// to={"/cart/checkout/purchased"}
 				onClick={handleSubmit}
 				className="mt-7 h-16 w-full max-w-80 text-3xl text-black border border-neutral-500 rounded-xl  hover:shadow-xl active:shadow-2xl active:bg-gray-100 "
 			>
