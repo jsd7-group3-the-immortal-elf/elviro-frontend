@@ -1,84 +1,59 @@
 // import mockup_sofa from "/images/mockup_sofa.png";
 
-export default function CheckoutProduct({ cartData }) {
-	// ไม่มีเวลาหาวิธี เอา object ของ Array จากหน้า page มาใส่ในหน้านี้ได้
-	// const priceList = [
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "PÄRUP sofa",
-	// 		productQuality: "3",
-	// 		productPrice: "8999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "VIMLE sofa",
-	// 		productQuality: "1",
-	// 		productPrice: "15999",
-	// 	},
-	// 	{
-	// 		productPicture: mockup_sofa,
-	// 		productName: "GLOSTAD sofa",
-	// 		productQuality: "2",
-	// 		productPrice: "2999",
-	// 	},
-	// ];
+export default function CheckoutProduct({
+	cartData,
+	totalPrice,
+	totalPriceTax,
+}) {
 	return (
 		<div className="w-auto px-4">
-			<div className="grid grid-col-1 gap-2  justify-center">
+			<div className="grid grid-col-1 gap-2 justify-center w-full">
+				{/* น้ำของออกมาด้วยการ map */}
 				{cartData?.map((product, index) => (
-					<div key={index} className="flex ">
-						<picture className="flex w-auto h-auto border-2 py">
+					<div key={index} className="flex w-full ">
+						{/* {console.log(product)} */}
+						<picture className="flex w-36 h-auto border-2 py">
 							<img
 								className="px-1"
-								src={product.productDetail.productPicture}
-								alt={product.productDetail.productName}
+								src={product.productDetail[0].productImage}
+								alt={product.productDetail[0].productName}
 							/>
 						</picture>
-						<div className="flex flex-col justify-center  px-8 bg-[#F4F4F4]">
-							<h3 className="text-base">{product.productDetail.productName}</h3>
-							<ul className="mt-3 text-base flex gap-4">
-								<li>{product.productDetail.productQuality}</li>
+						<div className="flex w-full flex-col justify-center  px-8 bg-[#F4F4F4]">
+							<h3 className="text-base">
+								{product.productDetail[0].productName}
+							</h3>
+							<ul className="mt-3 text-base flex w-full gap-4">
+								<li>{product.cart.quantity}</li>
 								<li>x</li>
 								<li>
-									{parseFloat(
-										product.productDetail.productPrice
-									).toLocaleString()}{" "}
+									{parseFloat(product.productDetail[0].price).toLocaleString()}{" "}
 									฿
 								</li>
 							</ul>
-							<div className="flex py-2 justify-between items-center">
+							<div className="flex w-full py-2 justify-between items-center">
 								<p className="px-4"></p>
 							</div>
 						</div>
 					</div>
 				))}
 			</div>
-
-			{/* --------------------  รูป  -------------------- */}
-			{/* <img
-				alt="image_product"
-				src={mockup_sofa}
-				className="max-w-52 bg-origin-border rounded-2xl"
-			/> */}
-			{/* --------------------  หัวข้อ  -------------------- */}
+			{/* ราคาสินค้า */}
 			<div className="flex flex-col justify-between w-auto mb-4">
-				{/* <div className="flex justify-between w-full">
-					<h3>Product</h3>
-					<h3>Subtotal</h3>
-				</div> */}
-				{/* --------------------  ลิสรายการ  -------------------- */}
 				<ul className="w-auto gap-4 flex flex-col mb-7">
 					<li className="flex justify-between">
 						<span>7% Tax</span>
-						<span>70 ฿</span>
+						<span>{(totalPrice * 0.07).toFixed(1)} ฿</span>
 					</li>
 					<li className="flex justify-between">
 						<span>Subtotal</span>
-						<span>1069 ฿</span>
+						<span>{totalPrice} ฿</span>
 					</li>
 					<li className="flex justify-between">
 						<span>Total</span>
-						<span className=" text-xl text-[#B88E2F] font-bold ">1069 ฿</span>
+						<span className=" text-xl text-[#B88E2F] font-bold ">
+							{totalPriceTax} ฿
+						</span>
 					</li>
 				</ul>
 			</div>

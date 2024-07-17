@@ -225,6 +225,7 @@ export default function Filter({ handleFilter }) {
 								<input
 									type="checkbox"
 									name="category"
+									value="Bed"
 									onChange={handleChange}
 									className="w-4 h-4"
 								/>
@@ -235,6 +236,7 @@ export default function Filter({ handleFilter }) {
 								<input
 									type="checkbox"
 									name="category"
+									value="Seat"
 									onChange={handleChange}
 									className="w-4 h-4"
 								/>
@@ -245,6 +247,7 @@ export default function Filter({ handleFilter }) {
 								<input
 									type="checkbox"
 									name="category"
+									value="Table"
 									onChange={handleChange}
 									className="w-4 h-4"
 								/>
@@ -255,6 +258,7 @@ export default function Filter({ handleFilter }) {
 								<input
 									type="checkbox"
 									name="category"
+									value="Storage"
 									onChange={handleChange}
 									className="w-4 h-4"
 								/>
