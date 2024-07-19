@@ -20,6 +20,7 @@ function CreateAccountPage({
 		email: "",
 		username: "",
 		password: "",
+		isAdmin: false,
 	});
 
 	//-----------Password--------------//
@@ -48,11 +49,12 @@ function CreateAccountPage({
 	};
 
 	//Create a new account-----
-	async function createNewAccount(profile, account) {
+	async function createNewAccount(profile, account, formData) {
 		try {
 			await axiosInstance.post("/users/create-account", {
 				profile,
 				account,
+				isAdmin: formData.isAdmin,
 			});
 
 			// const { message } = response.data;
@@ -68,12 +70,19 @@ function CreateAccountPage({
 
 	//ฟังก์ชันสำหรับ รับค่า object เมื่อใส่ค่าใน input
 	const handleChange = (event) => {
-		const { name, value } = event.target;
+		const { name, value, checked } = event.target;
 
 		setFormData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
+
+		if (name == "isAdmin") {
+			setFormData((prevData) => ({
+				...prevData,
+				[name]: checked,
+			}));
+		}
 	};
 
 	//เอาค่าไปเก็บใน array
@@ -85,7 +94,7 @@ function CreateAccountPage({
 		checkPassword(formData.password);
 
 		//สร้าง Account ใหม่
-		createNewAccount(profile, account);
+		createNewAccount(profile, account, formData);
 
 		setFormData({
 			firstName: "",
@@ -110,6 +119,7 @@ function CreateAccountPage({
 			email: "",
 			username: "",
 			password: "",
+			isAdmin: false,
 		});
 		setShowEmailAlert(false);
 		setShowUserAlert(false);
@@ -123,6 +133,7 @@ function CreateAccountPage({
 			email: "",
 			username: "",
 			password: "",
+			isAdmin: false,
 		});
 		setShowEmailAlert(false);
 		setShowUserAlert(false);
@@ -137,7 +148,7 @@ function CreateAccountPage({
 
 	const checkPassword = (password) => {
 		if (!validatePassword(password)) {
-			alert("at least 5 characters arerequired.");
+			alert("at least 5 characters are required.");
 			return;
 		}
 	};
@@ -160,14 +171,12 @@ function CreateAccountPage({
 						<img
 							src={ImageBlack}
 							alt="Elviro Logo"
-							className="w-1/2 max-w-lg lg:hidden
-					"
+							className="w-1/2 max-w-lg lg:hidden"
 						/>
 						<img
 							src={ImageWhite}
 							alt="Elviro Logo"
-							className="hidden lg:flex w-1/2 
-					"
+							className="hidden lg:flex w-1/2"
 						/>
 						<h1 className="hidden lg:block font-semibold text-2xl md:text-7xl md:text-white">
 							Elviro
@@ -268,6 +277,15 @@ function CreateAccountPage({
 									</span>
 								</div>
 							</label>
+							<label className="flex gap-4">
+								<input
+									type="checkbox"
+									name="isAdmin"
+									value={true}
+									onChange={handleChange}
+								/>
+								Check for get role admin
+							</label>
 							<section className="mx-4 text-red-500 font-semibold text-lg">
 								<span className={showEmailAlert ? "block" : "hidden"}>
 									This user email has been registered.
@@ -279,7 +297,7 @@ function CreateAccountPage({
 							<button type="submit" className="btn-login">
 								Create Account
 							</button>
-							<section className="flex flex-col md:block text-md md:text-md pb-5 text-end">
+							<section className="flex text-center md:block text-md md:text-md pb-5">
 								Already have an account?{" "}
 								<span
 									className="text-red-500 font-medium text-md cursor-pointer hover:font-bold"
