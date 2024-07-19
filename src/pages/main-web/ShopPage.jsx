@@ -62,9 +62,10 @@ export default function ShopPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		setQuery(`${location.search}&limit=${limit}&page=${page}`);
-		if (location.search) {
+		if (!location.search) {
 			setQuery(`?limit=${limit}&page=${page}`);
+		} else {
+			setQuery(`${location.search}&limit=${limit}&page=${page}`);
 		}
 
 		query ? queryProduct() : getProduct();
